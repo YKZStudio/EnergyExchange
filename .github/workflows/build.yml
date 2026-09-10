@@ -1,7 +1,7 @@
 name: Build and test / 构建与测试
 on:
   push:
-    branches: [main, 'feat/**']
+    branches: [main]
   pull_request:
   workflow_dispatch:
 permissions:
@@ -34,4 +34,4 @@ jobs:
           path: |
             build/reports/
             build/test-results/
-            run/gametest/logs/
+            build/run/gameTest/logs/

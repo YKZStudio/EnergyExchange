@@ -36,3 +36,7 @@ fabricApi {
         eula = true // Automated disposable test server / 自动化临时测试服务器
     }
 }
+
+loom.runs.named('gameTest') {
+    systemProperties.put('fabric-api.gametest.report-file', file('build/reports/gametest/results.xml').absolutePath)
+}
