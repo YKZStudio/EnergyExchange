@@ -1,0 +1,42 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version "${loom_version}"
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    implementation "net.fabricmc:fabric-loader:${loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
+    testImplementation platform('org.junit:junit-bom:5.13.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+processResources {
+    inputs.property 'version', project.version
+    filesMatching('fabric.mod.json') { expand version: project.version }
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(25)
+    withSourcesJar()
+}
+tasks.withType(JavaCompile).configureEach {
+    options.release = 25
+    options.encoding = 'UTF-8'
+}
+test { useJUnitPlatform() }
+jar { from('LICENSE') { rename { "${it}_energyexchange" } } }
+
+fabricApi {
+    configureTests {
+        createSourceSet = true
+        modId = 'energyexchange-test'
+        enableGameTests = true
+        enableClientGameTests = false
+        eula = true // Automated disposable test server / 自动化临时测试服务器
+    }
+}
+
+loom.runs.named('gameTest') {
+    systemProperties.put('fabric-api.gametest.report-file', file('build/reports/gametest/results.xml').absolutePath)
+}
