@@ -118,8 +118,9 @@ public final class ExchangeGameTests {
         restored.load(TagValueInput.create(ProblemReporter.DISCARDING, original.registryAccess(), output.buildResult()));
         helper.assertTrue(ExchangeService.account(restored).equals(expected), "Account NBT round trip / 账户 NBT 往返");
         helper.assertTrue(restored.getInventory().getItem(0).getCount() == 4, "Inventory saved alongside account / 物品和账户同时存档");
-        var respawned = player(helper);
-        respawned.restoreFrom(original, false);
+        original.setHealth(0);
+        var respawned = helper.getLevel().getServer().getPlayerList().respawn(
+                original, false, net.minecraft.world.entity.Entity.RemovalReason.KILLED);
         helper.assertTrue(ExchangeService.account(respawned).equals(expected), "Death retains attachment / 死亡保留账户");
         helper.succeed();
     }
