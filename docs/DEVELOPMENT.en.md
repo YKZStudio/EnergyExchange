@@ -34,7 +34,7 @@ These are all-or-nothing in-memory operations; persistence follows Minecraft pla
 
 ## Validation scope
 
-JUnit covers the pure full loop, balances beyond floating-point/long precision, caps, invalid inputs, unknown knowledge, insufficient funds, knowledge limits, save round trips/corruption/future versions and invalid/disabled rules. CI compiles against actual Minecraft/Fabric dependencies and produces a JAR.
+JUnit covers the pure full loop, balances beyond floating-point/long precision, caps, invalid inputs, unknown knowledge, insufficient funds, knowledge limits, save round trips/corruption/future versions and invalid/disabled rules. CI compiles against actual Minecraft/Fabric dependencies and produces a JAR. GameTests start a disposable server and verify the command loop, isolated wallets, inventory preflight, overflow, component rejection, game modes, NBT persistence, death copying, corrupt-account protection and reload snapshots. `build` includes server GameTests; test configuration accepts the EULA for the disposable server and does not touch real worlds.
 
 Before release, complete this manual checklist in a disposable 26.2 world. Compilation and unit-test success do not mean these scenarios have been manually verified:
 

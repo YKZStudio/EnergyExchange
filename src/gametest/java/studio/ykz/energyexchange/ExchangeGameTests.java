@@ -5,6 +5,10 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.server.network.CommonListenerCookie;
+import io.netty.channel.embedded.EmbeddedChannel;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,7 +35,14 @@ public final class ExchangeGameTests {
     private static final Identifier DIRT = Identifier.parse("minecraft:dirt");
 
     private static ServerPlayer player(GameTestHelper helper) {
-        var player = helper.makeMockServerPlayerInLevel();
+        // Vanilla's helper hardcodes gameMode() to CREATIVE; use an actual server player.
+        // 原版辅助玩家将 gameMode() 写死为创造，故使用真正的服务端玩家。
+        var server = helper.getLevel().getServer();
+        var cookie = CommonListenerCookie.createInitial(new GameProfile(UUID.randomUUID(), "exchange-test"), false);
+        var player = new ServerPlayer(server, helper.getLevel(), cookie.gameProfile(), cookie.clientInformation());
+        var connection = new Connection(PacketFlow.SERVERBOUND);
+        new EmbeddedChannel(connection);
+        server.getPlayerList().placeNewPlayer(connection, player, cookie);
         player.setGameMode(GameType.SURVIVAL);
         player.getInventory().clearContent();
         player.getInventory().setSelectedSlot(0);
@@ -165,7 +176,7 @@ public final class ExchangeGameTests {
             action.run();
             helper.fail("Expected rejection / 预期拒绝: " + key);
         } catch (IllegalArgumentException exception) {
-            helper.assertTrue(("energyexchange.error." + key).equals(exception.getMessage()), "Correct rejection / 正确拒绝: " + key);
+            helper.assertTrue(("energyexchange.error." + key).equals(exception.getMessage()), "Correct rejection / 正确拒绝: " + key + "; actual / 实际: " + exception.getMessage());
         }
     }
 }

@@ -1,7 +1,6 @@
 package studio.ykz.energyexchange.core;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import java.util.TreeSet;
 
 /** Raw persistent string keeps corrupt/future data intact instead of silently resetting it.
@@ -14,7 +13,7 @@ public final class AccountJson {
     public static Account read(String raw) {
         try {
             if (raw.length() > MAX_LENGTH) throw new IllegalArgumentException();
-            var object = JsonParser.parseString(raw).getAsJsonObject();
+            var object = StrictJson.parse(raw).getAsJsonObject();
             if (!object.keySet().equals(java.util.Set.of("schema", "energy", "learned"))
                     || !object.get("schema").toString().equals("1")
                     || !object.getAsJsonPrimitive("energy").isString()) throw new IllegalArgumentException();

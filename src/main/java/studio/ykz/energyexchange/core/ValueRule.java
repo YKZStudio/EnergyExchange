@@ -1,12 +1,11 @@
 package studio.ykz.energyexchange.core;
 
-import com.google.gson.JsonParser;
 import java.math.BigInteger;
 import java.util.Set;
 
 public record ValueRule(BigInteger value, boolean enabled) {
     public static ValueRule parse(String json) {
-        var object = JsonParser.parseString(json).getAsJsonObject();
+        var object = StrictJson.parse(json).getAsJsonObject();
         if (object.keySet().stream().anyMatch(k -> !Set.of("value", "enabled").contains(k))) {
             throw new IllegalArgumentException("Unknown rule field / 未知规则字段");
         }

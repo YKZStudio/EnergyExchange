@@ -21,7 +21,7 @@ Disabled rule:
 | `value` | Required when enabled. A decimal **string**, from 1 through `10^128−1`; numeric JSON values, fractions, exponents, signs, whitespace and leading zeros are rejected |
 | `enabled` | Optional boolean, defaults to `true`. A disabled rule must omit `value` |
 
-Unknown fields are rejected. Limits: 4096 characters per file, 16384 rule resources and 256 characters per full item ID. Use UTF-8 JSON. IDs belonging to absent mods may stay in packs, but purchases require a registered, feature-enabled item.
+Duplicate keys, comments, lenient JSON syntax and unknown fields are rejected. Limits: 4096 characters per file, 16384 rule resources and 256 characters per full item ID. Use UTF-8 JSON. IDs belonging to absent mods may stay in packs, but purchases require a registered, feature-enabled item.
 
 ## Overrides and reload
 
