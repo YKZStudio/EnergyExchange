@@ -26,3 +26,13 @@ tasks.withType(JavaCompile).configureEach {
 }
 test { useJUnitPlatform() }
 jar { from('LICENSE') { rename { "${it}_energyexchange" } } }
+
+fabricApi {
+    configureTests {
+        createSourceSet = true
+        modId = 'energyexchange-test'
+        enableGameTests = true
+        enableClientGameTests = false
+        eula = true // Automated disposable test server / 自动化临时测试服务器
+    }
+}

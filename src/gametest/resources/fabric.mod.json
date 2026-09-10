@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "id": "energyexchange-test",
+  "version": "1.0.0",
+  "name": "Energy Exchange tests / 能量交换测试",
+  "environment": "*",
+  "entrypoints": {"fabric-gametest": ["studio.ykz.energyexchange.ExchangeGameTests"]}
+}
