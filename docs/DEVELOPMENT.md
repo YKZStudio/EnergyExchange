@@ -64,4 +64,4 @@ Stable releases from main attach the runtime JAR and matching bilingual `docs/re
 
 ## pre2
 
-Adds pinyin full/initial/mixed matching and quantity tests plus real-client forged-purchase checks. `tools/generate_table_assets.py` uses Pillow to reproduce the original textures and model. All eight locales have matching-key and placeholder checks.
+Adds pinyin full/initial/mixed matching and quantity tests plus real-client forged-purchase checks. `tools/generate_table_assets.py` uses Pillow to reproduce the original textures and model. All ten locales have matching-key and placeholder checks.

@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LocalizationTest {
-    @Test void bothLanguagesHaveMatchingKeysAndPlaceholders() throws Exception {
+    @Test void allLocalesHaveMatchingKeysAndPlaceholders() throws Exception {
         JsonObject english = language("en_us");
-        for (String locale : java.util.List.of("zh_cn", "ja_jp", "de_de", "fr_fr", "es_es", "pt_br", "ru_ru")) {
+        for (String locale : java.util.List.of("zh_cn", "zh_tw", "zh_hk", "ja_jp", "de_de", "fr_fr", "es_es", "pt_br", "ru_ru")) {
         JsonObject chinese = language(locale);
         assertEquals(english.keySet(), chinese.keySet());
         for (String key : english.keySet()) {

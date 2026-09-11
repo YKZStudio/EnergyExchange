@@ -11,7 +11,7 @@
 - Java 25、Minecraft 26.2、Fabric Loader 0.19.5+、Fabric API 0.159.0+26.2。
 - 客户端和服务端都安装本模组及 Fabric API；0.2 的方块、物品和界面需要双端安装。
 - 可选：Mod Menu 20.0.2；TaCZ Refabricated 26.2 R3-hotfix 及其 Forge Config API Port 26.2.1 依赖。TaCZ 需双端安装相同版本及枪包。
-- 下载发行版的 `energyexchange-0.2.0-pre2.jar` 放入 `mods`，不要安装 `-sources.jar`。支持中、英、日、德、法、西、葡、俄八种语言；游戏内名称随语言切换，Mod Menu 使用其标准的名称翻译设置。
+- 下载发行版的 `energyexchange-0.2.0-pre2.jar` 放入 `mods`，不要安装 `-sources.jar`。支持中、英、日、德、法、西、葡、俄八种语言（中文另含台湾及香港繁体，共十个区域设置）；游戏内名称随语言切换，Mod Menu 使用其标准的名称翻译设置。
 - 当前兼容范围为 `~26.2`；后续 26.3+ 重新验证后再扩大范围。
 - 0.1 玩家账户直接保留，余额不缩放、知识不重置。升级前备份世界；0.2 的新物品和变体知识不支持直接降级到 0.1。
 
@@ -77,6 +77,6 @@ Mod Menu → 能量交换 → 设置：显示未学物品、简写大数、实�
 
 `./gradlew build` 运行编译、单元测试和专服游戏测试；`xvfb-run -a ./gradlew runClientGameTest` 在 Linux 验证客户端交易界面。Windows 使用 `gradlew.bat`。
 
-每个正式版本都发布 GitHub Release，包含运行 JAR 与双语更新日志；已有资产不静默替换。参见 [0.1.0 正式版](https://github.com/YKZStudio/能量Exchange/releases/tag/v0.1.0)。
+每个正式版本都发布 GitHub Release，包含运行 JAR 与双语更新日志；已有资产不静默替换。参见 [0.1.0 正式版](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0)。
 
 MIT 许可证。捆绑的拼音依赖保留各自许可证，见[第三方声明](THIRD_PARTY_NOTICES_zh-CN.md)。TaCZ 适配独立实现，只调用公开 API，未捆绑其代码或素材。

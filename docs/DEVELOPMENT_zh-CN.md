@@ -64,4 +64,4 @@ main 上每个正式版本附带运行 JAR 与对应双语 `docs/releases/<版�
 
 ## pre2
 
-新增拼音全拼／首字母／混拼、堆叠限制单元测试和真实客户端伪造购买检查。`tools/generate_table_assets.py` 使用 Pillow 可重复生成原创贴图与模型。所有八种语言的键和占位符通过一致性检查。
+新增拼音全拼／首字母／混拼、堆叠限制单元测试和真实客户端伪造购买检查。`tools/generate_table_assets.py` 使用 Pillow 可重复生成原创贴图与模型。所有十个语言区域设置的键和占位符通过一致性检查。

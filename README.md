@@ -11,7 +11,7 @@ An independent energy-exchange mod for **Minecraft Java 26.2 + Fabric**, inspire
 - Java 25, Minecraft 26.2, Fabric Loader 0.19.5+, Fabric API 0.159.0+26.2.
 - Install this mod and Fabric API on both client and server. The 0.2 blocks, items and menus require both sides.
 - Optional: Mod Menu 20.0.2; TaCZ Refabricated 26.2 R3-hotfix with Forge Config API Port 26.2.1. Use matching TaCZ versions and gun packs on both sides.
-- Put `energyexchange-0.2.0-pre2.jar` in `mods`, not the sources JAR. English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese and Russian are included. The in-game name follows the selected language; Mod Menu uses its standard translated-name setting.
+- Put `energyexchange-0.2.0-pre2.jar` in `mods`, not the sources JAR. English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese and Russian are included, with additional Traditional Chinese (Taiwan/Hong Kong) locales. The in-game name follows the selected language; Mod Menu uses its standard translated-name setting.
 - Compatibility is `~26.2`; later series require fresh validation.
 - Existing 0.1 balances and knowledge are retained without scaling or reset. Back up the world before upgrading; 0.2 items and variant knowledge do not support direct downgrade to 0.1.
 
