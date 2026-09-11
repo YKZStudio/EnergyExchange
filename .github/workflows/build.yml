@@ -24,7 +24,7 @@ jobs:
         run: ./gradlew build --no-daemon
       - uses: actions/upload-artifact@v4
         with:
-          name: energyexchange-0.1.0-mc26.2
+          name: energyexchange-mc26.2
           path: build/libs/*.jar
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
@@ -35,3 +35,34 @@ jobs:
             build/reports/
             build/test-results/
             build/run/gameTest/logs/
+  release:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: energyexchange-mc26.2
+          path: release-artifacts
+      - name: Publish stable release / 发布正式发行版
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          version=$(sed -n 's/^version=//p' gradle.properties)
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            exit 0
+          fi
+          notes="docs/releases/$version.md"
+          test -s "$notes"
+          if gh release view "v$version" >/dev/null 2>&1; then
+            echo "Release already exists / 发行版已存在"
+            exit 0
+          fi
+          test -f "release-artifacts/energyexchange-$version.jar"
+          gh release create "v$version" \
+            "release-artifacts/energyexchange-$version.jar" "$notes" \
+            --target "$GITHUB_SHA" --title "Energy Exchange $version" --notes-file "$notes"
