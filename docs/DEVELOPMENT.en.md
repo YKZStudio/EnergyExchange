@@ -28,7 +28,7 @@ Read and accept the Minecraft EULA yourself before starting a development server
 
 Persistence uses the player's `energyexchange:account` attachment, containing a JSON string with `schema:1`, string `energy` and a `learned` ID array. A string Codec prevents business-level decoding errors from causing Fabric to discard the old account. Values are immutable and updated through `setAttached`; `copyOnDeath` retains them, and accounts are not broadcast to other players.
 
-Transaction order: obtain current server state → validate rules/components → calculate the next account → validate serialization → simulate insertion → update inventory/account on the same server thread → synchronize inventory. Failure paths must not debit items or Energy first. Never await asynchronously inside a transaction. A future GUI must invoke the same server service and add request rate limiting, without trusting client quotes.
+Transaction order: obtain current server state → validate rules/components → calculate the next account → validate serialization → simulate insertion → update inventory/account on the same server thread → synchronize inventory. Failure paths must not debit items or Energy first. Never await asynchronously inside a transaction. The GUI invokes the same service through bounded requests with session nonces, sequences, quote revisions and rate limiting.
 
 These are all-or-nothing in-memory operations; persistence follows Minecraft player saves, not a database journal. Cross-system atomicity is not guaranteed against other mods throwing exceptions/mutating inventories, administrator save edits or power-loss rollback.
 
@@ -44,10 +44,20 @@ Before release, complete this manual checklist in a disposable 26.2 world. Compi
 - Reject named/damaged/enchanted items, filled containers, potion variants and custom components; repeated learning consumes nothing.
 - Reject trading while containers are open or the player is dead/creative/spectator; repeated commands settle against current inventory/balance only.
 - Competing data packs for the same ID; disable/remove/restore rules; invalid JSON/huge numbers; failed reload locks trading and a corrected reload restores it.
-- Simplified Chinese, English, unmodded-client fallback text, Tab completion and pagination.
+- Simplified Chinese, English, modded client menus, Tab completion and pagination.
 
 ## Roadmap
 
-v0.2 can add a transmutation table, search UI, owner-only summary synchronization and paged knowledge. Later work may cover tag rules, recipe inference with cycle detection and economy audit logs. Do not default to arbitrary component copying, creative-mode exchange, cyclic pricing or unbounded numbers.
+0.2 adds tables, a localized search UI, private catalog synchronization, XP purchases and optional TaCZ/Mod Menu adapters. Later work may cover richer component variants, live recipe auditing and economy logs. Do not default to arbitrary component copying, creative-mode exchange, cyclic pricing or unbounded numbers.
 
 References: [Fabric 26.2](https://fabricmc.net/2026/06/15/262.html), [data attachments](https://docs.fabricmc.net/develop/serialization/data-attachments), [automated testing](https://docs.fabricmc.net/develop/automatic-testing), [official example](https://github.com/FabricMC/fabric-example-mod/tree/26.2).
+
+## 0.2 validation additions
+
+`./gradlew build` includes server tests for portable/placed menu validity, input return, XP points, complete vanilla coverage and fractional conversion. `xvfb-run -a ./gradlew runClientGameTest` exercises real server-to-client catalog synchronization and client-to-server convert/buy requests, then opens the configuration screen. Screenshots and logs are uploaded by CI.
+
+For optional integration, download the pinned TaCZ 26.2 R3-hotfix runtime JAR into `test-mods/tacz.jar`, then run `./gradlew runGameTest -PwithTacz`. Gradle resolves Forge Config API Port 26.2.1 and Cloth Config 26.2.155 for that run. The adapter test enumerates model families, verifies prototype identity and positive prices, buys back an empty gun and rejects a loaded gun.
+
+Manual remaining scenarios: Chinese font/GUI scaling on real hardware; simultaneous real users; TaCZ attachment removal and third-party gun packs; crashes during world saves; economics of extra machine/recipe packs. Automated tests do not replace those checks.
+
+Stable releases from main attach the runtime JAR and matching bilingual `docs/releases/<version>.md`; assets are never overwritten silently.

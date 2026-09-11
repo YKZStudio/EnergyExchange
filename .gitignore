@@ -38,3 +38,6 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
+
+# Optional integration test dependencies / 可选集成测试依赖
+test-mods/

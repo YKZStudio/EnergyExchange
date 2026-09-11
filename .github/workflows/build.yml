@@ -22,6 +22,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: Build and test / 构建与测试
         run: ./gradlew build --no-daemon
+      - name: Client trading test / 客户端交易测试
+        run: xvfb-run -a ./gradlew runClientGameTest --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: energyexchange-mc26.2
@@ -35,9 +37,37 @@ jobs:
             build/reports/
             build/test-results/
             build/run/gameTest/logs/
+            build/run/clientGameTest/logs/
+            build/run/clientGameTest/screenshots/
+  tacz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Fetch pinned TaCZ release / 获取固定版本 TaCZ
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p test-mods
+          gh release download 26.2_R3_HOTFIX --repo q14433686-arch/TaCZ_Refabricated_Unofficial --pattern '*.jar' --output test-mods/tacz.jar
+          echo 'ef803b881e3753bc879737c83caf5cbd8f8b9874c115bf547451eb683f3a389a  test-mods/tacz.jar' | sha256sum --check
+      - name: TaCZ server integration / TaCZ 服务端集成测试
+        run: ./gradlew runGameTest -PwithTacz --no-daemon
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tacz-test-reports
+          path: |
+            build/reports/gametest/
+            build/run/gameTest/logs/
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: build
+    needs: [build, tacz]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -47,13 +77,16 @@ jobs:
         with:
           name: energyexchange-mc26.2
           path: release-artifacts
-      - name: Publish stable release / 发布正式发行版
+      - name: Publish release / 发布发行版
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           version=$(sed -n 's/^version=//p' gradle.properties)
-          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          flags=()
+          if [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+-pre[0-9]+$ ]]; then
+            flags+=(--prerelease)
+          elif [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             exit 0
           fi
           notes="docs/releases/$version.md"
@@ -65,4 +98,4 @@ jobs:
           test -f "release-artifacts/energyexchange-$version.jar"
           gh release create "v$version" \
             "release-artifacts/energyexchange-$version.jar" "$notes" \
-            --target "$GITHUB_SHA" --title "Energy Exchange $version" --notes-file "$notes"
+            --target "$GITHUB_SHA" --title "Energy Exchange $version" --notes-file "$notes" "${flags[@]}"

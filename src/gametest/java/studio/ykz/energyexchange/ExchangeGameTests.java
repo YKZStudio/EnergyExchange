@@ -161,13 +161,108 @@ public final class ExchangeGameTests {
         helper.succeed();
     }
 
+    @GameTest
+    public void tableInputAndPortableValidity(GameTestHelper helper) {
+        var p = player(helper);
+        p.getInventory().setItem(0, new ItemStack(ExchangeContent.TABLET));
+        var menu = new ExchangeMenu(20, p.getInventory(), 123L, null, 0);
+        p.containerMenu = menu;
+        helper.assertTrue(menu.stillValid(p), "Held tablet opens / 手持可用");
+        menu.input.setItem(0, new ItemStack(Items.DIRT, 16));
+        ExchangeService.burn(p, 16);
+        helper.assertTrue(menu.input.isEmpty() && p.getMainHandItem().is(ExchangeContent.TABLET), "Input is consumed, tablet retained / 消耗输入并保留转化桌");
+        ExchangeService.buy(p, DIRT, 8);
+        helper.assertTrue(p.getMainHandItem().is(ExchangeContent.TABLET), "Purchase preserves anchor / 购买保留手持槽");
+        menu.input.setItem(0, new ItemStack(Items.DIAMOND, 3));
+        menu.removed(p);
+        helper.assertTrue(menu.input.isEmpty() && p.getInventory().countItem(Items.DIAMOND) == 3, "Closing returns input / 关闭返还输入");
+        p.getInventory().setSelectedSlot(1);
+        helper.assertTrue(!menu.stillValid(p), "Switching held slot invalidates menu / 切换手持槽关闭菜单");
+        reject(helper, "close_container", () -> ExchangeService.buy(p, DIRT, 1));
+        p.containerMenu = p.inventoryMenu;
+        helper.succeed();
+    }
+
+    @GameTest
+    public void placedTableAndExperience(GameTestHelper helper) {
+        var p = player(helper);
+        var pos = p.blockPosition(); p.level().setBlockAndUpdate(pos, ExchangeContent.TABLE.defaultBlockState());
+        var menu = new ExchangeMenu(21, p.getInventory(), 321L, pos, -1); p.containerMenu = menu;
+        helper.assertTrue(menu.stillValid(p), "Placed table reachable / 转化桌可达");
+        p.setAttached(EnergyExchange.ACCOUNT, AccountJson.write(new Account(BigInteger.valueOf(1280), Set.of())));
+        int before = p.totalExperience;
+        ExchangeService.buyExperience(p, 10);
+        helper.assertTrue(p.totalExperience == before + 10 && ExchangeService.account(p).energy().signum() == 0, "Exact XP points and debit / 精确经验点与扣费");
+        reject(helper, "insufficient", () -> ExchangeService.buyExperience(p, 1));
+        helper.assertTrue(p.totalExperience == before + 10, "Failed XP does not award / 失败不发经验");
+        p.level().removeBlock(pos, false);
+        helper.assertTrue(!menu.stillValid(p), "Broken table invalidates / 拆桌失效");
+        p.containerMenu = p.inventoryMenu; helper.succeed();
+    }
+
+    @GameTest
+    public void completeCatalogAndKnowledgeRoundTrip(GameTestHelper helper) {
+        var keys = new java.util.TreeSet<String>();
+        for (var item : net.minecraft.core.registries.BuiltInRegistries.ITEM) {
+            String id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item).toString();
+            if (!id.startsWith("minecraft:") || item == Items.AIR) continue;
+            helper.assertTrue(EnergyExchange.RULES.require(id).value().signum() > 0, "Vanilla priced / 原版定价: " + id);
+            keys.add(id);
+        }
+        keys.add("tacz:modern_kinetic_gun#tacz:ak47");
+        var account = new Account(BigInteger.ONE, keys);
+        helper.assertTrue(AccountJson.read(AccountJson.write(account)).equals(account), "Full vanilla knowledge fits persistent account / 全原版知识可持久化");
+        helper.succeed();
+    }
+
+    @GameTest
+    public void fractionalConversionAndFuelPrices(GameTestHelper helper) {
+        var p = player(helper);
+        p.getInventory().setItem(0, new ItemStack(Items.COBBLESTONE_SLAB, 1));
+        reject(helper, "small_batch", () -> ExchangeService.burn(p, 1));
+        helper.assertTrue(p.getMainHandItem().getCount() == 1 && ExchangeService.account(p).equals(Account.EMPTY), "Tiny batch unchanged / 小批量不消耗");
+        p.getMainHandItem().setCount(2); ExchangeService.burn(p, 2);
+        helper.assertTrue(ExchangeService.account(p).energy().equals(BigInteger.ONE), "Two slabs earn one Energy / 两半砖换一点能量");
+        helper.assertTrue(EnergyExchange.RULES.require("minecraft:charcoal").value().compareTo(EnergyExchange.RULES.require("minecraft:oak_log").value()) <= 0,
+                "Charcoal does not multiply log value / 木炭不放大原木价值");
+        helper.succeed();
+    }
+
+    @GameTest
+    public void taczModelsRoundTripAndLoadedGunRejection(GameTestHelper helper) {
+        if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("tacz")) { helper.succeed(); return; }
+        var p = player(helper);
+        int variants = 0;
+        var families = new java.util.HashSet<String>();
+        for (var entry : Catalog.entries().entrySet()) {
+            if (!entry.getKey().contains("#")) continue;
+            families.add(entry.getKey().split("#")[0]); variants++;
+            try { helper.assertTrue(Catalog.identify(entry.getValue()).equals(entry.getKey()), "Prototype identity / 模板身份: " + entry.getKey()); }
+            catch (IllegalArgumentException e) { helper.fail("Prototype identity failed / 模板身份失败: " + entry.getKey() + " components=" + entry.getValue().getComponents() + " reason=" + e.getMessage()); }
+            helper.assertTrue(EnergyExchange.RULES.require(entry.getKey()).value().signum() > 0, "Variant priced / 型号定价: " + entry.getKey());
+        }
+        helper.assertTrue(variants > 100 && families.containsAll(Set.of("tacz:modern_kinetic_gun", "tacz:ammo", "tacz:attachment", "lrtactical:throwable", "lrtactical:melee", "lrtactical:consumable")),
+                "TaCZ and LR model families loaded / TaCZ 和 LR 型号已加载");
+        String key = "tacz:modern_kinetic_gun#tacz:ak47";
+        var sample = Catalog.sample(key); p.getInventory().setItem(0, sample);
+        ExchangeService.burn(p, 1); ExchangeService.buy(p, key, 1);
+        helper.assertTrue(Catalog.identify(p.getMainHandItem()).equals(key), "Gun exchange round trip / 枪械交换往返");
+        var loaded = p.getMainHandItem();
+        var tag = loaded.getOrDefault(DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.EMPTY).copyTag();
+        tag.putInt("GunCurrentAmmoCount", 1); loaded.set(DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(tag));
+        reject(helper, "components", () -> ExchangeService.burn(p, 1));
+        helper.assertTrue(loaded.getCount() == 1, "Loaded gun retained / 装弹枪保留");
+        helper.succeed();
+    }
+
     private static ResourceManager resources(GameTestHelper helper, String value) {
         var pack = helper.getLevel().getServer().getResourceManager().listPacks().findFirst().orElseThrow();
         var resource = new Resource(pack, () -> new ByteArrayInputStream(value.getBytes(StandardCharsets.UTF_8)));
         var map = Map.of(Identifier.parse("minecraft:energyexchange/values/dirt.json"), resource);
         return (ResourceManager) Proxy.newProxyInstance(ResourceManager.class.getClassLoader(), new Class<?>[]{ResourceManager.class},
                 (proxy, method, args) -> {
-                    if (method.getName().equals("listResources")) return map;
+                    if (method.getName().equals("listResources")) return args[0].equals("energyexchange/values") ? map : Map.of();
+                    if (method.getName().equals("getResourceOrThrow")) return helper.getLevel().getServer().getResourceManager().getResourceOrThrow((Identifier) args[0]);
                     throw new UnsupportedOperationException(method.getName());
                 });
     }

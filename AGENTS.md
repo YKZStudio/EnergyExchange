@@ -7,3 +7,5 @@
 - Prices, knowledge, inventory, XP and permissions are server-authoritative. Client preferences cannot change multiplayer economy rules. / 定价、知识、库存、经验和权限以服务端为准，客户端偏好不能改变多人服务器经济规则。
 - Keep transaction preflight before mutation; reject unsupported component variants rather than silently deleting or copying contents. / 先预检再变更，未支持的组件变体必须拒绝，不能悄悄删除或复制内容。
 - Preserve existing saves or migrate them explicitly; test respawn through the full server lifecycle. / 保留现有存档或显式迁移；使用完整服务端流程验证重生。
+
+- After a tested version reaches main, release automation publishes stable or `-preN` versions with the matching release notes; prereleases must be marked as such. / 通过测试的版本进入 main 后，自动发布正式版或 `-preN` 预发布版及对应日志，预发布必须正确标记。

@@ -21,24 +21,23 @@ public final class ExchangeCommands {
                 .executes(c -> help(c.getSource()))
                 .then(literal("help").executes(c -> help(c.getSource())))
                 .then(literal("balance").executes(c -> run(c, p -> reply(c, "balance", ExchangeService.account(p).energy().toString()))))
-                .then(literal("value").executes(c -> run(c, p -> reply(c, "value", p.getMainHandItem().getHoverName(), ExchangeService.heldRule(p).value().toString()))))
+                .then(literal("value").executes(c -> run(c, p -> reply(c, "value", ExchangeService.input(p).getHoverName(), ExchangeService.heldRule(p).value().toString()))))
                 .then(literal("learn").executes(c -> run(c, p -> {
-                    var name = p.getMainHandItem().getHoverName();
+                    var name = ExchangeService.input(p).getHoverName();
                     ExchangeService.learn(p);
                     reply(c, "learned", name);
                 })))
                 .then(literal("burn").executes(c -> burn(c, 1))
-                        .then(literal("all").executes(c -> burn(c, c.getSource().getPlayerOrException().getMainHandItem().getCount())))
+                        .then(literal("all").executes(c -> burn(c, ExchangeService.input(c.getSource().getPlayerOrException()).getCount())))
                         .then(argument("count", integer(1, 2304)).executes(c -> burn(c, getInteger(c, "count")))))
-                .then(literal("buy").then(argument("item", IdentifierArgument.id())
+                .then(literal("buy").then(argument("item", com.mojang.brigadier.arguments.StringArgumentType.greedyString())
                         .suggests((c, builder) -> {
                             var player = c.getSource().getPlayer();
                             if (player == null) return builder.buildFuture();
                             try { return SharedSuggestionProvider.suggest(ExchangeService.account(player).learned().stream().sorted(), builder); }
                             catch (IllegalArgumentException ignored) { return builder.buildFuture(); }
                         })
-                        .executes(c -> buy(c, 1))
-                        .then(argument("count", integer(1, 2304)).executes(c -> buy(c, getInteger(c, "count"))))))
+                        .executes(c -> buy(c, 1))))
                 .then(literal("list").executes(c -> list(c, 1))
                         .then(argument("page", integer(1)).executes(c -> list(c, getInteger(c, "page"))))));
         dispatcher.register(literal("ee").executes(c -> help(c.getSource())).redirect(root));
@@ -51,7 +50,7 @@ public final class ExchangeCommands {
 
     private static int burn(CommandContext<CommandSourceStack> c, int count) throws CommandSyntaxException {
         return run(c, p -> {
-            var name = p.getMainHandItem().getHoverName();
+            var name = ExchangeService.input(p).getHoverName();
             var account = ExchangeService.burn(p, count);
             reply(c, "burned", Integer.toString(count), name, account.energy().toString());
         });
@@ -59,9 +58,14 @@ public final class ExchangeCommands {
 
     private static int buy(CommandContext<CommandSourceStack> c, int count) throws CommandSyntaxException {
         return run(c, p -> {
-            var id = IdentifierArgument.getId(c, "item");
-            var account = ExchangeService.buy(p, id, count);
-            reply(c, "bought", Integer.toString(count), id.toString(), account.energy().toString());
+            String[] parts = com.mojang.brigadier.arguments.StringArgumentType.getString(c, "item").trim().split("\\s+");
+            if (parts.length < 1 || parts.length > 2) throw new IllegalArgumentException("energyexchange.error.count");
+            int amount = count;
+            if (parts.length == 2) {
+                try { amount = Integer.parseInt(parts[1]); } catch (NumberFormatException e) { throw new IllegalArgumentException("energyexchange.error.count"); }
+            }
+            var account = ExchangeService.buy(p, parts[0], amount);
+            reply(c, "bought", Integer.toString(amount), parts[0], account.energy().toString());
         });
     }
 

@@ -23,7 +23,7 @@ public final class AccountJson {
             for (var entry : entries) {
                 if (!entry.isJsonPrimitive() || !entry.getAsJsonPrimitive().isString()) throw new IllegalArgumentException();
                 String id = entry.getAsString();
-                if (id.length() > 256 || !id.matches("[a-z0-9_.-]+:[a-z0-9/._-]+") || !ids.add(id)) throw new IllegalArgumentException();
+                if (id.length() > 256 || !id.matches("[a-z0-9_.-]+:[a-z0-9/._-]+(#[a-z0-9_.-]+:[a-z0-9/._-]+)?") || !ids.add(id)) throw new IllegalArgumentException();
             }
             return new Account(Energy.parse(object.get("energy").getAsString()), ids);
         } catch (RuntimeException exception) {

@@ -4,5 +4,12 @@
   "version": "1.0.0",
   "name": "Energy Exchange tests / 能量交换测试",
   "environment": "*",
-  "entrypoints": {"fabric-gametest": ["studio.ykz.energyexchange.ExchangeGameTests"]}
+  "entrypoints": {
+    "fabric-gametest": [
+      "studio.ykz.energyexchange.ExchangeGameTests"
+    ],
+    "fabric-client-gametest": [
+      "studio.ykz.energyexchange.ExchangeClientTests"
+    ]
+  }
 }

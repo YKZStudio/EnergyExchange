@@ -44,10 +44,20 @@ JUnit 覆盖完整纯逻辑闭环、大于浮点精度/long 范围的余额、�
 - 命名/损坏/附魔物品、装物品的容器、药水及自定义组件被拒绝；重复学习不消耗。
 - 在容器打开、死亡、创造、旁观状态拒绝交易；连续重复命令只能按实际库存/余额结算。
 - 两个不同优先级数据包覆盖同一 ID；禁用/移除/恢复规则；非法 JSON、超大数与重载失败锁定及修复后恢复。
-- 简体中文、英文与未安装客户端模组时的后备文本；Tab 补全与分页。
+- 简体中文、英文与双端界面；Tab 补全与分页。
 
 ## 后续方向
 
-v0.2 可加入转化桌与搜索界面、仅向本人同步摘要和分页知识；之后考虑标签定价、配方推导与循环检测、经济审计日志。不要默认启用任意组件复制、创造模式交易、合成环定价或无限长数字。
+0.2 已加入转化桌、搜索界面、私人目录同步、经验购买以及 TaCZ/Mod Menu 适配；后续考虑更多组件变体、实时配方审查和经济日志。不要默认启用任意组件复制、创造模式交易、合成环定价或无限长数字。
 
 参考：[Fabric 26.2 更新说明](https://fabricmc.net/2026/06/15/262.html)、[数据附加项](https://docs.fabricmc.net/develop/serialization/data-attachments)、[自动测试](https://docs.fabricmc.net/develop/automatic-testing)、[官方示例](https://github.com/FabricMC/fabric-example-mod/tree/26.2)。
+
+## 0.2 新增验证
+
+`./gradlew build` 增加便携/放置菜单有效性、关闭返还、经验点、全部原版定价覆盖与分数收益测试。`xvfb-run -a ./gradlew runClientGameTest` 验证真正的服务端目录下发与客户端转化/购买请求，然后打开配置界面；CI 上传截图和日志。
+
+可选兼容测试：将固定的 TaCZ 26.2 R3-hotfix 运行 JAR 下载到 `test-mods/tacz.jar`，执行 `./gradlew runGameTest -PwithTacz`。Gradle 为本次测试解析 Forge Config API Port 26.2.1 与 Cloth Config 26.2.155。适配测试枚举型号类别、检查模板身份和正数价格、买回空枪，并拒绝装弹枪。
+
+仍需人工验收：真实设备上的中文字体与界面缩放、多位真实玩家同时操作、TaCZ 拆装配件及第三方枪包、存档过程异常退出、额外机器/配方的经济平衡。自动测试不替代这些检查。
+
+main 上每个正式版本附带运行 JAR 与对应双语 `docs/releases/<版本>.md`，已有资产不能静默覆盖。

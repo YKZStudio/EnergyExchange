@@ -2,40 +2,57 @@
 
 [简体中文](DATAPACKS.zh-CN.md) · [Home](../README.en.md)
 
-Use one file per item: `data/<item namespace>/energyexchange/values/<item path>.json`. For example, `minecraft:diamond` uses `data/minecraft/energyexchange/values/diamond.json`; `othermod:materials/dust` uses `data/othermod/energyexchange/values/materials/dust.json`.
+## Item overrides
 
-Enabled value:
+One file per item: `data/<item namespace>/energyexchange/values/<item path>.json`.
+
+Examples: `minecraft:diamond` uses `data/minecraft/energyexchange/values/diamond.json`; `othermod:materials/dust` uses `data/othermod/energyexchange/values/materials/dust.json`.
 
 ```json
 { "value": "8192" }
 ```
 
-Disabled rule:
+A positive decimal string sets both the purchase unit and conversion unit. An explicit item override replaces any generated fractional conversion yield for that item. Disable an item with:
 
 ```json
 { "enabled": false }
 ```
 
-| Field | Contract |
-| --- | --- |
-| `value` | Required when enabled. A decimal **string**, from 1 through `10^128−1`; numeric JSON values, fractions, exponents, signs, whitespace and leading zeros are rejected |
-| `enabled` | Optional boolean, defaults to `true`. A disabled rule must omit `value` |
+`enabled` is an optional boolean, defaulting to true. An enabled rule requires `value`; a disabled rule must omit it. Values range from 1 through `10^128−1`. Numeric JSON values, signs, leading zeros, exponents, whitespace, duplicate keys, comments and unknown fields are rejected. Maximum 4,096 characters per individual file; maximum 16,384 item rules and 16,384 variant rules; maximum 256 characters per full knowledge key.
 
-Duplicate keys, comments, lenient JSON syntax and unknown fields are rejected. Limits: 4096 characters per file, 16384 rule resources and 256 characters per full item ID. Use UTF-8 JSON. IDs belonging to absent mods may stay in packs, but purchases require a registered, feature-enabled item.
+## TaCZ and LRTactical variants
+
+Knowledge keys combine the registered item and the model: `tacz:modern_kinetic_gun#tacz:ak47`.
+
+A per-model override lives at:
+
+`data/<model namespace>/energyexchange/variants/<base namespace>/<base path>/<model path>.json`
+
+Example: `data/tacz/energyexchange/variants/tacz/modern_kinetic_gun/ak47.json`, using the same `value` or `enabled:false` schema. For model `mypack:rifles/example`, use `data/mypack/energyexchange/variants/tacz/modern_kinetic_gun/rifles/example.json`.
+
+Base paths for this variant format are a single path segment, matching TaCZ/LRTactical registered items. Model paths can contain subdirectories. Disabling the base item disables every model, even models with explicit prices. Otherwise an explicit model rule/default wins; additional loaded models without a specific price fall back to the base item's rule. A base price does not overwrite existing specific model prices. Absent mods/models are not added to the runtime catalog merely because a price file exists.
+
+## Defaults and fractional conversion
+
+Bundled `data/energyexchange/energyexchange/defaults.json` maps full item/model keys to positive decimal strings. It has 1,738 explicit keys, including 1,537 vanilla IDs. `salvage.json` maps fractional conversion keys to `["numerator", "denominator"]`. Both files support normal whole-resource pack replacement, with a 2,000,000-character limit; normally prefer small individual override files.
+
+Generated purchase units round up; conversion batches compute `floor(numerator × count / denominator)` using exact integers. A batch yielding zero is rejected without consuming items or learning the identity. Fractions never enter saved balances. Conversion rates cannot exceed purchase prices. If replacing both bulk resources, keep their keys and bounds consistent. A malformed winning rule locks trading; the loader does not silently fall back to a lower pack.
+
+Defaults are an authored balance baseline constrained by supported vanilla recipes at generation time, not a runtime recipe solver. Editing recipes with another pack does not automatically reprice them. Special component-bearing recipes, brewing, villagers and other mods' machines need a separate economic audit. The generator reads official item IDs/recipe facts and TaCZ index/recipe facts, without copying upstream code or assets.
 
 ## Overrides and reload
 
-1. Copy the entire [example pack folder](../examples/value-overrides) into `<world>/datapacks/`. Its `pack.mcmeta` must be at the folder root.
-2. Edit the cobblestone value. The example also disables diamond.
-3. As an administrator, run `/reload`; use `/datapack list` if needed to check activation.
-4. Hold cobblestone and run `/ee value`. To restore a default, delete its override and reload. To prohibit a lower-priority default, use `enabled:false`; merely deleting an override exposes the default again.
+1. Copy the entire [example pack](../examples/value-overrides) into `<world>/datapacks/`; `pack.mcmeta` belongs at its root. Minecraft 26.2 uses data-pack format 107.1.
+2. Edit the cobblestone price; the example also disables diamond.
+3. As an administrator run `/reload`, and use `/datapack list` to confirm activation.
+4. Hold an item and use `/ee value`, or reopen the table and inspect its tooltip.
 
-Minecraft's normal pack priority selects the file at each **resource location**. The winning file replaces the whole lower-priority file; fields are not merged and traversal order does not select a price. Other item rules are unaffected. v0.1 has no tag-based pricing or recipe inference.
+Minecraft pack priority chooses the winning resource at each location. Individual item/variant resources override the bulk defaults. Fields are not merged. Deleting an override reveals the default again; use `enabled:false` to prohibit it.
 
-The loader parses the complete resource set before publishing an immutable snapshot. Trading pauses during reload. Any invalid rule fails the reload and keeps trading locked until a corrected reload succeeds. Invalid startup rules behave like ordinary data-pack load errors; errors never become free items.
+Reload pauses every transaction, including XP. Failure remains locked until a successful corrected reload. Menus reject stale rule revisions and refresh their catalog before another purchase; current input stacks and saved knowledge remain intact. Disabling/removing a model preserves knowledge but blocks exchange until that model and its rule return. Price changes affect future transactions without altering existing balances.
 
-Knowledge is independent of prices. Disabling a rule preserves learned IDs while prohibiting further burning, learning or buying. New prices affect future transactions only; balances are not retroactively adjusted. Server owners should avoid uncontrolled price-change arbitrage and audit their packs and other mods' recipes.
+## Component and server settings policy
 
-## Component policy
+Prices do not grant permission to copy arbitrary components. Vanilla uses default stacks; TaCZ/LRTactical uses independently built standard prototypes. Extra ammunition, attachments, renamed items, written data, damage and filled containers remain rejected. `allow_nbt` and similar flags are unsupported.
 
-Rules specify item IDs only and cannot relax the default-component restriction. Pricing shulker boxes, potions, tools or books still only accepts components equal to a fresh default stack and produces only that default. Arbitrary component exchange needs a separate future design; fields such as `allow_nbt` are unsupported.
+XP enablement and cost are server configuration, not data-pack rules. Edit `config/energyexchange.json` and restart the world/server. Mod Menu edits the local defaults for the next server start, not a remote server's economy.

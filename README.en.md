@@ -1,49 +1,78 @@
 # Energy Exchange
 
-[简体中文](README.md) · [Development](docs/DEVELOPMENT.en.md) · [Data packs](docs/DATAPACKS.en.md)
+[简体中文](README.md) · [Changelog](docs/releases/0.2.0-pre1.md) · [Data packs](docs/DATAPACKS.en.md) · [Development](docs/DEVELOPMENT.en.md)
 
-An independent **Minecraft Java 26.2 + Fabric** mod inspired by equivalent-exchange gameplay. It contains no ProjectE code or assets and is not an official port.
+An independent energy-exchange mod for **Minecraft Java 26.2 + Fabric**, inspired by equivalent exchange. It is not an official ProjectE port and includes no ProjectE code or assets.
 
-v0.1 delivers a command-based loop: **ordinary items → personal Energy and knowledge → learned items**. Transmutation tables, a GUI, automation and recipe-based value calculation are outside this version.
+**0.2.0-pre1: items → personal Energy and knowledge → table purchases of items or XP.**
 
-## Install and build
+## Install
 
 - Java 25, Minecraft 26.2, Fabric Loader 0.19.5+, Fabric API 0.159.0+26.2.
-- Install the mod and Fabric API on both client and server for complete English/Simplified Chinese localization. Select English (US) or 简体中文 in game. Server-only installation also works, with English fallback messages for clients without the mod.
-- Linux/macOS: `./gradlew build`; Windows: `gradlew.bat build`. Install `build/libs/energyexchange-0.1.0.jar`, not the sources JAR.
-- Successful GitHub Actions runs upload the JAR and test reports. Follow the [acceptance checklist](docs/DEVELOPMENT.en.md) in a test world before release.
-- Compatibility is declared as `~26.2` (the 26.2 series). Later 26.3+ releases require rebuilding and validation; future compatibility is not assumed.
+- Install this mod and Fabric API on both client and server. The 0.2 blocks, items and menus require both sides.
+- Optional: Mod Menu 20.0.2; TaCZ Refabricated 26.2 R3-hotfix with Forge Config API Port 26.2.1. Use matching TaCZ versions and gun packs on both sides.
+- Put `energyexchange-0.2.0-pre1.jar` in `mods`, not the sources JAR. English (US) and Simplified Chinese are included.
+- Compatibility is `~26.2`; later series require fresh validation.
+- Existing 0.1 balances and knowledge are retained without scaling or reset. Back up the world before upgrading; 0.2 items and variant knowledge do not support direct downgrade to 0.1.
 
-## Play
+## Craft and trade
 
-Commands require no OP or cheats. Transactions require a living survival/adventure player.
+Both recipes use a crafting table and **3×3 vanilla ingredients**. No OP or cheats are required.
 
-| Command | Effect |
-| --- | --- |
-| `/ee` or `/ee help` | Help; `/energyexchange` is the full prefix |
-| `/ee value` | Show the default main-hand item's unit value |
-| `/ee burn` | Convert one main-hand item and automatically learn it |
-| `/ee burn 32` | Convert 32 main-hand items |
-| `/ee burn all` | Convert the main-hand stack, **not the whole inventory** |
-| `/ee learn` | Consume one sample to learn it without earning Energy; known items consume nothing |
-| `/ee balance` | Show the exact balance |
-| `/ee list [page]` | List learned item IDs, 12 per page |
-| `/ee buy minecraft:cobblestone 16` | Buy 16 learned items; count defaults to 1; Tab completes learned IDs |
+| Table | Column 1 | Column 2 | Column 3 |
+| --- | --- | --- | --- |
+| Row 1 | Obsidian | Diamond | Obsidian |
+| Row 2 | Redstone dust | Diamond | Redstone dust |
+| Row 3 | Obsidian | Diamond | Obsidian |
 
-Example: hold 64 cobblestone and use `/ee burn all` to earn 64 Energy and learn cobblestone. `/ee buy minecraft:cobblestone 16` returns 16 cobblestone and leaves 48 Energy.
+| Tablet | Column 1 | Column 2 | Column 3 |
+| --- | --- | --- | --- |
+| Row 1 | Obsidian | Gold ingot | Obsidian |
+| Row 2 | Gold ingot | Diamond | Gold ingot |
+| Row 3 | Obsidian | Gold ingot | Obsidian |
 
-## Limits and safety
+Use the placed table, or use a tablet in either hand. The input is on the left, the personal catalog on the right, and inventory below.
 
-- Exact `BigInteger` arithmetic from `0` through `10^128−1`. No floating point, truncation or wraparound; overflow rejects the entire transaction.
-- The server determines prices, balance, knowledge, held stacks and capacity. No custom packet accepts client balances or item stacks.
-- Burning/learning requires components identical to a fresh default stack. Names, enchantments, damage, written content, potion variants, container contents and custom data are unsupported. Purchases produce only default stacks.
-- Missing/disabled rules prohibit burning, learning and buying. Twenty basic resources have starter values; no recipe inference is performed. Pack authors must audit cross-mod crafting/machine arbitrage.
-- Purchases accept 1–2304 items and must fit entirely in the 36 main inventory/hotbar slots. Insertion is simulated first; insufficient space spends nothing and drops nothing. Armor, offhand and external containers are excluded; close containers before trading.
-- Personal balances and knowledge use the persistent player attachment `energyexchange:account`. They survive death, dimension changes, reconnects and normal restarts; wallets are not shared.
-- Knowledge is capped at 1024 item IDs and serialized accounts at 60,000 characters. Corrupt/unsupported account data locks trading and preserves the original string. Back up before removing the mod; saving while it is absent may discard attachments.
-- Trading pauses during reload and stays locked after a failed reload until a corrected `/reload` succeeds. Removed rules do not erase knowledge; restoring rules enables exchange again.
-- Persistence follows Minecraft's normal player saves, not a per-transaction disk journal. A crash may roll back to the last player save. Administrators and other mods that modify items, saves or creative mode are outside the trust boundary.
+1. Insert items and press **Convert all** to consume the entire input stack, earn Energy and learn its identity.
+2. **Learn one** consumes one sample without crediting Energy. Already learned samples are not consumed again.
+3. Search by localized name or ID, select an entry and buy one item or one stack. Gray entries are not learned. Tooltips show exact purchase prices and conversion yields.
+4. **Buy 10 XP** awards ten experience points, not levels. Default: 128 Energy per point, controlled by the server.
+5. Closing returns the input. Tables have no shared storage; each player's wallet and input are private.
 
-## Documentation and license
+Only living survival/adventure players can trade. A placed table must exist within eight blocks. A tablet's inventory slot is locked while open; changing the selected slot or losing the tablet invalidates trading.
 
-[Data-pack format and overrides](docs/DATAPACKS.en.md) · [Development, tests and roadmap](docs/DEVELOPMENT.en.md) · [MIT license](LICENSE)
+## Prices and compatibility
+
+- Positive purchase prices for all **1,537 vanilla item IDs** in 26.2. Non-survival items still require an obtained and learned sample; they are not automatically unlocked.
+- TaCZ guns, ammunition, attachments, workbenches and bundled LRTactical items use model-specific identities. Loaded additional gun-pack models receive their base item's fallback value, with per-model data-pack overrides available.
+- `tools/generate_values.py` generates defaults constrained by ordinary vanilla crafting, smelting, stonecutting and smithing recipes. Purchase units round up; fractional conversion yields round down once per batch. Batches worth less than one Energy are rejected without consuming items.
+- This is a prerelease balance baseline, not a proof for every machine, villager trade, special recipe or gun pack. Pack authors should audit additions and override or disable values. Some 0.1 item prices change under the recipe constraints; saved balances do not.
+- Vanilla items require default components. Renamed, enchanted, damaged, written-content, non-default potion and filled-container variants are rejected without losing contents.
+- TaCZ uses standard safe model prototypes. Unload guns and their chamber, remove attachments, and remove custom appearances, dummy ammunition and other extra data before conversion. Purchases produce empty guns. Fire-selector changes and cleared ordinary runtime state are harmless and accepted.
+
+## Settings and data packs
+
+Mod Menu → Energy Exchange → Configure controls unlearned entries, compact numbers, XP enablement and cost per point.
+
+Display preferences are client-side. XP settings are local defaults saved in `config/energyexchange.json`, applied **at the next world/server start**. Multiplayer uses the server owner's configuration; clients cannot change server prices. Dedicated servers edit the same file and restart. Number tooltips and `/ee balance` always show exact integers.
+
+See [data-pack documentation](docs/DATAPACKS.en.md) for item/variant overrides, disabled rules and `/reload`.
+
+## Commands and protections
+
+`/ee help`, `value`, `balance`, `list [page]`, `learn`, `burn [count|all]`, and `buy <itemID> [count]` remain available. Example: `/ee buy tacz:modern_kinetic_gun#tacz:ak47 1`. Inside this menu, conversion/learning uses the input; otherwise it uses the main hand. Other open containers block trading.
+
+- Exact integer balances from zero through `10^128−1`; overflow rejects the whole transaction.
+- Server validation covers menu identity, session nonce, request sequence, rule revision, distance, game mode, knowledge, price and inventory. Clients supply neither stacks nor balances. Stale quotes refresh; duplicate requests do not settle twice.
+- Purchases of 1–2304 items simulate all inventory insertion before committing. Insufficient space means no debit, partial delivery or dropped purchase. Armor and offhand are excluded.
+- Accounts persist across death/respawn, dimensions and normal restarts. Maximum 4,096 learned keys and 60,000 serialized characters; all vanilla identities fit. Corrupt/future account data locks trading without reset.
+- Trading pauses during resource reload; failure remains locked until a successful reload. Disabled identities remain learned.
+- Persistence follows Minecraft saves, so power loss or process crashes can roll back to the last save. Direct administrator/other-mod mutations are outside this mod's transaction control.
+
+## Build and releases
+
+`./gradlew build` compiles and runs unit/server GameTests. `xvfb-run -a ./gradlew runClientGameTest` tests the client trading flow on Linux. On Windows use `gradlew.bat`.
+
+Every stable version receives a GitHub Release containing its runtime JAR and bilingual changelog. Existing assets are never silently replaced. [0.1.0 release](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0).
+
+MIT licensed. The TaCZ adapter is independently implemented against public APIs; no upstream code or assets are bundled.

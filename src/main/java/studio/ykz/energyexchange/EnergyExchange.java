@@ -22,6 +22,9 @@ public final class EnergyExchange implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        ExchangeContent.init();
+        ExchangeNetwork.init();
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> ExchangeConfig.server = ExchangeConfig.load());
         ResourceLoader.get(PackType.SERVER_DATA).registerReloadListener(
                 Identifier.fromNamespaceAndPath(ID, "values"), (ResourceManagerReloadListener) RULES::load);
         ServerLifecycleEvents.START_DATA_PACK_RELOAD.register((server, manager) -> RULES.pause());

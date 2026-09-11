@@ -11,8 +11,7 @@ import studio.ykz.energyexchange.core.ValueRule;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Called only from the server command dispatcher. No client-provided balances or stacks.
- * 仅由服务端命令分发器调用，不接收客户端余额或物品堆。 */
+/** Commands and menu requests settle on the server thread. / 命令和菜单请求均在服务端线程结算。 */
 public final class ExchangeService {
     private ExchangeService() {}
 
@@ -20,28 +19,29 @@ public final class ExchangeService {
         return AccountJson.read(player.getAttachedOrElse(EnergyExchange.ACCOUNT, AccountJson.EMPTY));
     }
 
-    private static void checkPlayer(ServerPlayer player) {
+    public static void checkPlayer(ServerPlayer player) {
         if (!player.level().getServer().isSameThread()) throw new IllegalStateException("Server thread required / 必须在服务端线程执行");
         if (!player.isAlive() || player.isSpectator() || player.isCreative()) throw new IllegalArgumentException("energyexchange.error.gamemode");
-        if (player.containerMenu != player.inventoryMenu) throw new IllegalArgumentException("energyexchange.error.close_container");
+        if (player.containerMenu != player.inventoryMenu && !(player.containerMenu instanceof ExchangeMenu menu && menu.stillValid(player))) throw new IllegalArgumentException("energyexchange.error.close_container");
     }
 
     public static ValueRule heldRule(ServerPlayer player) {
-        ItemStack stack = player.getMainHandItem();
-        if (stack.isEmpty()) throw new IllegalArgumentException("energyexchange.error.empty_hand");
-        if (!ItemStack.isSameItemSameComponents(stack, new ItemStack(stack.getItem()))) {
-            throw new IllegalArgumentException("energyexchange.error.components");
-        }
-        return EnergyExchange.RULES.require(BuiltInRegistries.ITEM.getKey(stack.getItem()));
+        if (!input(player).getItem().isEnabled(player.level().enabledFeatures())) throw new IllegalArgumentException("energyexchange.error.no_value");
+        return EnergyExchange.RULES.require(Catalog.identify(input(player)));
+    }
+
+    static ItemStack input(ServerPlayer player) {
+        return player.containerMenu instanceof ExchangeMenu menu ? menu.input.getItem(0) : player.getMainHandItem();
     }
 
     public static Account burn(ServerPlayer player, int count) {
         checkPlayer(player);
-        var rule = heldRule(player);
-        ItemStack held = player.getMainHandItem();
+        heldRule(player);
+        ItemStack held = input(player);
         if (count < 1 || count > held.getCount()) throw new IllegalArgumentException("energyexchange.error.count");
-        String item = BuiltInRegistries.ITEM.getKey(held.getItem()).toString();
-        Account next = account(player).burn(item, rule.value(), count);
+        String item = Catalog.identify(held);
+        Account previous = account(player).learn(item);
+        Account next = new Account(studio.ykz.energyexchange.core.Energy.checked(previous.energy().add(EnergyExchange.RULES.burnCredit(item, count))), previous.learned());
         String encoded = AccountJson.write(next);
         // Every possible validation precedes either mutation / 所有校验均在变更之前完成。
         held.shrink(count);
@@ -53,8 +53,8 @@ public final class ExchangeService {
     public static Account learn(ServerPlayer player) {
         checkPlayer(player);
         heldRule(player);
-        ItemStack held = player.getMainHandItem();
-        String item = BuiltInRegistries.ITEM.getKey(held.getItem()).toString();
+        ItemStack held = input(player);
+        String item = Catalog.identify(held);
         Account previous = account(player);
         if (previous.learned().contains(item)) throw new IllegalArgumentException("energyexchange.error.already_learned");
         Account next = previous.learn(item);
@@ -66,18 +66,37 @@ public final class ExchangeService {
     }
 
     public static Account buy(ServerPlayer player, Identifier id, int count) {
+        return buy(player, id.toString(), count);
+    }
+
+    public static Account buy(ServerPlayer player, String key, int count) {
         checkPlayer(player);
-        if (!BuiltInRegistries.ITEM.containsKey(id)) throw new IllegalArgumentException("energyexchange.error.no_value");
-        Item item = BuiltInRegistries.ITEM.getValue(id);
-        ItemStack sample = new ItemStack(item);
-        if (sample.isEmpty() || !item.isEnabled(player.level().enabledFeatures())) throw new IllegalArgumentException("energyexchange.error.no_value");
-        var rule = EnergyExchange.RULES.require(id);
-        Account next = account(player).buy(id.toString(), rule.value(), count);
+        ItemStack sample = Catalog.sample(key);
+        if (!sample.getItem().isEnabled(player.level().enabledFeatures())) throw new IllegalArgumentException("energyexchange.error.no_value");
+        var rule = EnergyExchange.RULES.require(key);
+        Account next = account(player).buy(key, rule.value(), count);
         String encoded = AccountJson.write(next);
         List<ItemStack> planned = planInsertion(player, sample, count);
         for (int slot = 0; slot < planned.size(); slot++) player.getInventory().setItem(slot, planned.get(slot));
         player.setAttached(EnergyExchange.ACCOUNT, encoded);
         changed(player);
+        return next;
+    }
+
+    public static Account buyExperience(ServerPlayer player, int points) {
+        checkPlayer(player);
+        EnergyExchange.RULES.checkReady();
+        if (!ExchangeConfig.server.xpEnabled()) throw new IllegalArgumentException("energyexchange.error.xp_disabled");
+        if (points < 1 || points > 1000 || player.totalExperience < 0 || player.totalExperience > Integer.MAX_VALUE - points
+                || player.experienceLevel < 0 || player.experienceLevel > 10000
+                || !Float.isFinite(player.experienceProgress) || player.experienceProgress < 0 || player.experienceProgress >= 1) throw new IllegalArgumentException("energyexchange.error.xp_limit");
+        var previous = account(player);
+        var cost = studio.ykz.energyexchange.core.Energy.total(studio.ykz.energyexchange.core.Energy.parse(ExchangeConfig.server.xpCost()), points);
+        if (previous.energy().compareTo(cost) < 0) throw new IllegalArgumentException("energyexchange.error.insufficient");
+        var next = new Account(previous.energy().subtract(cost), previous.learned());
+        String encoded = AccountJson.write(next);
+        player.giveExperiencePoints(points);
+        player.setAttached(EnergyExchange.ACCOUNT, encoded);
         return next;
     }
 
@@ -107,5 +126,6 @@ public final class ExchangeService {
     private static void changed(ServerPlayer player) {
         player.getInventory().setChanged();
         player.inventoryMenu.broadcastChanges();
+        player.containerMenu.broadcastChanges();
     }
 }
