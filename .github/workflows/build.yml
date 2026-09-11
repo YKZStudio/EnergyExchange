@@ -22,6 +22,8 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
       - name: Build and test / 构建与测试
         run: ./gradlew build --no-daemon
+      - name: Client trading test / 客户端交易测试
+        run: xvfb-run -a ./gradlew runClientGameTest --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: energyexchange-mc26.2
@@ -35,6 +37,7 @@ jobs:
             build/reports/
             build/test-results/
             build/run/gameTest/logs/
+            build/run/clientGameTest/
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build

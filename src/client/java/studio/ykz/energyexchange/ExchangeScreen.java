@@ -49,6 +49,8 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         });
         filter(); send(0, "", 0);
     }
+    public boolean readyForTest() { return state != null && !waiting && !catalog.isEmpty(); }
+    public void tradeForTest(int action, String key, int count) { send(action, key, count); }
     private void send(int action, String key, int count) {
         if (waiting) return;
         waiting = true; retryTicks = 0;
@@ -66,7 +68,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         state = packet; waiting = false;
         var learned = catalog.get(packet.learned());
         if (learned != null) catalog.put(learned.key(), new ExchangeNetwork.Entry(learned.key(), learned.stack(), learned.value(), true));
-        if (!packet.error().isEmpty()) minecraft.player.displayClientMessage(Messages.text(packet.error()), true);
+        if (!packet.error().isEmpty()) minecraft.player.sendOverlayMessage(Messages.text(packet.error()));
         filter();
     }
     private void filter() {

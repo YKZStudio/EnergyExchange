@@ -15,7 +15,7 @@ public final class ExchangeNetwork {
         return new CustomPacketPayload.Type<>(Identifier.fromNamespaceAndPath(EnergyExchange.ID, path));
     }
     public record Action(int menu, long nonce, long revision, long sequence, int action, String key, int count) implements CustomPacketPayload {
-        public static final Type<Action> TYPE = type("action");
+        public static final Type<Action> TYPE = ExchangeNetwork.type("action");
         public static final StreamCodec<RegistryFriendlyByteBuf, Action> CODEC = StreamCodec.of((b, p) -> {
             b.writeVarInt(p.menu); b.writeLong(p.nonce); b.writeLong(p.revision); b.writeLong(p.sequence);
             b.writeByte(p.action); b.writeUtf(p.key, 256); b.writeVarInt(p.count);
@@ -24,7 +24,7 @@ public final class ExchangeNetwork {
     }
     public record Entry(String key, ItemStack stack, String value, boolean learned) {}
     public record Page(int menu, long nonce, int offset, List<Entry> entries) implements CustomPacketPayload {
-        public static final Type<Page> TYPE = type("catalog");
+        public static final Type<Page> TYPE = ExchangeNetwork.type("catalog");
         public static final StreamCodec<RegistryFriendlyByteBuf, Page> CODEC = StreamCodec.of((b, p) -> {
             b.writeVarInt(p.menu); b.writeLong(p.nonce); b.writeVarInt(p.offset); b.writeVarInt(p.entries.size());
             for (var e : p.entries) { b.writeUtf(e.key, 256); ItemStack.STREAM_CODEC.encode(b, e.stack); b.writeUtf(e.value, 128); b.writeBoolean(e.learned); }
@@ -38,7 +38,7 @@ public final class ExchangeNetwork {
         public Type<Page> type() { return TYPE; }
     }
     public record State(int menu, long nonce, long revision, long sequence, String balance, String learned, String error, String xpCost, boolean xpEnabled) implements CustomPacketPayload {
-        public static final Type<State> TYPE = type("state");
+        public static final Type<State> TYPE = ExchangeNetwork.type("state");
         public static final StreamCodec<RegistryFriendlyByteBuf, State> CODEC = StreamCodec.of((b, p) -> {
             b.writeVarInt(p.menu); b.writeLong(p.nonce); b.writeLong(p.revision); b.writeLong(p.sequence);
             b.writeUtf(p.balance, 128); b.writeUtf(p.learned, 256); b.writeUtf(p.error, 128); b.writeUtf(p.xpCost, 128); b.writeBoolean(p.xpEnabled);
@@ -46,9 +46,9 @@ public final class ExchangeNetwork {
         public Type<State> type() { return TYPE; }
     }
     public static void init() {
-        PayloadTypeRegistry.playC2S().register(Action.TYPE, Action.CODEC);
-        PayloadTypeRegistry.playS2C().register(Page.TYPE, Page.CODEC);
-        PayloadTypeRegistry.playS2C().register(State.TYPE, State.CODEC);
+        PayloadTypeRegistry.serverboundPlay().register(Action.TYPE, Action.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(Page.TYPE, Page.CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(State.TYPE, State.CODEC);
         ServerPlayNetworking.registerGlobalReceiver(Action.TYPE, (packet, context) -> handle(context.player(), packet));
     }
     public static void handle(ServerPlayer player, Action packet) {

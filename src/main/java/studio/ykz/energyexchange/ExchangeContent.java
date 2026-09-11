@@ -1,7 +1,7 @@
 package studio.ykz.energyexchange;
 
 import net.fabricmc.fabric.api.menu.v1.*;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.resources.*;
@@ -38,11 +38,11 @@ public final class ExchangeContent {
     public static final ExtendedMenuType<ExchangeMenu, Long> MENU = Registry.register(BuiltInRegistries.MENU, id("exchange"),
             new ExtendedMenuType<>((id, inventory, nonce) -> new ExchangeMenu(id, inventory, nonce, null, -1), ByteBufCodecs.VAR_LONG));
     public static void init() {
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> { entries.accept(TABLE_ITEM); entries.accept(TABLET); });
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> { entries.accept(TABLE_ITEM); entries.accept(TABLET); });
     }
     private static void open(ServerPlayer player, BlockPos pos, int anchor) {
         try { ExchangeService.checkPlayer(player); }
-        catch (IllegalArgumentException e) { player.displayClientMessage(Messages.text(e.getMessage()), true); return; }
+        catch (IllegalArgumentException e) { player.sendOverlayMessage(Messages.text(e.getMessage())); return; }
         long nonce = player.getRandom().nextLong();
         player.openMenu(new ExtendedMenuProvider<Long>() {
             public Long getScreenOpeningData(ServerPlayer ignored) { return nonce; }

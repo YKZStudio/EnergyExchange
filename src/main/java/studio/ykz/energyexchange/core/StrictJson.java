@@ -11,10 +11,10 @@ import java.util.HashSet;
 
 /** Reject duplicate keys and lenient syntax before Gson builds a tree.
  * 构建 JSON 树之前拒绝重复键及宽松语法。 */
-final class StrictJson {
+public final class StrictJson {
     private StrictJson() {}
 
-    static JsonElement parse(String raw) {
+    public static JsonElement parse(String raw) {
         try (var reader = new JsonReader(new StringReader(raw))) {
             reader.setStrictness(Strictness.STRICT);
             validate(reader, 0);

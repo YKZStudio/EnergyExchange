@@ -40,7 +40,7 @@ fabricApi {
         createSourceSet = true
         modId = 'energyexchange-test'
         enableGameTests = true
-        enableClientGameTests = false
+        enableClientGameTests = true
         eula = true // Automated disposable test server / 自动化临时测试服务器
     }
 }

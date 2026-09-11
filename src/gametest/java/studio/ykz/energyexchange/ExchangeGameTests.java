@@ -161,6 +161,60 @@ public final class ExchangeGameTests {
         helper.succeed();
     }
 
+    @GameTest
+    public void tableInputAndPortableValidity(GameTestHelper helper) {
+        var p = player(helper);
+        p.getInventory().setItem(0, new ItemStack(ExchangeContent.TABLET));
+        var menu = new ExchangeMenu(20, p.getInventory(), 123L, null, 0);
+        p.containerMenu = menu;
+        helper.assertTrue(menu.stillValid(p), "Held tablet opens / 手持可用");
+        menu.input.setItem(0, new ItemStack(Items.DIRT, 16));
+        ExchangeService.burn(p, 16);
+        helper.assertTrue(menu.input.isEmpty() && p.getMainHandItem().is(ExchangeContent.TABLET), "Input is consumed, tablet retained / 消耗输入并保留转化桌");
+        ExchangeService.buy(p, DIRT, 8);
+        helper.assertTrue(p.getMainHandItem().is(ExchangeContent.TABLET), "Purchase preserves anchor / 购买保留手持槽");
+        menu.input.setItem(0, new ItemStack(Items.DIAMOND, 3));
+        menu.removed(p);
+        helper.assertTrue(menu.input.isEmpty() && p.getInventory().countItem(Items.DIAMOND) == 3, "Closing returns input / 关闭返还输入");
+        p.getInventory().setSelectedSlot(1);
+        helper.assertTrue(!menu.stillValid(p), "Switching held slot invalidates menu / 切换手持槽关闭菜单");
+        reject(helper, "close_container", () -> ExchangeService.buy(p, DIRT, 1));
+        p.containerMenu = p.inventoryMenu;
+        helper.succeed();
+    }
+
+    @GameTest
+    public void placedTableAndExperience(GameTestHelper helper) {
+        var p = player(helper);
+        var pos = p.blockPosition(); p.level().setBlockAndUpdate(pos, ExchangeContent.TABLE.defaultBlockState());
+        var menu = new ExchangeMenu(21, p.getInventory(), 321L, pos, -1); p.containerMenu = menu;
+        helper.assertTrue(menu.stillValid(p), "Placed table reachable / 转化桌可达");
+        p.setAttached(EnergyExchange.ACCOUNT, AccountJson.write(new Account(BigInteger.valueOf(1280), Set.of())));
+        int before = p.totalExperience;
+        ExchangeService.buyExperience(p, 10);
+        helper.assertTrue(p.totalExperience == before + 10 && ExchangeService.account(p).energy().signum() == 0, "Exact XP points and debit / 精确经验点与扣费");
+        reject(helper, "insufficient", () -> ExchangeService.buyExperience(p, 1));
+        helper.assertTrue(p.totalExperience == before + 10, "Failed XP does not award / 失败不发经验");
+        p.level().removeBlock(pos, false);
+        helper.assertTrue(!menu.stillValid(p), "Broken table invalidates / 拆桌失效");
+        p.containerMenu = p.inventoryMenu; helper.succeed();
+    }
+
+    @GameTest
+    public void completeCatalogAndKnowledgeRoundTrip(GameTestHelper helper) {
+        var keys = new java.util.TreeSet<String>();
+        for (var item : net.minecraft.core.registries.BuiltInRegistries.ITEM) {
+            String id = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(item).toString();
+            if (!id.startsWith("minecraft:") || item == Items.AIR) continue;
+            helper.assertTrue(EnergyExchange.RULES.require(id).value().signum() > 0, "Vanilla priced / 原版定价: " + id);
+            keys.add(id);
+        }
+        keys.add("tacz:modern_kinetic_gun#tacz:ak47");
+        var account = new Account(BigInteger.ONE, keys);
+        helper.assertTrue(AccountJson.read(AccountJson.write(account)).equals(account), "Full vanilla knowledge fits persistent account / 全原版知识可持久化");
+        helper.succeed();
+    }
+
     private static ResourceManager resources(GameTestHelper helper, String value) {
         var pack = helper.getLevel().getServer().getResourceManager().listPacks().findFirst().orElseThrow();
         var resource = new Resource(pack, () -> new ByteArrayInputStream(value.getBytes(StandardCharsets.UTF_8)));
