@@ -42,7 +42,7 @@ public final class ExchangeNetwork {
         public static final StreamCodec<RegistryFriendlyByteBuf, State> CODEC = StreamCodec.of((b, p) -> {
             b.writeVarInt(p.menu); b.writeLong(p.nonce); b.writeLong(p.revision); b.writeLong(p.sequence);
             b.writeUtf(p.balance, 128); b.writeUtf(p.learned, 256); b.writeUtf(p.error, 128); b.writeUtf(p.xpCost, 128); b.writeBoolean(p.xpEnabled);
-        }, b -> new State(b.readVarInt(), b.readLong(), b.readLong(), b.readLong(), b.readUtf(128), b.readUtf(256), b.readUtf(128), b.readUtf(128), b.readUtf(260), b.readBoolean()));
+        }, b -> new State(b.readVarInt(), b.readLong(), b.readLong(), b.readLong(), b.readUtf(128), b.readUtf(256), b.readUtf(128), b.readUtf(128), b.readBoolean()));
         public Type<State> type() { return TYPE; }
     }
     public static void init() {
