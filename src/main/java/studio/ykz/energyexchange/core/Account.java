@@ -6,7 +6,7 @@ import java.util.TreeSet;
 
 /** Immutable player account / 不可变玩家账户. */
 public record Account(BigInteger energy, Set<String> learned) {
-    public static final int MAX_LEARNED = 1024;
+    public static final int MAX_LEARNED = 4096;
     public static final Account EMPTY = new Account(BigInteger.ZERO, Set.of());
 
     public Account {

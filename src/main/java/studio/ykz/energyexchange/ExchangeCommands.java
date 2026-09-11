@@ -30,7 +30,7 @@ public final class ExchangeCommands {
                 .then(literal("burn").executes(c -> burn(c, 1))
                         .then(literal("all").executes(c -> burn(c, c.getSource().getPlayerOrException().getMainHandItem().getCount())))
                         .then(argument("count", integer(1, 2304)).executes(c -> burn(c, getInteger(c, "count")))))
-                .then(literal("buy").then(argument("item", IdentifierArgument.id())
+                .then(literal("buy").then(argument("item", com.mojang.brigadier.arguments.StringArgumentType.string())
                         .suggests((c, builder) -> {
                             var player = c.getSource().getPlayer();
                             if (player == null) return builder.buildFuture();
@@ -59,7 +59,7 @@ public final class ExchangeCommands {
 
     private static int buy(CommandContext<CommandSourceStack> c, int count) throws CommandSyntaxException {
         return run(c, p -> {
-            var id = IdentifierArgument.getId(c, "item");
+            var id = com.mojang.brigadier.arguments.StringArgumentType.getString(c, "item");
             var account = ExchangeService.buy(p, id, count);
             reply(c, "bought", Integer.toString(count), id.toString(), account.energy().toString());
         });

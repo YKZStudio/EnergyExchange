@@ -4,10 +4,34 @@
   "version": "${version}",
   "name": "Energy Exchange / 能量交换",
   "description": "Turn items into personal energy, learn them and exchange them back. / 将物品转化为个人能量，学习并兑换物品。",
-  "authors": ["YKZStudio"],
-  "contact": {"sources": "https://github.com/YKZStudio/EnergyExchange", "issues": "https://github.com/YKZStudio/EnergyExchange/issues"},
+  "authors": [
+    "YKZStudio"
+  ],
+  "contact": {
+    "sources": "https://github.com/YKZStudio/EnergyExchange",
+    "issues": "https://github.com/YKZStudio/EnergyExchange/issues"
+  },
   "license": "MIT",
   "environment": "*",
-  "entrypoints": {"main": ["studio.ykz.energyexchange.EnergyExchange"]},
-  "depends": {"fabricloader": ">=0.19.5", "minecraft": "~26.2", "java": ">=25", "fabric-api": ">=0.159.0"}
+  "entrypoints": {
+    "main": [
+      "studio.ykz.energyexchange.EnergyExchange"
+    ],
+    "client": [
+      "studio.ykz.energyexchange.ExchangeClient"
+    ],
+    "modmenu": [
+      "studio.ykz.energyexchange.ModMenuIntegration"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.19.5",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": ">=0.159.0"
+  },
+  "suggests": {
+    "modmenu": ">=20.0.0",
+    "tacz": "*"
+  }
 }

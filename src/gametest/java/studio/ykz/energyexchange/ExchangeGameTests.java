@@ -167,7 +167,8 @@ public final class ExchangeGameTests {
         var map = Map.of(Identifier.parse("minecraft:energyexchange/values/dirt.json"), resource);
         return (ResourceManager) Proxy.newProxyInstance(ResourceManager.class.getClassLoader(), new Class<?>[]{ResourceManager.class},
                 (proxy, method, args) -> {
-                    if (method.getName().equals("listResources")) return map;
+                    if (method.getName().equals("listResources")) return args[0].equals("energyexchange/values") ? map : Map.of();
+                    if (method.getName().equals("getResourceOrThrow")) return helper.getLevel().getServer().getResourceManager().getResourceOrThrow((Identifier) args[0]);
                     throw new UnsupportedOperationException(method.getName());
                 });
     }
