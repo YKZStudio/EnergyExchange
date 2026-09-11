@@ -65,7 +65,7 @@
   "energyexchange.ui.burn_hint": "Convierte toda la pila y la aprende automáticamente. Requiere una regla de energía activa y componentes compatibles.",
   "energyexchange.ui.price": "Compra: %s energía por objeto",
   "energyexchange.config.pinyin": "Pinyin (experimental): %s",
-  "energyexchange.config.pinyin_hint": "Desactivado por defecto. Busca nombres chinos por pinyin, iniciales o sílabas mezcladas, como myzz o moyingzhenzhu. No requiere REI; algunas lecturas pueden variar.",
+  "energyexchange.config.pinyin_hint": "Desactivado por defecto. Admite pinyin, iniciales, mezcla de caracteres chinos, tonos y letras de ancho completo. Acepta varias lecturas. Sin REI ni conexión; no corrige errores tipográficos.",
   "energyexchange.error.purchase_count": "Elige 1, 16, 32 o 64 sin superar el tamaño máximo de pila del objeto.",
   "modmenu.nameTranslation.energyexchange": "Intercambio de energía",
   "modmenu.descriptionTranslation.energyexchange": "Convierte objetos en energía personal, apréndelos y vuelve a comprarlos."

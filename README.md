@@ -1,17 +1,17 @@
 # Energy Exchange
 
-[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.2.0-pre2.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
+[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.2.0.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
 
 An independent energy-exchange mod for **Minecraft Java 26.2 + Fabric**, inspired by equivalent exchange. It is not an official ProjectE port and includes no ProjectE code or assets.
 
-**0.2.0-pre2: items → personal Energy and knowledge → table purchases of items or XP.**
+**0.2.0: items → personal Energy and knowledge → table purchases of items or XP.**
 
 ## Install
 
 - Java 25, Minecraft 26.2, Fabric Loader 0.19.5+, Fabric API 0.159.0+26.2.
 - Install this mod and Fabric API on both client and server. The 0.2 blocks, items and menus require both sides.
 - Optional: Mod Menu 20.0.2; TaCZ Refabricated 26.2 R3-hotfix with Forge Config API Port 26.2.1. Use matching TaCZ versions and gun packs on both sides.
-- Put `energyexchange-0.2.0-pre2.jar` in `mods`, not the sources JAR. English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese and Russian are included, with additional Traditional Chinese (Taiwan/Hong Kong) locales. The in-game name follows the selected language; Mod Menu uses its standard translated-name setting.
+- Put `energyexchange-0.2.0.jar` in `mods`, not the sources JAR. English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese and Russian are included, with additional Traditional Chinese (Taiwan/Hong Kong) locales. The in-game name follows the selected language; Mod Menu uses its standard translated-name setting.
 - Compatibility is `~26.2`; later series require fresh validation.
 - Existing 0.1 balances and knowledge are retained without scaling or reset. Back up the world before upgrading; 0.2 items and variant knowledge do not support direct downgrade to 0.1.
 
@@ -46,7 +46,7 @@ Only living survival/adventure players can trade. A placed table must exist with
 - Positive purchase prices for all **1,537 vanilla item IDs** in 26.2. Non-survival items still require an obtained and learned sample; they are not automatically unlocked.
 - TaCZ guns, ammunition, attachments, workbenches and bundled LRTactical items use model-specific identities. Loaded additional gun-pack models receive their base item's fallback value, with per-model data-pack overrides available.
 - `tools/generate_values.py` generates defaults constrained by ordinary vanilla crafting, smelting, stonecutting and smithing recipes. Purchase units round up; fractional conversion yields round down once per batch. Batches worth less than one Energy are rejected without consuming items.
-- This is a prerelease balance baseline, not a proof for every machine, villager trade, special recipe or gun pack. Pack authors should audit additions and override or disable values. Some 0.1 item prices change under the recipe constraints; saved balances do not.
+- This is a configurable starter balance baseline, not a proof for every machine, villager trade, special recipe or gun pack. Pack authors should audit additions and override or disable values. Some 0.1 item prices change under the recipe constraints; saved balances do not.
 - Vanilla items require default components. Renamed, enchanted, damaged, written-content, non-default potion and filled-container variants are rejected without losing contents.
 - TaCZ uses standard safe model prototypes. Unload guns and their chamber, remove attachments, and remove custom appearances, dummy ammunition and other extra data before conversion. Purchases produce empty guns. Fire-selector changes and cleared ordinary runtime state are harmless and accepted.
 
@@ -54,7 +54,7 @@ Only living survival/adventure players can trade. A placed table must exist with
 
 Mod Menu → Energy Exchange → Configure controls unlearned entries, compact numbers, experimental pinyin search, XP enablement and cost per point.
 
-Pinyin search is **off by default**. Enable it to find Simplified Chinese display names using full pinyin, initials or mixed syllable prefixes: `moyingzhenzhu`, `myzz`, `moyzz` all find 末影珍珠. Case and spaces are ignored. REI is not required. This is phonetic prefix matching, not typo correction; some polyphonic characters use a default reading. Searches use the current localized item name.
+Pinyin search is **off by default**. Enable it to find Simplified Chinese display names using full pinyin, initials or mixed syllable prefixes: `moyingzhenzhu`, `myzz`, `moyzz` all find 末影珍珠. Case, spaces, tones and full-width letters are normalized. Mixed Chinese/pinyin (`末影zz`, `mo影z珠`), `lv`/`lü`/`lǜ`/`lu:`, and multiple readings (`zhongchui` / `chongchui` for 重锤) are supported. Search works offline and needs no REI. It is phonetic prefix matching, not typo correction; results still respect the Learned/All filter and use the current localized name.
 
 Existing four-field pre1 settings migrate with pinyin off and the initial catalog set to learned-only. XP settings and compact-number preferences are preserved. Balances and learned items are unchanged.
 
@@ -79,4 +79,4 @@ See [data-pack documentation](docs/DATAPACKS.md) for item/variant overrides, dis
 
 Every stable version receives a GitHub Release containing its runtime JAR and bilingual changelog. Existing assets are never silently replaced. [0.1.0 release](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0).
 
-MIT licensed. Bundled pinyin dependencies retain their own licenses; see [third-party notices](THIRD_PARTY_NOTICES.md). The TaCZ adapter is independently implemented against public APIs; no upstream code or assets are bundled.
+MIT licensed. Bundled Unicode pronunciation data retains its own license; see [third-party notices](THIRD_PARTY_NOTICES.md). The TaCZ adapter is independently implemented against public APIs; no upstream code or assets are bundled.

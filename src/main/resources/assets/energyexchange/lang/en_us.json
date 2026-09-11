@@ -65,7 +65,7 @@
   "energyexchange.ui.burn_hint": "Convert the entire input stack and learn it automatically. Requires an enabled Energy rule and supported components.",
   "energyexchange.ui.price": "Purchase: %s Energy each",
   "energyexchange.config.pinyin": "Pinyin search (experimental): %s",
-  "energyexchange.config.pinyin_hint": "Off by default. Search Chinese names by full pinyin, initials or mixed syllable prefixes, e.g. myzz or moyingzhenzhu. No REI required; some polyphonic readings may differ.",
+  "energyexchange.config.pinyin_hint": "Off by default. Search Chinese names with full pinyin, initials, mixed Chinese/pinyin, tones or full-width letters. Multiple readings are supported. No REI or network required; this is not typo correction.",
   "energyexchange.error.purchase_count": "Choose 1, 16, 32 or 64, without exceeding the item stack limit.",
   "modmenu.nameTranslation.energyexchange": "Energy Exchange",
   "modmenu.descriptionTranslation.energyexchange": "Turn items into personal Energy, learn them and exchange them back."

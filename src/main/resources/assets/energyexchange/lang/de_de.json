@@ -65,7 +65,7 @@
   "energyexchange.ui.burn_hint": "Wandelt die gesamte Eingabe um und erlernt sie automatisch. Aktive Energieregel und unterstützte Komponenten erforderlich.",
   "energyexchange.ui.price": "Kauf: %s Energie pro Stück",
   "energyexchange.config.pinyin": "Pinyin-Suche (experimentell): %s",
-  "energyexchange.config.pinyin_hint": "Standardmäßig aus. Chinesische Namen per Pinyin, Initialen oder gemischten Silben suchen, z. B. myzz oder moyingzhenzhu. REI nicht nötig; mehrdeutige Lesungen können abweichen.",
+  "energyexchange.config.pinyin_hint": "Standardmäßig aus. Chinesische Namen per Pinyin, Initialen, gemischten Schriftzeichen, Tonzeichen oder Vollbreitzeichen suchen. Mehrere Lesungen unterstützt. Kein REI/Netzwerk nötig; keine Tippfehlerkorrektur.",
   "energyexchange.error.purchase_count": "Wähle 1, 16, 32 oder 64, höchstens jedoch die Stapelgröße des Gegenstands.",
   "modmenu.nameTranslation.energyexchange": "Energieaustausch",
   "modmenu.descriptionTranslation.energyexchange": "Wandle Gegenstände in persönliche Energie um, erlerne sie und kaufe sie zurück."

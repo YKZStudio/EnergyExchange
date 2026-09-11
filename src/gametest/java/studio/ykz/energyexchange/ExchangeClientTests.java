@@ -64,16 +64,24 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.waitTicks(3);
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
-                p.setAttached(EnergyExchange.ACCOUNT, studio.ykz.energyexchange.core.AccountJson.write(new studio.ykz.energyexchange.core.Account(java.math.BigInteger.valueOf(65536), java.util.Set.of("minecraft:dirt", "minecraft:ender_pearl"))));
+                p.setAttached(EnergyExchange.ACCOUNT, studio.ykz.energyexchange.core.AccountJson.write(new studio.ykz.energyexchange.core.Account(java.math.BigInteger.valueOf(65536), java.util.Set.of("minecraft:dirt", "minecraft:ender_pearl", "minecraft:green_wool", "minecraft:mace"))));
                 ExchangeContent.TABLET.use(p.level(), p, InteractionHand.MAIN_HAND);
             });
             context.waitForScreen(ExchangeScreen.class);
             context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
             context.runOnClient(client -> {
                 var screen = (ExchangeScreen) client.gui.screen();
-                for (String query : java.util.List.of("myzz", "moyingzhenzhu", "moyzz", "MO YING ZHEN ZHU")) {
+                for (String query : java.util.List.of("myzz", "moyingzhenzhu", "moyzz", "MO YING ZHEN ZHU", "末影zz", "mo影z珠", "ｍｙｚｚ", "mò yǐng zhēn zhū")) {
                     screen.search(query);
                     if (!screen.visibleKeys().equals(java.util.List.of("minecraft:ender_pearl"))) throw new AssertionError("Pinyin failed: " + query);
+                }
+                for (String query : java.util.List.of("lvse", "lüse", "lǜsè", "lu:se", "ｌｖｓｅ", "绿se")) {
+                    screen.search(query);
+                    if (!screen.visibleKeys().equals(java.util.List.of("minecraft:green_wool"))) throw new AssertionError("Umlaut failed: " + query);
+                }
+                for (String query : java.util.List.of("zhongchui", "chongchui", "重chui")) {
+                    screen.search(query);
+                    if (!screen.visibleKeys().equals(java.util.List.of("minecraft:mace"))) throw new AssertionError("Polyphonic search failed: " + query);
                 }
                 screen.search("myzz"); screen.select("minecraft:ender_pearl");
                 if (screen.canPurchase(64) || screen.canPurchase(32) || !screen.canPurchase(16) || !screen.canPurchase(1)) throw new AssertionError("Pearl stack limits");
@@ -92,6 +100,22 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.runOnClient(client -> client.gui.screen().onClose());
             context.setScreen(() -> new ConfigScreen(null));
             context.takeScreenshot("modmenu-settings-zh_cn");
+            context.runOnClient(client -> new ExchangeConfig(false, true, true, "128", false).save());
+            context.setScreen(() -> null);
+            world.getServer().runOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst(); ExchangeContent.TABLET.use(p.level(), p, InteractionHand.MAIN_HAND);
+            });
+            context.waitForScreen(ExchangeScreen.class);
+            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
+            context.runOnClient(client -> {
+                var screen = (ExchangeScreen) client.gui.screen();
+                screen.search("myzz");
+                if (!screen.visibleKeys().isEmpty()) throw new AssertionError("Disabled pinyin must not affect search");
+                screen.search("末影珍珠");
+                if (!screen.visibleKeys().equals(java.util.List.of("minecraft:ender_pearl"))) throw new AssertionError("Literal search must still work");
+                screen.onClose();
+                client.player.sendOverlayMessage(net.minecraft.network.chat.Component.empty());
+            });
             context.setScreen(() -> null);
             var tablePos = world.getServer().computeOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
