@@ -76,7 +76,8 @@ for f in checkout.glob('src/main/resources/**/data/*/index/blocks/**/*.json'):
     text=re.sub(r'//[^\n]*','',f.read_text()); obj=json.loads(text)
     parts=f.parts;i=parts.index('data');ns=parts[i+1]
     variant=ns+':'+str(f.relative_to(Path(*parts[:i+4]))).removesuffix('.json')
-    values[obj.get('id','tacz:gun_smith_table')+'#'+variant]='4096'
+    item=obj.get('id','tacz:gun_smith_table')
+    values[item if item=='tacz:gun_smith_table' else item+'#'+variant]='4096'
 for kind,item,cost in [('throwable','throwable',2048),('melee','melee',8192),('consumable','consumable',1024)]:
     for f in checkout.glob(f'src/main/resources/**/data/*/index/{kind}/**/*.json'):
         parts=f.parts;i=parts.index('data');ns=parts[i+1]

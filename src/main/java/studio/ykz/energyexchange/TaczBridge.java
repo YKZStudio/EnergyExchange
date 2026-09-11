@@ -36,7 +36,7 @@ final class TaczBridge {
                 builderClass.getMethod("setId", Identifier.class).invoke(builder, entry.getKey());
                 add(output, (ItemStack) builderClass.getMethod("build").invoke(builder), entry.getKey().toString());
             }
-            for (String base : List.of("tacz:modern_kinetic_gun", "tacz:ammo", "tacz:attachment", "tacz:gun_smith_table", "tacz:workbench_a", "tacz:workbench_b", "tacz:workbench_c", "lrtactical:throwable", "lrtactical:melee", "lrtactical:consumable")) output.remove(base);
+            for (String base : List.of("tacz:modern_kinetic_gun", "tacz:ammo", "tacz:attachment", "tacz:workbench_a", "tacz:workbench_b", "tacz:workbench_c", "lrtactical:throwable", "lrtactical:melee", "lrtactical:consumable")) output.remove(base);
             Class<?> lr = Class.forName("me.xjqsh.lrtactical.api.LrTacticalAPI");
             for (String method : List.of("getThrowableIndexes", "getMeleeIndexes", "getConsumableIndexes")) {
                 for (Object index : (Collection<?>) lr.getMethod(method).invoke(null)) {
@@ -50,7 +50,10 @@ final class TaczBridge {
         }
     }
     private static void add(Map<String, ItemStack> output, ItemStack stack, String variant) {
-        String key = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()) + "#" + variant;
+        String base = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
+        // TaCZ's fixed default workbench deliberately has no BlockId tag.
+        // TaCZ 默认工作台固定型号，故意不写 BlockId。
+        String key = base.equals("tacz:gun_smith_table") ? base : base + "#" + variant;
         if (!stack.isEmpty() && key.length() <= 256) output.put(key, stack.copyWithCount(1));
     }
 }

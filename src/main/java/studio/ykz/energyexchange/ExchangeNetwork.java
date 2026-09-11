@@ -54,7 +54,7 @@ public final class ExchangeNetwork {
     public static void handle(ServerPlayer player, Action packet) {
         if (!(player.containerMenu instanceof ExchangeMenu menu) || menu.containerId != packet.menu || menu.nonce != packet.nonce || !menu.stillValid(player)) return;
         long now = player.level().getGameTime();
-        if (menu.lastAction != Long.MIN_VALUE && now - menu.lastAction < 2) { state(player, menu, "", "energyexchange.error.busy"); return; }
+        if (menu.lastAction != Long.MIN_VALUE && now - menu.lastAction < 2) return;
         menu.lastAction = now;
         String learned = "", error = "";
         try {

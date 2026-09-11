@@ -34,7 +34,7 @@ Base paths for this variant format are a single path segment, matching TaCZ/LRTa
 
 ## Defaults and fractional conversion
 
-Bundled `data/energyexchange/energyexchange/defaults.json` maps full item/model keys to positive decimal strings. It has 1,739 explicit keys, including 1,537 vanilla IDs. `salvage.json` maps fractional conversion keys to `["numerator", "denominator"]`. Both files support normal whole-resource pack replacement, with a 2,000,000-character limit; normally prefer small individual override files.
+Bundled `data/energyexchange/energyexchange/defaults.json` maps full item/model keys to positive decimal strings. It has 1,738 explicit keys, including 1,537 vanilla IDs. `salvage.json` maps fractional conversion keys to `["numerator", "denominator"]`. Both files support normal whole-resource pack replacement, with a 2,000,000-character limit; normally prefer small individual override files.
 
 Generated purchase units round up; conversion batches compute `floor(numerator × count / denominator)` using exact integers. A batch yielding zero is rejected without consuming items or learning the identity. Fractions never enter saved balances. Conversion rates cannot exceed purchase prices. If replacing both bulk resources, keep their keys and bounds consistent. A malformed winning rule locks trading; the loader does not silently fall back to a lower pack.
 

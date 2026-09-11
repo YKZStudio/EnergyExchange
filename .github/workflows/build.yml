@@ -55,6 +55,7 @@ jobs:
         run: |
           mkdir -p test-mods
           gh release download 26.2_R3_HOTFIX --repo q14433686-arch/TaCZ_Refabricated_Unofficial --pattern '*.jar' --output test-mods/tacz.jar
+          echo 'ef803b881e3753bc879737c83caf5cbd8f8b9874c115bf547451eb683f3a389a  test-mods/tacz.jar' | sha256sum --check
       - name: TaCZ server integration / TaCZ 服务端集成测试
         run: ./gradlew runGameTest -PwithTacz --no-daemon
       - uses: actions/upload-artifact@v4
@@ -76,13 +77,16 @@ jobs:
         with:
           name: energyexchange-mc26.2
           path: release-artifacts
-      - name: Publish stable release / 发布正式发行版
+      - name: Publish release / 发布发行版
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           version=$(sed -n 's/^version=//p' gradle.properties)
-          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          flags=()
+          if [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+-pre[0-9]+$ ]]; then
+            flags+=(--prerelease)
+          elif [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             exit 0
           fi
           notes="docs/releases/$version.md"
@@ -94,4 +98,4 @@ jobs:
           test -f "release-artifacts/energyexchange-$version.jar"
           gh release create "v$version" \
             "release-artifacts/energyexchange-$version.jar" "$notes" \
-            --target "$GITHUB_SHA" --title "Energy Exchange $version" --notes-file "$notes"
+            --target "$GITHUB_SHA" --title "Energy Exchange $version" --notes-file "$notes" "${flags[@]}"
