@@ -26,10 +26,11 @@ public final class ExchangeService {
     }
 
     public static ValueRule heldRule(ServerPlayer player) {
+        if (!input(player).getItem().isEnabled(player.level().enabledFeatures())) throw new IllegalArgumentException("energyexchange.error.no_value");
         return EnergyExchange.RULES.require(Catalog.identify(input(player)));
     }
 
-    private static ItemStack input(ServerPlayer player) {
+    static ItemStack input(ServerPlayer player) {
         return player.containerMenu instanceof ExchangeMenu menu ? menu.input.getItem(0) : player.getMainHandItem();
     }
 
@@ -87,7 +88,8 @@ public final class ExchangeService {
         EnergyExchange.RULES.checkReady();
         if (!ExchangeConfig.server.xpEnabled()) throw new IllegalArgumentException("energyexchange.error.xp_disabled");
         if (points < 1 || points > 1000 || player.totalExperience < 0 || player.totalExperience > Integer.MAX_VALUE - points
-                || player.experienceLevel > 10000) throw new IllegalArgumentException("energyexchange.error.xp_limit");
+                || player.experienceLevel < 0 || player.experienceLevel > 10000
+                || !Float.isFinite(player.experienceProgress) || player.experienceProgress < 0 || player.experienceProgress >= 1) throw new IllegalArgumentException("energyexchange.error.xp_limit");
         var previous = account(player);
         var cost = studio.ykz.energyexchange.core.Energy.total(studio.ykz.energyexchange.core.Energy.parse(ExchangeConfig.server.xpCost()), points);
         if (previous.energy().compareTo(cost) < 0) throw new IllegalArgumentException("energyexchange.error.insufficient");

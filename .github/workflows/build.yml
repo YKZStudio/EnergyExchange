@@ -37,7 +37,8 @@ jobs:
             build/reports/
             build/test-results/
             build/run/gameTest/logs/
-            build/run/clientGameTest/
+            build/run/clientGameTest/logs/
+            build/run/clientGameTest/screenshots/
   tacz:
     runs-on: ubuntu-latest
     timeout-minutes: 20

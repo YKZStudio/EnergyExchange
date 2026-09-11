@@ -237,7 +237,8 @@ public final class ExchangeGameTests {
         for (var entry : Catalog.entries().entrySet()) {
             if (!entry.getKey().contains("#")) continue;
             families.add(entry.getKey().split("#")[0]); variants++;
-            helper.assertTrue(Catalog.identify(entry.getValue()).equals(entry.getKey()), "Prototype identity / 模板身份: " + entry.getKey());
+            try { helper.assertTrue(Catalog.identify(entry.getValue()).equals(entry.getKey()), "Prototype identity / 模板身份: " + entry.getKey()); }
+            catch (IllegalArgumentException e) { helper.fail("Prototype identity failed / 模板身份失败: " + entry.getKey() + " components=" + entry.getValue().getComponents() + " reason=" + e.getMessage()); }
             helper.assertTrue(EnergyExchange.RULES.require(entry.getKey()).value().signum() > 0, "Variant priced / 型号定价: " + entry.getKey());
         }
         helper.assertTrue(variants > 100 && families.containsAll(Set.of("tacz:modern_kinetic_gun", "tacz:ammo", "tacz:attachment", "lrtactical:throwable", "lrtactical:melee", "lrtactical:consumable")),

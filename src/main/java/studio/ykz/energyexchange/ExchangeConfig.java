@@ -18,6 +18,10 @@ public record ExchangeConfig(boolean showUnlearned, boolean compactNumbers, bool
         try {
             if (Files.size(PATH) > 4096) throw new IllegalArgumentException();
             var j = StrictJson.parse(Files.readString(PATH)).getAsJsonObject();
+            if (!j.keySet().equals(java.util.Set.of("showUnlearned", "compactNumbers", "xpEnabled", "xpCost"))) throw new IllegalArgumentException();
+            for (String field : java.util.List.of("showUnlearned", "compactNumbers", "xpEnabled"))
+                if (!j.get(field).isJsonPrimitive() || !j.getAsJsonPrimitive(field).isBoolean()) throw new IllegalArgumentException();
+            if (!j.get("xpCost").isJsonPrimitive() || !j.getAsJsonPrimitive("xpCost").isString()) throw new IllegalArgumentException();
             return new ExchangeConfig(j.get("showUnlearned").getAsBoolean(), j.get("compactNumbers").getAsBoolean(),
                     j.get("xpEnabled").getAsBoolean(), j.get("xpCost").getAsString());
         } catch (Exception e) { throw new IllegalStateException("Invalid config / 配置无效: " + PATH, e); }

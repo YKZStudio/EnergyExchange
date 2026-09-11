@@ -50,6 +50,7 @@ final class TaczBridge {
         }
     }
     private static void add(Map<String, ItemStack> output, ItemStack stack, String variant) {
-        if (!stack.isEmpty()) output.put(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()) + "#" + variant, stack.copyWithCount(1));
+        String key = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(stack.getItem()) + "#" + variant;
+        if (!stack.isEmpty() && key.length() <= 256) output.put(key, stack.copyWithCount(1));
     }
 }
