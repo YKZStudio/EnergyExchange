@@ -40,9 +40,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         burn = button(8, 84, 88, "ui.burn", () -> send(1, "", 0));
         burn.setTooltip(Tooltip.create(Messages.text("ui.burn_hint")));
         xp = button(8, 106, 88, "ui.xp", () -> send(4, "", 10));
-        browse = button(8, 35, 88, showAll ? "ui.all" : "ui.learned_only", () -> {
-            showAll = !showAll; page = 0; browse.setMessage(Messages.text(showAll ? "ui.all" : "ui.learned_only")); filter();
-        });
+        browse = button(8, 35, 88, showAll ? "ui.all" : "ui.learned_only", this::toggleBrowse);
         for (int i = 0; i < 24; i++) {
             final int index = i;
             cells.add(button(106 + (i % 8) * 23, 58 + (i / 8) * 18, 22, "", () -> {
@@ -59,6 +57,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         filter(); send(0, "", 0);
     }
     boolean isReady() { return state != null && !waiting && !catalog.isEmpty(); }
+    void toggleBrowse() { showAll = !showAll; page = 0; browse.setMessage(Messages.text(showAll ? "ui.all" : "ui.learned_only")); filter(); }
     void select(String key) { selected = key; updateButtons(); }
     void search(String query) { search.setValue(query); }
     List<String> visibleKeys() { return filtered.stream().map(ExchangeNetwork.Entry::key).toList(); }
@@ -90,6 +89,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
                 .filter(e -> e.key().contains(query) || e.stack().getHoverName().getString().toLowerCase(Locale.ROOT).contains(query)
                         || config.pinyinSearch() && studio.ykz.energyexchange.core.PinyinSearch.matches(e.stack().getHoverName().getString(), query))
                 .sorted(Comparator.comparing(ExchangeNetwork.Entry::learned).reversed().thenComparing(e -> e.stack().getHoverName().getString()).thenComparing(ExchangeNetwork.Entry::key)).toList();
+        if (filtered.stream().noneMatch(e -> e.key().equals(selected))) selected = "";
         page = Math.min(page, Math.max(0, (filtered.size() - 1) / 24)); updateButtons();
     }
     private void updateButtons() {
@@ -106,7 +106,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         if (state != null) xp.setTooltip(Tooltip.create(Messages.text("ui.xp_price", state.xpCost())));
         previous.active = page > 0; next.active = (page + 1) * 24 < filtered.size();
         for (int i = 0; i < cells.size(); i++) {
-            int actual = page * 24 + i; Button cell = cells.get(i); cell.active = actual < filtered.size();
+            int actual = page * 24 + i; Button cell = cells.get(i); cell.active = actual < filtered.size(); cell.visible = cell.active;
             if (cell.active) {
                 var e = filtered.get(actual);
                 cell.setTooltip(Tooltip.create(Component.empty().append(e.stack().getHoverName()).append("\n" + e.key() + "\n").append(Messages.text("ui.price", e.value())).append("\n")
@@ -134,6 +134,12 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         g.fill(x, y, x + imageWidth, y + imageHeight, 0xFF373737);
         g.fill(x + 1, y + 1, x + imageWidth - 1, y + imageHeight - 1, 0xFFFFFFFF);
         g.fill(x + 3, y + 3, x + imageWidth - 3, y + imageHeight - 3, 0xFFC6C6C6);
+        if (!filtered.isEmpty()) for (int i = 0; i < 24; i++) {
+            int cx = x + 108 + i % 8 * 23, cy = y + 58 + i / 8 * 18;
+            g.fill(cx, cy, cx + 18, cy + 18, 0xFFFFFFFF);
+            g.fill(cx, cy, cx + 17, cy + 17, 0xFF373737);
+            g.fill(cx + 1, cy + 1, cx + 17, cy + 17, 0xFF8B8B8B);
+        }
         for (var slot : menu.slots) {
             g.fill(x + slot.x - 1, y + slot.y - 1, x + slot.x + 17, y + slot.y + 17, 0xFFFFFFFF);
             g.fill(x + slot.x - 1, y + slot.y - 1, x + slot.x + 16, y + slot.y + 16, 0xFF373737);

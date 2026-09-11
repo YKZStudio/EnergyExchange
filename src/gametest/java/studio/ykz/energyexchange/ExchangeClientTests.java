@@ -29,6 +29,9 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.runOnClient(client -> {
                 var screen = (ExchangeScreen) client.gui.screen();
                 if (!screen.visibleKeys().equals(java.util.List.of("minecraft:dirt"))) throw new AssertionError("Conversion must automatically learn and show the input");
+                screen.toggleBrowse();
+                if (screen.visibleKeys().size() < 2 || !screen.visibleKeys().getFirst().equals("minecraft:dirt")) throw new AssertionError("All view must sort learned items first");
+                screen.toggleBrowse();
                 screen.select("minecraft:dirt");
             });
             context.takeScreenshot("transmutation-en_us");
@@ -100,11 +103,10 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             });
             context.runOnClient(client -> {
                 client.player.setPos(tablePos.getX() + .5, tablePos.getY(), tablePos.getZ() - 2.5);
-                client.player.setYRot(0); client.player.setXRot(30); client.options.hideGui = true;
+                client.player.setYRot(0); client.player.setXRot(30);
             });
             context.waitTicks(20);
             context.takeScreenshot("transmutation-table-model");
-            context.runOnClient(client -> client.options.hideGui = false);
 
         }
     }
