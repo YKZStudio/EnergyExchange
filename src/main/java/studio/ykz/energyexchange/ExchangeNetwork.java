@@ -68,8 +68,11 @@ public final class ExchangeNetwork {
                 }
                 switch (packet.action) {
                     case 1 -> { learned = Catalog.identify(menu.input.getItem(0)); ExchangeService.burn(player, menu.input.getItem(0).getCount()); }
-                    case 2 -> { learned = Catalog.identify(menu.input.getItem(0)); ExchangeService.learn(player); }
-                    case 3 -> ExchangeService.buy(player, packet.key, packet.count);
+                    case 3 -> {
+                        if (!studio.ykz.energyexchange.core.PurchaseQuantity.allowed(packet.count, Catalog.sample(packet.key).getMaxStackSize()))
+                            throw new IllegalArgumentException("energyexchange.error.purchase_count");
+                        ExchangeService.buy(player, packet.key, packet.count);
+                    }
                     case 4 -> ExchangeService.buyExperience(player, packet.count);
                     default -> throw new IllegalArgumentException("energyexchange.error.count");
                 }

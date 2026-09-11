@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "id": "energyexchange",
   "version": "${version}",
-  "name": "Energy Exchange / 能量交换",
-  "description": "Turn items into personal energy, learn them and exchange them back. / 将物品转化为个人能量，学习并兑换物品。",
+  "name": "Energy Exchange",
+  "description": "Turn items into personal Energy, learn them and exchange them back.",
   "authors": [
     "YKZStudio"
   ],

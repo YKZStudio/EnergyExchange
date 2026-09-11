@@ -1,6 +1,6 @@
 # Development and validation
 
-[简体中文](DEVELOPMENT.zh-CN.md) · [Home](../README.en.md)
+[简体中文](DEVELOPMENT_zh-CN.md) · [Home](../README.md)
 
 ## Toolchain
 
@@ -61,3 +61,7 @@ For optional integration, download the pinned TaCZ 26.2 R3-hotfix runtime JAR in
 Manual remaining scenarios: Chinese font/GUI scaling on real hardware; simultaneous real users; TaCZ attachment removal and third-party gun packs; crashes during world saves; economics of extra machine/recipe packs. Automated tests do not replace those checks.
 
 Stable releases from main attach the runtime JAR and matching bilingual `docs/releases/<version>.md`; assets are never overwritten silently.
+
+## pre2
+
+Adds pinyin full/initial/mixed matching and quantity tests plus real-client forged-purchase checks. `tools/generate_table_assets.py` uses Pillow to reproduce the original textures and model. All ten locales have matching-key and placeholder checks.

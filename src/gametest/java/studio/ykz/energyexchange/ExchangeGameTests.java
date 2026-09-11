@@ -50,6 +50,25 @@ public final class ExchangeGameTests {
     }
 
     @GameTest
+    public void pre1SettingsMigration(GameTestHelper helper) throws Exception {
+        var path = ExchangeConfig.PATH;
+        byte[] previous = java.nio.file.Files.exists(path) ? java.nio.file.Files.readAllBytes(path) : null;
+        try {
+            java.nio.file.Files.createDirectories(path.getParent());
+            java.nio.file.Files.writeString(path, "{\"showUnlearned\":true,\"compactNumbers\":false,\"xpEnabled\":false,\"xpCost\":\"256\"}");
+            var config = ExchangeConfig.load();
+            helper.assertTrue(!config.showUnlearned() && !config.pinyinSearch() && !config.compactNumbers() && !config.xpEnabled() && config.xpCost().equals("256"), "Legacy settings migration");
+            new ExchangeConfig(true, false, false, "256", true).save();
+            var saved = ExchangeConfig.load();
+            helper.assertTrue(saved.showUnlearned() && saved.pinyinSearch() && saved.xpCost().equals("256"), "New settings round trip");
+            helper.assertTrue(ExchangeContent.TABLE.defaultBlockState().getShape(helper.getLevel(), net.minecraft.core.BlockPos.ZERO).max(net.minecraft.core.Direction.Axis.Y) == 3.0 / 16, "Table collision matches low model");
+        } finally {
+            if (previous == null) java.nio.file.Files.deleteIfExists(path); else java.nio.file.Files.write(path, previous);
+        }
+        helper.succeed();
+    }
+
+    @GameTest
     public void commandsAndIsolatedWallets(GameTestHelper helper) throws Exception {
         var first = player(helper);
         var second = player(helper);

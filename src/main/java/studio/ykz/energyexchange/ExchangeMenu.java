@@ -17,9 +17,9 @@ public final class ExchangeMenu extends AbstractContainerMenu {
     long catalogRevision = -1;
     public ExchangeMenu(int id, Inventory inventory, long nonce, BlockPos position, int anchor) {
         super(ExchangeContent.MENU, id); this.nonce = nonce; this.position = position; this.anchor = anchor;
-        addSlot(new Slot(input, 0, 29, 60));
-        for (int row = 0; row < 3; row++) for (int col = 0; col < 9; col++) addPlayerSlot(inventory, col + row * 9 + 9, 57 + col * 18, 151 + row * 18);
-        for (int col = 0; col < 9; col++) addPlayerSlot(inventory, col, 57 + col * 18, 209);
+        addSlot(new Slot(input, 0, 43, 60));
+        for (int row = 0; row < 3; row++) for (int col = 0; col < 9; col++) addPlayerSlot(inventory, col + row * 9 + 9, 69 + col * 18, 151 + row * 18);
+        for (int col = 0; col < 9; col++) addPlayerSlot(inventory, col, 69 + col * 18, 209);
     }
     private void addPlayerSlot(Inventory inventory, int index, int x, int y) {
         addSlot(new Slot(inventory, index, x, y) {

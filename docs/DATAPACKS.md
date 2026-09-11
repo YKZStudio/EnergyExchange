@@ -1,6 +1,6 @@
 # Data-pack rules
 
-[简体中文](DATAPACKS.zh-CN.md) · [Home](../README.en.md)
+[简体中文](DATAPACKS_zh-CN.md) · [Home](../README.md)
 
 ## Item overrides
 
