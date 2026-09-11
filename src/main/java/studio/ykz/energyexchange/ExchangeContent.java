@@ -21,7 +21,10 @@ import net.minecraft.world.phys.BlockHitResult;
 public final class ExchangeContent {
     private static Identifier id(String path) { return Identifier.fromNamespaceAndPath(EnergyExchange.ID, path); }
     public static final Block TABLE = Registry.register(BuiltInRegistries.BLOCK, id("transmutation_table"),
-            new Block(BlockBehaviour.Properties.of().strength(3.5F).setId(ResourceKey.create(Registries.BLOCK, id("transmutation_table")))) {
+            new Block(BlockBehaviour.Properties.of().strength(3.5F).noOcclusion().setId(ResourceKey.create(Registries.BLOCK, id("transmutation_table")))) {
+                @Override protected net.minecraft.world.phys.shapes.VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, net.minecraft.world.phys.shapes.CollisionContext context) {
+                    return Block.box(0, 0, 0, 16, 3, 16);
+                }
                 @Override protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
                     if (player instanceof ServerPlayer server) open(server, pos, -1);
                     return InteractionResult.SUCCESS;

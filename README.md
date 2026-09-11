@@ -1,78 +1,82 @@
-# Energy Exchange · 能量交换
+# Energy Exchange
 
-[English](README.en.md) · [更新日志](docs/releases/0.2.0-pre1.md) · [数据包](docs/DATAPACKS.zh-CN.md) · [开发与验收](docs/DEVELOPMENT.zh-CN.md)
+[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.2.0-pre2.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
 
-面向 **Minecraft Java 26.2 + Fabric** 的独立能量交换模组。受等价交换玩法启发，未使用 ProjectE 代码或素材，也不是官方移植。
+An independent energy-exchange mod for **Minecraft Java 26.2 + Fabric**, inspired by equivalent exchange. It is not an official ProjectE port and includes no ProjectE code or assets.
 
-**0.2.0-pre1：物品 → 个人 Energy 与知识 → 转化桌购买物品或经验。**
+**0.2.0-pre2: items → personal Energy and knowledge → table purchases of items or XP.**
 
-## 安装
+## Install
 
-- Java 25、Minecraft 26.2、Fabric Loader 0.19.5+、Fabric API 0.159.0+26.2。
-- 客户端和服务端都安装本模组及 Fabric API；0.2 的方块、物品和界面需要双端安装。
-- 可选：Mod Menu 20.0.2；TaCZ Refabricated 26.2 R3-hotfix 及其 Forge Config API Port 26.2.1 依赖。TaCZ 需双端安装相同版本及枪包。
-- 下载发行版的 `energyexchange-0.2.0-pre1.jar` 放入 `mods`，不要安装 `-sources.jar`。语言支持简体中文与 English (US)。
-- 当前兼容范围为 `~26.2`；后续 26.3+ 重新验证后再扩大范围。
-- 0.1 玩家账户直接保留，余额不缩放、知识不重置。升级前备份世界；0.2 的新物品和变体知识不支持直接降级到 0.1。
+- Java 25, Minecraft 26.2, Fabric Loader 0.19.5+, Fabric API 0.159.0+26.2.
+- Install this mod and Fabric API on both client and server. The 0.2 blocks, items and menus require both sides.
+- Optional: Mod Menu 20.0.2; TaCZ Refabricated 26.2 R3-hotfix with Forge Config API Port 26.2.1. Use matching TaCZ versions and gun packs on both sides.
+- Put `energyexchange-0.2.0-pre2.jar` in `mods`, not the sources JAR. English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese and Russian are included. The in-game name follows the selected language; Mod Menu uses its standard translated-name setting.
+- Compatibility is `~26.2`; later series require fresh validation.
+- Existing 0.1 balances and knowledge are retained without scaling or reset. Back up the world before upgrading; 0.2 items and variant knowledge do not support direct downgrade to 0.1.
 
-## 合成与使用
+## Craft and trade
 
-两种物品均在工作台使用 **3×3 原版材料配方**，无需 OP 或作弊。
+Both recipes use a crafting table and **3×3 vanilla ingredients**. No OP or cheats are required.
 
-| 转化桌 | 第 1 列 | 第 2 列 | 第 3 列 |
+| Table | Column 1 | Column 2 | Column 3 |
 | --- | --- | --- | --- |
-| 第 1 行 | 黑曜石 | 钻石 | 黑曜石 |
-| 第 2 行 | 红石粉 | 钻石 | 红石粉 |
-| 第 3 行 | 黑曜石 | 钻石 | 黑曜石 |
+| Row 1 | Obsidian | Diamond | Obsidian |
+| Row 2 | Redstone dust | Diamond | Redstone dust |
+| Row 3 | Obsidian | Diamond | Obsidian |
 
-| 便携转化桌 | 第 1 列 | 第 2 列 | 第 3 列 |
+| Tablet | Column 1 | Column 2 | Column 3 |
 | --- | --- | --- | --- |
-| 第 1 行 | 黑曜石 | 金锭 | 黑曜石 |
-| 第 2 行 | 金锭 | 钻石 | 金锭 |
-| 第 3 行 | 黑曜石 | 金锭 | 黑曜石 |
+| Row 1 | Obsidian | Gold ingot | Obsidian |
+| Row 2 | Gold ingot | Diamond | Gold ingot |
+| Row 3 | Obsidian | Gold ingot | Obsidian |
 
-放置转化桌后右键，或在主手/副手使用便携转化桌。界面左侧是输入格，右侧是个人交易目录，下方是背包。
+Use the placed table, or use a tablet in either hand. The input is on the left, the personal catalog on the right, and inventory below.
 
-1. 把普通物品放入输入格，点「全部转化」：整堆变为 Energy，并自动学会该物品。
-2. 「学习一个」消耗一个样本，仅学习，不产生 Energy；已经学会时不重复消耗。
-3. 按本地化名称或 ID 搜索物品，选中后购买 1 个或一组；灰色表示尚未学会。悬浮提示显示精确价格和转化收益。
-4. 「购买10经验」购买 **10 个经验点，不是 10 级**。默认每经验点 128 Energy，由服务端设置决定。
-5. 关闭界面自动返还输入格。桌子本身没有公共储物空间，其他玩家不能访问你的钱包或输入。
+1. Insert items and press **Convert all** to consume the entire input stack, earn Energy and learn its identity.
+2. The catalog initially shows learned items. Switch to **All items** to browse unknown items; learned entries stay first. The separate learning button has been removed.
+3. Search by localized name or ID, select an entry and choose **Buy: 64 / 32 / 16 / 1**. Quantities exceeding the item stack limit or your balance are disabled. Ender pearls allow 16 or 1; non-stackable items allow 1. Gray entries are not learned. Tooltips show exact prices and yields.
+4. **Buy 10 XP** awards ten experience points, not levels. Default: 128 Energy per point, controlled by the server.
+5. Closing returns the input. Tables have no shared storage; each player's wallet and input are private.
 
-仅存活的生存/冒险玩家可交易。放置版要求仍在桌子 8 格范围内；便携版打开期间锁定所在背包槽，切换手持物品或失去桌子后交易失效。
+Only living survival/adventure players can trade. A placed table must exist within eight blocks. A tablet's inventory slot is locked while open; changing the selected slot or losing the tablet invalidates trading.
 
-## 定价与兼容
+## Prices and compatibility
 
-- 为 26.2 的全部 **1,537 个原版物品 ID** 分配正数购买价格；包含非生存物品，但它们同样需要先获得样本并学习，不会直接解锁。
-- TaCZ 枪型、弹种、配件、工作台和内置 LRTactical 物品按具体型号区分。额外枪包的已加载型号使用相应基础物品的后备价格，可用数据包逐型号覆盖。
-- 默认值由 `tools/generate_values.py` 生成，包含原版普通合成、烧炼、切石及锻造配方约束。购买单价向上取整，非整数转化收益整批向下取整；不足 1 Energy 时拒绝并返还原输入。例如半块材料不会凭空变成一整点能量。
-- 这是预发布平衡方案，不是所有模组机器、交易、特殊合成和枪包的经济证明。服主应审查整合包新增配方，并按需覆盖或禁用规则。存量 0.1 价格可能因配方约束调整，个人余额不改变。
-- 原版仅支持默认组件。命名、附魔、磨损、写入内容的书、非默认药水、装物品的容器等拒绝转化/学习，不会悄悄丢失内容。
-- TaCZ 只支持安全的标准型号物品；枪械须清空弹药和膛内子弹、卸下配件，且不能有自定义外观、虚拟弹药或其他额外数据。购买生成空枪，不复制枪内物资。射击模式差异和已清零的常规运行状态可接受。
+- Positive purchase prices for all **1,537 vanilla item IDs** in 26.2. Non-survival items still require an obtained and learned sample; they are not automatically unlocked.
+- TaCZ guns, ammunition, attachments, workbenches and bundled LRTactical items use model-specific identities. Loaded additional gun-pack models receive their base item's fallback value, with per-model data-pack overrides available.
+- `tools/generate_values.py` generates defaults constrained by ordinary vanilla crafting, smelting, stonecutting and smithing recipes. Purchase units round up; fractional conversion yields round down once per batch. Batches worth less than one Energy are rejected without consuming items.
+- This is a prerelease balance baseline, not a proof for every machine, villager trade, special recipe or gun pack. Pack authors should audit additions and override or disable values. Some 0.1 item prices change under the recipe constraints; saved balances do not.
+- Vanilla items require default components. Renamed, enchanted, damaged, written-content, non-default potion and filled-container variants are rejected without losing contents.
+- TaCZ uses standard safe model prototypes. Unload guns and their chamber, remove attachments, and remove custom appearances, dummy ammunition and other extra data before conversion. Purchases produce empty guns. Fire-selector changes and cleared ordinary runtime state are harmless and accepted.
 
-## 设置与数据包
+## Settings and data packs
 
-Mod Menu → Energy Exchange → 设置：显示未学物品、简写大数、经验购买开关、每经验点价格。
+Mod Menu → Energy Exchange → Configure controls unlearned entries, compact numbers, experimental pinyin search, XP enablement and cost per point.
 
-前两项是客户端偏好；经验设置写入本机 `config/energyexchange.json`，**下次启动世界/服务端生效**。多人游戏使用服务器的配置，客户端不能更改服主价格。专服编辑同一配置文件后重启。大数悬浮提示和 `/ee balance` 始终显示精确整数。
+Pinyin search is **off by default**. Enable it to find Simplified Chinese display names using full pinyin, initials or mixed syllable prefixes: `moyingzhenzhu`, `myzz`, `moyzz` all find 末影珍珠. Case and spaces are ignored. REI is not required. This is phonetic prefix matching, not typo correction; some polyphonic characters use a default reading. Searches use the current localized item name.
 
-[数据包文档](docs/DATAPACKS.zh-CN.md)包括物品禁用、价格覆盖、TaCZ 变体路径及 `/reload` 行为。
+Existing four-field pre1 settings migrate with pinyin off and the initial catalog set to learned-only. XP settings and compact-number preferences are preserved. Balances and learned items are unchanged.
 
-## 命令与保护
+Display preferences are client-side. XP settings are local defaults saved in `config/energyexchange.json`, applied **at the next world/server start**. Multiplayer uses the server owner's configuration; clients cannot change server prices. Dedicated servers edit the same file and restart. Number tooltips and `/ee balance` always show exact integers.
 
-仍支持 `/ee help`、`value`、`balance`、`list [页码]`、`learn`、`burn [数量|all]`、`buy <物品ID> [数量]`。例如 `/ee buy tacz:modern_kinetic_gun#tacz:ak47 1`。在转化界面中，转化/学习操作针对输入格；关闭界面时针对主手。其他容器打开时禁止交易。
+See [data-pack documentation](docs/DATAPACKS.md) for item/variant overrides, disabled rules and `/reload`.
 
-- Energy 为 `0` 至 `10^128−1` 的精确整数；溢出整笔拒绝。
-- 服务端检查当前菜单、会话标识、请求序号、规则版本、距离、模式、知识、价格与库存；客户端不提交余额或物品堆。过期报价要求刷新，重复请求不会重复结算。
-- 购买 1–2304 个物品前模拟全部背包插入，空间不足不扣费、不掉落、不部分发货。不写入盔甲或副手。
-- 账户保留死亡/重生、换维度、正常重启。最多 4,096 条知识，序列化长度上限 60,000 字符；全原版知识可以保存。损坏/未来格式锁定交易并保留原数据。
-- 数据包重载期间暂停交易；失败持续锁定，修正并成功 `/reload` 后恢复。被禁用物品的已有知识保留。
-- 遵循 Minecraft 正常存档时机；断电或进程异常退出可能回滚到上次存档。管理员和其他模组对玩家数据的直接修改不在本模组的事务控制范围内。
+## Commands and protections
 
-## 构建与发行
+`/ee help`, `value`, `balance`, `list [page]`, `learn`, `burn [count|all]`, and `buy <itemID> [count]` remain available. Example: `/ee buy tacz:modern_kinetic_gun#tacz:ak47 1`. Inside this menu, conversion/learning uses the input; otherwise it uses the main hand. Other open containers block trading.
 
-`./gradlew build` 运行编译、单元测试和专服游戏测试；`xvfb-run -a ./gradlew runClientGameTest` 在 Linux 验证客户端交易界面。Windows 使用 `gradlew.bat`。
+- Exact integer balances from zero through `10^128−1`; overflow rejects the whole transaction.
+- Server validation covers menu identity, session nonce, request sequence, rule revision, distance, game mode, knowledge, price and inventory. Clients supply neither stacks nor balances. Stale quotes refresh; duplicate requests do not settle twice.
+- Command purchases of 1–2304 items simulate all inventory insertion before committing. Insufficient space means no debit, partial delivery or dropped purchase. Armor and offhand are excluded.
+- Accounts persist across death/respawn, dimensions and normal restarts. Maximum 4,096 learned keys and 60,000 serialized characters; all vanilla identities fit. Corrupt/future account data locks trading without reset.
+- Trading pauses during resource reload; failure remains locked until a successful reload. Disabled identities remain learned.
+- Persistence follows Minecraft saves, so power loss or process crashes can roll back to the last save. Direct administrator/other-mod mutations are outside this mod's transaction control.
 
-每个正式版本都发布 GitHub Release，包含运行 JAR 与双语更新日志；已有资产不静默替换。参见 [0.1.0 正式版](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0)。
+## Build and releases
 
-MIT 许可证。TaCZ 适配独立实现，只调用公开 API，未捆绑其代码或素材。
+`./gradlew build` compiles and runs unit/server GameTests. `xvfb-run -a ./gradlew runClientGameTest` tests the client trading flow on Linux. On Windows use `gradlew.bat`.
+
+Every stable version receives a GitHub Release containing its runtime JAR and bilingual changelog. Existing assets are never silently replaced. [0.1.0 release](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0).
+
+MIT licensed. Bundled pinyin dependencies retain their own licenses; see [third-party notices](THIRD_PARTY_NOTICES.md). The TaCZ adapter is independently implemented against public APIs; no upstream code or assets are bundled.

@@ -1,6 +1,6 @@
 # 数据包规则
 
-[English](DATAPACKS.en.md) · [首页](../README.md)
+[English](DATAPACKS.md) · [首页](../README_zh-CN.md)
 
 ## 物品覆盖
 

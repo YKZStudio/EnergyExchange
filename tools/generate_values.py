@@ -13,7 +13,12 @@ anchors = dict(cobblestone=1, dirt=1, stone=1, gravel=1, sand=1, netherrack=1,
                rotten_flesh=1, oak_log=32, oak_planks=8, stick=4, coal=128,
                charcoal=128, iron_ingot=256, gold_ingot=2048, diamond=8192,
                emerald=16384, redstone=64, lapis_lazuli=256, quartz=256,
-               copper_ingot=128, gunpowder=192, netherite_ingot=65536)
+               copper_ingot=128, gunpowder=192, netherite_ingot=65536,
+               ancient_debris=16384, netherite_scrap=16384, nether_gold_ore=2048,
+               gilded_blackstone=2048, ender_pearl=1024, blaze_rod=1536,
+               blaze_powder=768, ender_eye=1792, obsidian=64,
+               bucket=768, water_bucket=768, milk_bucket=784, lava_bucket=832,
+               golden_apple=16448, golden_carrot=1872)
 
 def price(name):
     if name in anchors: return anchors[name]
@@ -25,6 +30,9 @@ def price(name):
         if name.startswith(material+'_'):
             for kind, n in [('pickaxe',3),('axe',3),('sword',2),('shovel',1),('hoe',2),('helmet',5),('chestplate',8),('leggings',7),('boots',4)]:
                 if name.endswith('_'+kind): return cost*n+8
+            if name.endswith('_horse_armor'): return cost*7
+            if name.endswith('_nautilus_armor'): return cost*6
+            if name.endswith('_spear'): return cost+8
     for material,cost in [('netherite',65536),('diamond',8192),('gold',2048),('iron',256),('copper',128),('emerald',16384),('coal',128),('redstone',64),('lapis',256)]:
         if name==material+'_block': return cost*9
         if name==material+'_nugget': return max(1,cost//9)
@@ -117,11 +125,17 @@ with zipfile.ZipFile(sys.argv[1]) as jar:
     for iteration in range(128):
         changed=False
         for output,count,groups in recipes:
-            cost=sum(min(rates[k] for k in group) for group in groups)/count
+            # Solve self-copy recipes algebraically (e.g. smithing templates).
+            # 对包含自身的复制配方直接求解，避免无限逼近。
+            self_inputs=sum(group == {output} for group in groups)
+            if count <= self_inputs: continue
+            cost=sum(min(rates[k] for k in group) for group in groups if group != {output})/(count-self_inputs)
             if 0 < cost < rates[output]: rates[output]=cost;changed=True
         if not changed: break
     else: raise RuntimeError('Recipe prices did not converge / 配方价格未收敛')
-for key,rate in rates.items(): values[key]=str(ceil(rate))
+for key,rate in rates.items():
+    if rate <= 0 or max(len(str(rate.numerator)),len(str(rate.denominator))) > 128: raise ValueError('Invalid generated rate: '+key)
+    values[key]=str(ceil(rate))
 salvage={key:[str(rate.numerator),str(rate.denominator)] for key,rate in sorted(rates.items()) if rate.denominator!=1}
 (ROOT/'src/main/resources/data/energyexchange/energyexchange/salvage.json').write_text(json.dumps(salvage,indent=2)+'\n')
 target=ROOT/'src/main/resources/data/energyexchange/energyexchange/defaults.json'

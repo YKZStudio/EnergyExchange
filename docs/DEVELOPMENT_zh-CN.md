@@ -1,6 +1,6 @@
 # 开发与验证
 
-[English](DEVELOPMENT.en.md) · [返回首页](../README.md)
+[English](DEVELOPMENT.md) · [返回首页](../README_zh-CN.md)
 
 ## 工具链
 
@@ -61,3 +61,7 @@ JUnit 覆盖完整纯逻辑闭环、大于浮点精度/long 范围的余额、�
 仍需人工验收：真实设备上的中文字体与界面缩放、多位真实玩家同时操作、TaCZ 拆装配件及第三方枪包、存档过程异常退出、额外机器/配方的经济平衡。自动测试不替代这些检查。
 
 main 上每个正式版本附带运行 JAR 与对应双语 `docs/releases/<版本>.md`，已有资产不能静默覆盖。
+
+## pre2
+
+新增拼音全拼／首字母／混拼、堆叠限制单元测试和真实客户端伪造购买检查。`tools/generate_table_assets.py` 使用 Pillow 可重复生成原创贴图与模型。所有八种语言的键和占位符通过一致性检查。

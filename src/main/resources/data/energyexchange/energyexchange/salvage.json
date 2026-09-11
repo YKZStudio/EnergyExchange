@@ -203,10 +203,6 @@
     "3",
     "8"
   ],
-  "minecraft:gold_nugget": [
-    "64",
-    "9"
-  ],
   "minecraft:gray_carpet": [
     "64",
     "3"
@@ -374,10 +370,6 @@
   "minecraft:magenta_stained_glass_pane": [
     "3",
     "2"
-  ],
-  "minecraft:magma_cream": [
-    "352",
-    "9"
   ],
   "minecraft:mangrove_fence": [
     "40",

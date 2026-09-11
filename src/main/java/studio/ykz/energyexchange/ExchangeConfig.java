@@ -6,8 +6,8 @@ import studio.ykz.energyexchange.core.StrictJson;
 import java.nio.file.*;
 import java.math.BigInteger;
 
-public record ExchangeConfig(boolean showUnlearned, boolean compactNumbers, boolean xpEnabled, String xpCost) {
-    public static final ExchangeConfig DEFAULT = new ExchangeConfig(true, true, true, "128");
+public record ExchangeConfig(boolean showUnlearned, boolean compactNumbers, boolean xpEnabled, String xpCost, boolean pinyinSearch) {
+    public static final ExchangeConfig DEFAULT = new ExchangeConfig(false, true, true, "128", false);
     public static ExchangeConfig server = DEFAULT;
     public static final Path PATH = FabricLoader.getInstance().getConfigDir().resolve("energyexchange.json");
     public ExchangeConfig {
@@ -18,12 +18,14 @@ public record ExchangeConfig(boolean showUnlearned, boolean compactNumbers, bool
         try {
             if (Files.size(PATH) > 4096) throw new IllegalArgumentException();
             var j = StrictJson.parse(Files.readString(PATH)).getAsJsonObject();
-            if (!j.keySet().equals(java.util.Set.of("showUnlearned", "compactNumbers", "xpEnabled", "xpCost"))) throw new IllegalArgumentException();
+            boolean legacy = j.keySet().equals(java.util.Set.of("showUnlearned", "compactNumbers", "xpEnabled", "xpCost"));
+            if (!legacy && !j.keySet().equals(java.util.Set.of("showUnlearned", "compactNumbers", "xpEnabled", "xpCost", "pinyinSearch"))) throw new IllegalArgumentException();
+            if (!legacy && (!j.get("pinyinSearch").isJsonPrimitive() || !j.getAsJsonPrimitive("pinyinSearch").isBoolean())) throw new IllegalArgumentException();
             for (String field : java.util.List.of("showUnlearned", "compactNumbers", "xpEnabled"))
                 if (!j.get(field).isJsonPrimitive() || !j.getAsJsonPrimitive(field).isBoolean()) throw new IllegalArgumentException();
             if (!j.get("xpCost").isJsonPrimitive() || !j.getAsJsonPrimitive("xpCost").isString()) throw new IllegalArgumentException();
-            return new ExchangeConfig(j.get("showUnlearned").getAsBoolean(), j.get("compactNumbers").getAsBoolean(),
-                    j.get("xpEnabled").getAsBoolean(), j.get("xpCost").getAsString());
+            return new ExchangeConfig(!legacy && j.get("showUnlearned").getAsBoolean(), j.get("compactNumbers").getAsBoolean(),
+                    j.get("xpEnabled").getAsBoolean(), j.get("xpCost").getAsString(), !legacy && j.get("pinyinSearch").getAsBoolean());
         } catch (Exception e) { throw new IllegalStateException("Invalid config / 配置无效: " + PATH, e); }
     }
     public void save() {
@@ -31,7 +33,7 @@ public record ExchangeConfig(boolean showUnlearned, boolean compactNumbers, bool
             Files.createDirectories(PATH.getParent());
             var j = new com.google.gson.JsonObject();
             j.addProperty("showUnlearned", showUnlearned); j.addProperty("compactNumbers", compactNumbers);
-            j.addProperty("xpEnabled", xpEnabled); j.addProperty("xpCost", xpCost);
+            j.addProperty("pinyinSearch", pinyinSearch); j.addProperty("xpEnabled", xpEnabled); j.addProperty("xpCost", xpCost);
             Path tmp = PATH.resolveSibling("energyexchange.json.tmp"); Files.writeString(tmp, j.toString());
             Files.move(tmp, PATH, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
         } catch (java.io.IOException e) { throw new IllegalStateException("Cannot save config / 无法保存配置", e); }
