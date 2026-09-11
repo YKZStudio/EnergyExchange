@@ -65,3 +65,7 @@ main 上每个正式版本附带运行 JAR 与对应双语 `docs/releases/<版�
 ## pre2
 
 新增拼音全拼／首字母／混拼、堆叠限制单元测试和真实客户端伪造购买检查。`tools/generate_table_assets.py` 使用 Pillow 可重复生成原创贴图与模型。所有十个语言区域设置的键和占位符通过一致性检查。
+
+## 0.2.0
+
+使用 `python tools/generate_pinyin.py /path/to/Unihan.zip` 从校验和固定的 Unicode 17.0.0 压缩包重建离线索引。测试覆盖多音字、汉字混输、声调／全角／ü 归一化、边界和真实客户端设置开关。

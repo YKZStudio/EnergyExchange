@@ -65,7 +65,7 @@
   "energyexchange.ui.burn_hint": "入力スタック全体を変換して自動習得します。有効な価格と対応する状態が必要です。",
   "energyexchange.ui.price": "購入：1個あたり %s エネルギー",
   "energyexchange.config.pinyin": "ピンイン検索（実験的）：%s",
-  "energyexchange.config.pinyin_hint": "初期設定はオフ。中国語名のピンイン、頭文字、混在入力（myzz、moyingzhenzhu）に対応。REI は不要です。多音字には制限があります。",
+  "energyexchange.config.pinyin_hint": "初期設定はオフ。全ピンイン、頭文字、漢字との混在、声調、全角文字、多音字に対応。REI や通信は不要です。誤字の訂正は行いません。",
   "energyexchange.error.purchase_count": "1、16、32、64個から選択し、スタック上限を超えないようにしてください。",
   "modmenu.nameTranslation.energyexchange": "エネルギー交換",
   "modmenu.descriptionTranslation.energyexchange": "アイテムを個人のエネルギーに変換し、習得して再購入できます。"

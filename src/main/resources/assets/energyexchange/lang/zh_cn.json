@@ -65,7 +65,7 @@
   "energyexchange.ui.burn_hint": "转化槽内整组物品并自动学习。只有具备有效能量规则的原始物品可转化。",
   "energyexchange.ui.price": "购买：每个 %s 能量",
   "energyexchange.config.pinyin": "实验性拼音搜索：%s",
-  "energyexchange.config.pinyin_hint": "默认关闭。支持简体中文全拼、首字母及混合拼音，如 myzz、moyingzhenzhu、moyzz。无需 REI；部分多音字可能不准确。",
+  "energyexchange.config.pinyin_hint": "默认关闭。支持全拼、首字母、汉字与拼音混输、声调及全角字母，多音字可用不同读音搜索。无需 REI 或联网，不提供错字纠正。",
   "energyexchange.error.purchase_count": "购买数量必须为 1、16、32 或 64，且不能超过物品的堆叠上限。",
   "modmenu.nameTranslation.energyexchange": "能量交换",
   "modmenu.descriptionTranslation.energyexchange": "将物品转化为个人能量，学习并兑换物品。"

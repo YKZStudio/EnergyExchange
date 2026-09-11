@@ -65,3 +65,7 @@ Stable releases from main attach the runtime JAR and matching bilingual `docs/re
 ## pre2
 
 Adds pinyin full/initial/mixed matching and quantity tests plus real-client forged-purchase checks. `tools/generate_table_assets.py` uses Pillow to reproduce the original textures and model. All ten locales have matching-key and placeholder checks.
+
+## 0.2.0
+
+Use `python tools/generate_pinyin.py /path/to/Unihan.zip` to reproduce the offline index from the checksum-pinned Unicode 17.0.0 archive. Tests cover polyphonic readings, Chinese/pinyin mixing, tone/width/umlaut normalization, bounds, and the actual client setting switch.

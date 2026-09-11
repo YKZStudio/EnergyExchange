@@ -25,9 +25,6 @@ dependencies {
         runtimeOnly 'fuzs.forgeconfigapiport:forgeconfigapiport-fabric:26.2.1'
         runtimeOnly 'me.shedaniel.cloth:cloth-config-fabric:26.2.155'
     }
-    implementation 'io.github.biezhi:TinyPinyin:2.0.3.RELEASE'
-    include 'io.github.biezhi:TinyPinyin:2.0.3.RELEASE'
-    include 'org.ahocorasick:ahocorasick:0.4.0'
     testImplementation platform('org.junit:junit-bom:5.13.4')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
