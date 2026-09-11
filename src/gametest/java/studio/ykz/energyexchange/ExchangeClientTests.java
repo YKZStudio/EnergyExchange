@@ -90,6 +90,22 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.setScreen(() -> new ConfigScreen(null));
             context.takeScreenshot("modmenu-settings-zh_cn");
             context.setScreen(() -> null);
+            var tablePos = world.getServer().computeOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst();
+                var pos = p.blockPosition().offset(0, 0, 3);
+                for (int dx = -4; dx <= 4; dx++) for (int dz = -4; dz <= 4; dz++)
+                    p.level().setBlockAndUpdate(pos.offset(dx, -1, dz), net.minecraft.world.level.block.Blocks.SMOOTH_STONE.defaultBlockState());
+                p.level().setBlockAndUpdate(pos, ExchangeContent.TABLE.defaultBlockState());
+                return pos;
+            });
+            context.runOnClient(client -> {
+                client.player.setPos(tablePos.getX() + .5, tablePos.getY(), tablePos.getZ() - 2.5);
+                client.player.setYRot(0); client.player.setXRot(30); client.options.hideGui = true;
+            });
+            context.waitTicks(20);
+            context.takeScreenshot("transmutation-table-model");
+            context.runOnClient(client -> client.options.hideGui = false);
+
         }
     }
 }

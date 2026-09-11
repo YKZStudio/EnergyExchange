@@ -47,7 +47,7 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 test { useJUnitPlatform() }
-jar { from('LICENSE') { rename { "${it}_energyexchange" } } }
+jar { from('licenses') { into 'META-INF/licenses' }; from('THIRD_PARTY_NOTICES.md'); from('LICENSE') { rename { "${it}_energyexchange" } } }
 
 fabricApi {
     configureTests {
