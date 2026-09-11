@@ -53,5 +53,7 @@
   "energyexchange.error.stale": "价格或交易状态已变化，请查看更新后的报价再试。",
   "energyexchange.error.busy": "请稍候再交易。",
   "block.energyexchange.transmutation_table": "转化桌",
-  "item.energyexchange.transmutation_tablet": "便携转化桌"
+  "item.energyexchange.transmutation_tablet": "便携转化桌",
+  "energyexchange.error.small_batch": "请放入更多物品：当前输入不足 1 Energy。",
+  "energyexchange.ui.burn_rate": "转化：每个 %s Energy（整批向下取整）"
 }

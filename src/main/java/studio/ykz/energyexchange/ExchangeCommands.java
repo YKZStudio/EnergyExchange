@@ -30,7 +30,7 @@ public final class ExchangeCommands {
                 .then(literal("burn").executes(c -> burn(c, 1))
                         .then(literal("all").executes(c -> burn(c, c.getSource().getPlayerOrException().getMainHandItem().getCount())))
                         .then(argument("count", integer(1, 2304)).executes(c -> burn(c, getInteger(c, "count")))))
-                .then(literal("buy").then(argument("item", com.mojang.brigadier.arguments.StringArgumentType.string())
+                .then(literal("buy").then(argument("item", com.mojang.brigadier.arguments.StringArgumentType.greedyString())
                         .suggests((c, builder) -> {
                             var player = c.getSource().getPlayer();
                             if (player == null) return builder.buildFuture();
@@ -59,9 +59,14 @@ public final class ExchangeCommands {
 
     private static int buy(CommandContext<CommandSourceStack> c, int count) throws CommandSyntaxException {
         return run(c, p -> {
-            var id = com.mojang.brigadier.arguments.StringArgumentType.getString(c, "item");
-            var account = ExchangeService.buy(p, id, count);
-            reply(c, "bought", Integer.toString(count), id.toString(), account.energy().toString());
+            String[] parts = com.mojang.brigadier.arguments.StringArgumentType.getString(c, "item").trim().split("\\s+");
+            if (parts.length < 1 || parts.length > 2) throw new IllegalArgumentException("energyexchange.error.count");
+            int amount = count;
+            if (parts.length == 2) {
+                try { amount = Integer.parseInt(parts[1]); } catch (NumberFormatException e) { throw new IllegalArgumentException("energyexchange.error.count"); }
+            }
+            var account = ExchangeService.buy(p, parts[0], amount);
+            reply(c, "bought", Integer.toString(amount), parts[0], account.energy().toString());
         });
     }
 

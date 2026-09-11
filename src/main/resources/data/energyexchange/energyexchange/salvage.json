@@ -1,0 +1,546 @@
+{
+  "minecraft:acacia_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:acacia_hanging_sign": [
+    "160",
+    "3"
+  ],
+  "minecraft:acacia_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:andesite": [
+    "65",
+    "2"
+  ],
+  "minecraft:armor_stand": [
+    "49",
+    "2"
+  ],
+  "minecraft:bamboo_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:bamboo_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:birch_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:birch_hanging_sign": [
+    "160",
+    "3"
+  ],
+  "minecraft:birch_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:black_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:black_stained_glass_pane": [
+    "15",
+    "8"
+  ],
+  "minecraft:blue_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:blue_stained_glass_pane": [
+    "15",
+    "8"
+  ],
+  "minecraft:bone_meal": [
+    "64",
+    "9"
+  ],
+  "minecraft:bread": [
+    "64",
+    "3"
+  ],
+  "minecraft:brown_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:brown_stained_glass_pane": [
+    "15",
+    "8"
+  ],
+  "minecraft:cherry_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:cherry_hanging_sign": [
+    "160",
+    "3"
+  ],
+  "minecraft:cherry_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:cobblestone_slab": [
+    "1",
+    "2"
+  ],
+  "minecraft:cookie": [
+    "88",
+    "9"
+  ],
+  "minecraft:copper_axe": [
+    "88",
+    "3"
+  ],
+  "minecraft:copper_bars": [
+    "8",
+    "3"
+  ],
+  "minecraft:copper_boots": [
+    "256",
+    "9"
+  ],
+  "minecraft:copper_chain": [
+    "704",
+    "81"
+  ],
+  "minecraft:copper_chestplate": [
+    "512",
+    "9"
+  ],
+  "minecraft:copper_door": [
+    "128",
+    "9"
+  ],
+  "minecraft:copper_helmet": [
+    "320",
+    "9"
+  ],
+  "minecraft:copper_hoe": [
+    "200",
+    "9"
+  ],
+  "minecraft:copper_ingot": [
+    "64",
+    "9"
+  ],
+  "minecraft:copper_lantern": [
+    "419",
+    "27"
+  ],
+  "minecraft:copper_leggings": [
+    "448",
+    "9"
+  ],
+  "minecraft:copper_nugget": [
+    "64",
+    "81"
+  ],
+  "minecraft:copper_pickaxe": [
+    "88",
+    "3"
+  ],
+  "minecraft:copper_shovel": [
+    "136",
+    "9"
+  ],
+  "minecraft:copper_spear": [
+    "136",
+    "9"
+  ],
+  "minecraft:copper_sword": [
+    "164",
+    "9"
+  ],
+  "minecraft:copper_torch": [
+    "745",
+    "81"
+  ],
+  "minecraft:copper_trapdoor": [
+    "256",
+    "9"
+  ],
+  "minecraft:crimson_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:crimson_hanging_sign": [
+    "160",
+    "3"
+  ],
+  "minecraft:crimson_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:cyan_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:cyan_stained_glass_pane": [
+    "15",
+    "8"
+  ],
+  "minecraft:dark_oak_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:dark_oak_hanging_sign": [
+    "160",
+    "3"
+  ],
+  "minecraft:dark_oak_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:dried_kelp": [
+    "64",
+    "9"
+  ],
+  "minecraft:glass_pane": [
+    "3",
+    "8"
+  ],
+  "minecraft:gold_nugget": [
+    "64",
+    "9"
+  ],
+  "minecraft:gray_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:gray_concrete_powder": [
+    "31",
+    "9"
+  ],
+  "minecraft:gray_dye": [
+    "176",
+    "9"
+  ],
+  "minecraft:gray_stained_glass": [
+    "31",
+    "9"
+  ],
+  "minecraft:gray_stained_glass_pane": [
+    "31",
+    "24"
+  ],
+  "minecraft:green_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:green_stained_glass_pane": [
+    "15",
+    "8"
+  ],
+  "minecraft:grindstone": [
+    "49",
+    "2"
+  ],
+  "minecraft:jungle_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:jungle_hanging_sign": [
+    "160",
+    "3"
+  ],
+  "minecraft:jungle_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:ladder": [
+    "28",
+    "3"
+  ],
+  "minecraft:light_blue_banner": [
+    "940",
+    "3"
+  ],
+  "minecraft:light_blue_bed": [
+    "1256",
+    "9"
+  ],
+  "minecraft:light_blue_candle": [
+    "752",
+    "9"
+  ],
+  "minecraft:light_blue_carpet": [
+    "928",
+    "27"
+  ],
+  "minecraft:light_blue_concrete_powder": [
+    "31",
+    "9"
+  ],
+  "minecraft:light_blue_dye": [
+    "176",
+    "9"
+  ],
+  "minecraft:light_blue_glazed_terracotta": [
+    "598",
+    "9"
+  ],
+  "minecraft:light_blue_harness": [
+    "752",
+    "9"
+  ],
+  "minecraft:light_blue_stained_glass": [
+    "31",
+    "9"
+  ],
+  "minecraft:light_blue_stained_glass_pane": [
+    "31",
+    "24"
+  ],
+  "minecraft:light_blue_terracotta": [
+    "598",
+    "9"
+  ],
+  "minecraft:light_blue_wool": [
+    "464",
+    "9"
+  ],
+  "minecraft:light_gray_bed": [
+    "400",
+    "3"
+  ],
+  "minecraft:light_gray_candle": [
+    "232",
+    "3"
+  ],
+  "minecraft:light_gray_carpet": [
+    "272",
+    "9"
+  ],
+  "minecraft:light_gray_concrete_powder": [
+    "8",
+    "3"
+  ],
+  "minecraft:light_gray_dye": [
+    "40",
+    "3"
+  ],
+  "minecraft:light_gray_glazed_terracotta": [
+    "197",
+    "3"
+  ],
+  "minecraft:light_gray_harness": [
+    "232",
+    "3"
+  ],
+  "minecraft:light_gray_stained_glass": [
+    "8",
+    "3"
+  ],
+  "minecraft:light_gray_terracotta": [
+    "197",
+    "3"
+  ],
+  "minecraft:light_gray_wool": [
+    "136",
+    "3"
+  ],
+  "minecraft:lightning_rod": [
+    "64",
+    "3"
+  ],
+  "minecraft:lime_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:lime_concrete_powder": [
+    "31",
+    "9"
+  ],
+  "minecraft:lime_dye": [
+    "176",
+    "9"
+  ],
+  "minecraft:lime_stained_glass": [
+    "31",
+    "9"
+  ],
+  "minecraft:lime_stained_glass_pane": [
+    "31",
+    "24"
+  ],
+  "minecraft:magenta_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:magenta_stained_glass_pane": [
+    "3",
+    "2"
+  ],
+  "minecraft:magma_cream": [
+    "352",
+    "9"
+  ],
+  "minecraft:mangrove_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:mangrove_hanging_sign": [
+    "160",
+    "3"
+  ],
+  "minecraft:mangrove_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:oak_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:oak_hanging_sign": [
+    "160",
+    "3"
+  ],
+  "minecraft:oak_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:orange_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:orange_stained_glass_pane": [
+    "15",
+    "8"
+  ],
+  "minecraft:pale_oak_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:pale_oak_hanging_sign": [
+    "160",
+    "3"
+  ],
+  "minecraft:pale_oak_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:pink_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:pink_stained_glass_pane": [
+    "9",
+    "8"
+  ],
+  "minecraft:polished_andesite": [
+    "65",
+    "2"
+  ],
+  "minecraft:purple_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:purple_stained_glass_pane": [
+    "15",
+    "8"
+  ],
+  "minecraft:red_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:red_stained_glass_pane": [
+    "15",
+    "8"
+  ],
+  "minecraft:resin_brick": [
+    "64",
+    "9"
+  ],
+  "minecraft:resin_bricks": [
+    "256",
+    "9"
+  ],
+  "minecraft:resin_clump": [
+    "64",
+    "9"
+  ],
+  "minecraft:slime_ball": [
+    "64",
+    "9"
+  ],
+  "minecraft:smooth_stone_slab": [
+    "1",
+    "2"
+  ],
+  "minecraft:spruce_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:spruce_hanging_sign": [
+    "160",
+    "3"
+  ],
+  "minecraft:spruce_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:stone_brick_slab": [
+    "1",
+    "2"
+  ],
+  "minecraft:stone_slab": [
+    "1",
+    "2"
+  ],
+  "minecraft:sugar": [
+    "17",
+    "3"
+  ],
+  "minecraft:warped_fence": [
+    "40",
+    "3"
+  ],
+  "minecraft:warped_hanging_sign": [
+    "160",
+    "3"
+  ],
+  "minecraft:warped_sign": [
+    "52",
+    "3"
+  ],
+  "minecraft:waxed_lightning_rod": [
+    "256",
+    "3"
+  ],
+  "minecraft:wheat": [
+    "64",
+    "9"
+  ],
+  "minecraft:white_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:white_concrete_powder": [
+    "17",
+    "9"
+  ],
+  "minecraft:white_dye": [
+    "64",
+    "9"
+  ],
+  "minecraft:white_stained_glass": [
+    "17",
+    "9"
+  ],
+  "minecraft:white_stained_glass_pane": [
+    "17",
+    "24"
+  ],
+  "minecraft:yellow_carpet": [
+    "64",
+    "3"
+  ],
+  "minecraft:yellow_stained_glass_pane": [
+    "15",
+    "8"
+  ]
+}

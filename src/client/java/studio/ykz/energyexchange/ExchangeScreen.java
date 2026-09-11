@@ -67,7 +67,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         if (packet.menu() != menu.containerId || packet.nonce() != menu.nonce) return;
         state = packet; waiting = false;
         var learned = catalog.get(packet.learned());
-        if (learned != null) catalog.put(learned.key(), new ExchangeNetwork.Entry(learned.key(), learned.stack(), learned.value(), true));
+        if (learned != null) catalog.put(learned.key(), new ExchangeNetwork.Entry(learned.key(), learned.stack(), learned.value(), learned.burnRate(), true));
         if (!packet.error().isEmpty()) minecraft.player.sendOverlayMessage(Messages.text(packet.error()));
         filter();
     }
@@ -90,6 +90,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
             if (cell.active) {
                 var e = filtered.get(actual);
                 cell.setTooltip(Tooltip.create(Component.empty().append(e.stack().getHoverName()).append("\n" + e.key() + "\n" + e.value() + " Energy\n")
+                        .append(Messages.text("ui.burn_rate", e.burnRate())).append("\n")
                         .append(Messages.text(e.learned() ? "ui.known" : "ui.unknown"))));
             } else cell.setTooltip(null);
         }

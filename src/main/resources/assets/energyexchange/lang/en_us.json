@@ -53,5 +53,7 @@
   "energyexchange.error.stale": "Prices or transaction state changed. Review the refreshed quote and try again.",
   "energyexchange.error.busy": "Please wait briefly before trading again.",
   "block.energyexchange.transmutation_table": "Transmutation Table",
-  "item.energyexchange.transmutation_tablet": "Transmutation Tablet"
+  "item.energyexchange.transmutation_tablet": "Transmutation Tablet",
+  "energyexchange.error.small_batch": "Use a larger batch: this input is worth less than 1 Energy.",
+  "energyexchange.ui.burn_rate": "Conversion: %s Energy each (batch total rounded down)"
 }

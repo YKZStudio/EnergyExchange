@@ -22,17 +22,17 @@ public final class ExchangeNetwork {
         }, b -> new Action(b.readVarInt(), b.readLong(), b.readLong(), b.readLong(), b.readUnsignedByte(), b.readUtf(256), b.readVarInt()));
         public Type<Action> type() { return TYPE; }
     }
-    public record Entry(String key, ItemStack stack, String value, boolean learned) {}
+    public record Entry(String key, ItemStack stack, String value, String burnRate, boolean learned) {}
     public record Page(int menu, long nonce, int offset, List<Entry> entries) implements CustomPacketPayload {
         public static final Type<Page> TYPE = ExchangeNetwork.type("catalog");
         public static final StreamCodec<RegistryFriendlyByteBuf, Page> CODEC = StreamCodec.of((b, p) -> {
             b.writeVarInt(p.menu); b.writeLong(p.nonce); b.writeVarInt(p.offset); b.writeVarInt(p.entries.size());
-            for (var e : p.entries) { b.writeUtf(e.key, 256); ItemStack.STREAM_CODEC.encode(b, e.stack); b.writeUtf(e.value, 128); b.writeBoolean(e.learned); }
+            for (var e : p.entries) { b.writeUtf(e.key, 256); ItemStack.STREAM_CODEC.encode(b, e.stack); b.writeUtf(e.value, 128); b.writeUtf(e.burnRate, 260); b.writeBoolean(e.learned); }
         }, b -> {
             int menu = b.readVarInt(); long nonce = b.readLong(); int offset = b.readVarInt(); int size = b.readVarInt();
             if (size < 0 || size > 64 || offset < 0 || offset > 16384) throw new IllegalArgumentException("Invalid catalog bounds");
             var entries = new ArrayList<Entry>();
-            for (int i = 0; i < size; i++) entries.add(new Entry(b.readUtf(256), ItemStack.STREAM_CODEC.decode(b), b.readUtf(128), b.readBoolean()));
+            for (int i = 0; i < size; i++) entries.add(new Entry(b.readUtf(256), ItemStack.STREAM_CODEC.decode(b), b.readUtf(128), b.readUtf(260), b.readBoolean()));
             return new Page(menu, nonce, offset, List.copyOf(entries));
         });
         public Type<Page> type() { return TYPE; }
@@ -42,7 +42,7 @@ public final class ExchangeNetwork {
         public static final StreamCodec<RegistryFriendlyByteBuf, State> CODEC = StreamCodec.of((b, p) -> {
             b.writeVarInt(p.menu); b.writeLong(p.nonce); b.writeLong(p.revision); b.writeLong(p.sequence);
             b.writeUtf(p.balance, 128); b.writeUtf(p.learned, 256); b.writeUtf(p.error, 128); b.writeUtf(p.xpCost, 128); b.writeBoolean(p.xpEnabled);
-        }, b -> new State(b.readVarInt(), b.readLong(), b.readLong(), b.readLong(), b.readUtf(128), b.readUtf(256), b.readUtf(128), b.readUtf(128), b.readBoolean()));
+        }, b -> new State(b.readVarInt(), b.readLong(), b.readLong(), b.readLong(), b.readUtf(128), b.readUtf(256), b.readUtf(128), b.readUtf(128), b.readUtf(260), b.readBoolean()));
         public Type<State> type() { return TYPE; }
     }
     public static void init() {
@@ -88,7 +88,7 @@ public final class ExchangeNetwork {
             try {
                 var value = EnergyExchange.RULES.require(entry.getKey());
                 if (!entry.getValue().getItem().isEnabled(player.level().enabledFeatures())) continue;
-                entries.add(new Entry(entry.getKey(), entry.getValue().copy(), value.value().toString(), known.contains(entry.getKey())));
+                entries.add(new Entry(entry.getKey(), entry.getValue().copy(), value.value().toString(), EnergyExchange.RULES.burnRate(entry.getKey()), known.contains(entry.getKey())));
             } catch (IllegalArgumentException e) { if (!"energyexchange.error.no_value".equals(e.getMessage())) throw e; }
         }
         if (entries.size() > 16384) throw new IllegalArgumentException("energyexchange.error.knowledge_full");

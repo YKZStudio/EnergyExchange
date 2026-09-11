@@ -40,7 +40,8 @@ public final class ExchangeService {
         ItemStack held = input(player);
         if (count < 1 || count > held.getCount()) throw new IllegalArgumentException("energyexchange.error.count");
         String item = Catalog.identify(held);
-        Account next = account(player).burn(item, rule.value(), count);
+        Account previous = account(player).learn(item);
+        Account next = new Account(studio.ykz.energyexchange.core.Energy.checked(previous.energy().add(EnergyExchange.RULES.burnCredit(item, count))), previous.learned());
         String encoded = AccountJson.write(next);
         // Every possible validation precedes either mutation / 所有校验均在变更之前完成。
         held.shrink(count);
