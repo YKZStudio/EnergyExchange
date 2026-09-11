@@ -26,7 +26,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         try { config = ExchangeConfig.load(); } catch (IllegalStateException e) { config = ExchangeConfig.DEFAULT; }
     }
     private Button button(int x, int y, int w, String text, Runnable action) {
-        return addRenderableWidget(Button.builder(Messages.text(text), b -> action.run()).bounds(leftPos + x, topPos + y, w, 18).build());
+        return addRenderableWidget(Button.builder(text.isEmpty() ? Component.empty() : Messages.text(text), b -> action.run()).bounds(leftPos + x, topPos + y, w, 18).build());
     }
     @Override protected void init() {
         super.init(); cells.clear();
@@ -37,7 +37,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         xp = button(6, 124, 70, "ui.xp", () -> send(4, "", 10));
         for (int i = 0; i < 24; i++) {
             final int index = i;
-            cells.add(button(86 + (i % 8) * 22, 58 + (i / 8) * 18, 20, "ui.empty", () -> {
+            cells.add(button(86 + (i % 8) * 22, 58 + (i / 8) * 18, 20, "", () -> {
                 int actual = page * 24 + index; if (actual < filtered.size()) { selected = filtered.get(actual).key(); updateButtons(); }
             }));
         }
@@ -49,8 +49,8 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         });
         filter(); send(0, "", 0);
     }
-    public boolean readyForTest() { return state != null && !waiting && !catalog.isEmpty(); }
-    public void tradeForTest(int action, String key, int count) { send(action, key, count); }
+    boolean isReady() { return state != null && !waiting && !catalog.isEmpty(); }
+    void request(int action, String key, int count) { send(action, key, count); }
     private void send(int action, String key, int count) {
         if (waiting) return;
         waiting = true; retryTicks = 0;

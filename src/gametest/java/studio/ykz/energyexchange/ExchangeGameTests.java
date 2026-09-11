@@ -215,6 +215,45 @@ public final class ExchangeGameTests {
         helper.succeed();
     }
 
+    @GameTest
+    public void fractionalConversionAndFuelPrices(GameTestHelper helper) {
+        var p = player(helper);
+        p.getInventory().setItem(0, new ItemStack(Items.COBBLESTONE_SLAB, 1));
+        reject(helper, "small_batch", () -> ExchangeService.burn(p, 1));
+        helper.assertTrue(p.getMainHandItem().getCount() == 1 && ExchangeService.account(p).equals(Account.EMPTY), "Tiny batch unchanged / 小批量不消耗");
+        p.getMainHandItem().setCount(2); ExchangeService.burn(p, 2);
+        helper.assertTrue(ExchangeService.account(p).energy().equals(BigInteger.ONE), "Two slabs earn one Energy / 两半砖换一点能量");
+        helper.assertTrue(EnergyExchange.RULES.require("minecraft:charcoal").value().compareTo(EnergyExchange.RULES.require("minecraft:oak_log").value()) <= 0,
+                "Charcoal does not multiply log value / 木炭不放大原木价值");
+        helper.succeed();
+    }
+
+    @GameTest
+    public void taczModelsRoundTripAndLoadedGunRejection(GameTestHelper helper) {
+        if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("tacz")) { helper.succeed(); return; }
+        var p = player(helper);
+        int variants = 0;
+        var families = new java.util.HashSet<String>();
+        for (var entry : Catalog.entries().entrySet()) {
+            if (!entry.getKey().contains("#")) continue;
+            families.add(entry.getKey().split("#")[0]); variants++;
+            helper.assertTrue(Catalog.identify(entry.getValue()).equals(entry.getKey()), "Prototype identity / 模板身份: " + entry.getKey());
+            helper.assertTrue(EnergyExchange.RULES.require(entry.getKey()).value().signum() > 0, "Variant priced / 型号定价: " + entry.getKey());
+        }
+        helper.assertTrue(variants > 100 && families.containsAll(Set.of("tacz:modern_kinetic_gun", "tacz:ammo", "tacz:attachment", "lrtactical:throwable", "lrtactical:melee", "lrtactical:consumable")),
+                "TaCZ and LR model families loaded / TaCZ 和 LR 型号已加载");
+        String key = "tacz:modern_kinetic_gun#tacz:ak47";
+        var sample = Catalog.sample(key); p.getInventory().setItem(0, sample);
+        ExchangeService.burn(p, 1); ExchangeService.buy(p, key, 1);
+        helper.assertTrue(Catalog.identify(p.getMainHandItem()).equals(key), "Gun exchange round trip / 枪械交换往返");
+        var loaded = p.getMainHandItem();
+        var tag = loaded.getOrDefault(DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.EMPTY).copyTag();
+        tag.putInt("GunCurrentAmmoCount", 1); loaded.set(DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(tag));
+        reject(helper, "components", () -> ExchangeService.burn(p, 1));
+        helper.assertTrue(loaded.getCount() == 1, "Loaded gun retained / 装弹枪保留");
+        helper.succeed();
+    }
+
     private static ResourceManager resources(GameTestHelper helper, String value) {
         var pack = helper.getLevel().getServer().getResourceManager().listPacks().findFirst().orElseThrow();
         var resource = new Resource(pack, () -> new ByteArrayInputStream(value.getBytes(StandardCharsets.UTF_8)));

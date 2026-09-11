@@ -18,13 +18,13 @@ public final class ExchangeClientTests implements FabricClientGameTest {
                 p.containerMenu.broadcastChanges();
             });
             context.waitForScreen(ExchangeScreen.class);
-            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).readyForTest());
+            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
             context.takeScreenshot("transmutation-en_us");
-            context.runOnClient(client -> ((ExchangeScreen) client.gui.screen()).tradeForTest(1, "", 0));
+            context.runOnClient(client -> ((ExchangeScreen) client.gui.screen()).request(1, "", 0));
             world.getServer().waitFor(server -> ExchangeService.account(server.getPlayerList().getPlayers().getFirst()).energy().intValue() == 16);
-            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).readyForTest());
+            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
             context.waitTicks(3);
-            context.runOnClient(client -> ((ExchangeScreen) client.gui.screen()).tradeForTest(3, "minecraft:dirt", 8));
+            context.runOnClient(client -> ((ExchangeScreen) client.gui.screen()).request(3, "minecraft:dirt", 8));
             world.getServer().waitFor(server -> ExchangeService.account(server.getPlayerList().getPlayers().getFirst()).energy().intValue() == 8);
             context.runOnClient(client -> client.gui.screen().onClose());
             context.waitForScreen(null);

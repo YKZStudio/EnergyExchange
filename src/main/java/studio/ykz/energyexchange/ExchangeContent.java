@@ -6,7 +6,8 @@ import net.minecraft.core.*;
 import net.minecraft.core.registries.*;
 import net.minecraft.resources.*;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.player.*;
@@ -35,8 +36,13 @@ public final class ExchangeContent {
                     return InteractionResult.SUCCESS;
                 }
             });
-    public static final ExtendedMenuType<ExchangeMenu, Long> MENU = Registry.register(BuiltInRegistries.MENU, id("exchange"),
-            new ExtendedMenuType<>((id, inventory, nonce) -> new ExchangeMenu(id, inventory, nonce, null, -1), ByteBufCodecs.VAR_LONG));
+    public static final ExtendedMenuType<ExchangeMenu, Opening> MENU = Registry.register(BuiltInRegistries.MENU, id("exchange"),
+            new ExtendedMenuType<>((id, inventory, data) -> new ExchangeMenu(id, inventory, data.nonce(), null, data.anchor()), Opening.CODEC));
+    public record Opening(long nonce, int anchor) {
+        public static final StreamCodec<RegistryFriendlyByteBuf, Opening> CODEC = StreamCodec.of((buf, data) -> {
+            buf.writeLong(data.nonce); buf.writeVarInt(data.anchor);
+        }, buf -> new Opening(buf.readLong(), buf.readVarInt()));
+    }
     public static void init() {
         CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(entries -> { entries.accept(TABLE_ITEM); entries.accept(TABLET); });
     }
@@ -44,8 +50,8 @@ public final class ExchangeContent {
         try { ExchangeService.checkPlayer(player); }
         catch (IllegalArgumentException e) { player.sendOverlayMessage(Messages.text(e.getMessage())); return; }
         long nonce = player.getRandom().nextLong();
-        player.openMenu(new ExtendedMenuProvider<Long>() {
-            public Long getScreenOpeningData(ServerPlayer ignored) { return nonce; }
+        player.openMenu(new ExtendedMenuProvider<Opening>() {
+            public Opening getScreenOpeningData(ServerPlayer ignored) { return new Opening(nonce, anchor); }
             public Component getDisplayName() { return Messages.text("ui.title"); }
             public AbstractContainerMenu createMenu(int id, Inventory inventory, Player ignored) { return new ExchangeMenu(id, inventory, nonce, pos, anchor); }
         });

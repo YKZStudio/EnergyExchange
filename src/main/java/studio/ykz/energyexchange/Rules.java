@@ -27,7 +27,12 @@ public final class Rules {
             String raw = readBounded(reader, 2_000_000);
             if (raw.length() > 2_000_000) throw new IllegalArgumentException("Defaults too large");
             var object = studio.ykz.energyexchange.core.StrictJson.parse(raw).getAsJsonObject();
-            for (var entry : object.entrySet()) next.put(entry.getKey(), ValueRule.parse("{\"value\":" + entry.getValue() + "}"));
+            if (object.size() > 16384) throw new IllegalArgumentException("Too many defaults / 默认规则过多");
+            for (var entry : object.entrySet()) {
+                String key = entry.getKey();
+                if (key.length() > 256 || !key.matches("[a-z0-9_.-]+:[a-z0-9/._-]+(#[a-z0-9_.-]+:[a-z0-9/._-]+)?")) throw new IllegalArgumentException("Invalid item key / 物品标识无效");
+                next.put(key, ValueRule.parse("{\"value\":" + entry.getValue() + "}"));
+            }
         } catch (IOException exception) { throw new IllegalStateException(exception); }
         defaults = Map.copyOf(next);
         var fractions = new HashMap<String, java.math.BigInteger[]>();
@@ -35,7 +40,7 @@ public final class Rules {
             var object = studio.ykz.energyexchange.core.StrictJson.parse(readBounded(reader, 2_000_000)).getAsJsonObject();
             for (var entry : object.entrySet()) {
                 var pair = entry.getValue().getAsJsonArray();
-                if (pair.size() != 2) throw new IllegalArgumentException("Invalid salvage fraction");
+                if (pair.size() != 2 || !pair.get(0).isJsonPrimitive() || !pair.get(1).isJsonPrimitive() || !pair.get(0).getAsJsonPrimitive().isString() || !pair.get(1).getAsJsonPrimitive().isString()) throw new IllegalArgumentException("Invalid salvage fraction");
                 var numerator = studio.ykz.energyexchange.core.Energy.parse(pair.get(0).getAsString());
                 var denominator = studio.ykz.energyexchange.core.Energy.parse(pair.get(1).getAsString());
                 if (numerator.signum() <= 0 || denominator.signum() <= 0) throw new IllegalArgumentException("Invalid salvage fraction");
@@ -84,7 +89,7 @@ public final class Rules {
     }
     public void pause() { ready = false; }
     public void complete(boolean success) { ready = success && valid; revision++; }
-    public void clear() { ready = false; valid = false; values = Map.of(); }
+    public void clear() { ready = false; valid = false; values = Map.of(); defaults = Map.of(); salvage = Map.of(); overrides = java.util.Set.of(); revision++; }
 
     public ValueRule require(Identifier item) {
         if (!ready) throw new IllegalArgumentException("energyexchange.error.rules_unavailable");
@@ -104,6 +109,7 @@ public final class Rules {
         var rate = salvage.get(key);
         return rate == null || overrides.contains(key) ? require(key).value().toString() : rate[0] + "/" + rate[1];
     }
+    public void checkReady() { if (!ready) throw new IllegalArgumentException("energyexchange.error.rules_unavailable"); }
     public long revision() { return revision; }
     public boolean hasDefault(String key) { return defaults.containsKey(key); }
     public ValueRule require(String key) {

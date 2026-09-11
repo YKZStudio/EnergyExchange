@@ -11,8 +11,7 @@ import studio.ykz.energyexchange.core.ValueRule;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Called only from the server command dispatcher. No client-provided balances or stacks.
- * 仅由服务端命令分发器调用，不接收客户端余额或物品堆。 */
+/** Commands and menu requests settle on the server thread. / 命令和菜单请求均在服务端线程结算。 */
 public final class ExchangeService {
     private ExchangeService() {}
 
@@ -36,7 +35,7 @@ public final class ExchangeService {
 
     public static Account burn(ServerPlayer player, int count) {
         checkPlayer(player);
-        var rule = heldRule(player);
+        heldRule(player);
         ItemStack held = input(player);
         if (count < 1 || count > held.getCount()) throw new IllegalArgumentException("energyexchange.error.count");
         String item = Catalog.identify(held);
@@ -85,6 +84,7 @@ public final class ExchangeService {
 
     public static Account buyExperience(ServerPlayer player, int points) {
         checkPlayer(player);
+        EnergyExchange.RULES.checkReady();
         if (!ExchangeConfig.server.xpEnabled()) throw new IllegalArgumentException("energyexchange.error.xp_disabled");
         if (points < 1 || points > 1000 || player.totalExperience < 0 || player.totalExperience > Integer.MAX_VALUE - points
                 || player.experienceLevel > 10000) throw new IllegalArgumentException("energyexchange.error.xp_limit");

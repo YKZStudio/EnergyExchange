@@ -36,6 +36,7 @@ final class TaczBridge {
                 builderClass.getMethod("setId", Identifier.class).invoke(builder, entry.getKey());
                 add(output, (ItemStack) builderClass.getMethod("build").invoke(builder), entry.getKey().toString());
             }
+            for (String base : List.of("tacz:modern_kinetic_gun", "tacz:ammo", "tacz:attachment", "tacz:gun_smith_table", "tacz:workbench_a", "tacz:workbench_b", "tacz:workbench_c", "lrtactical:throwable", "lrtactical:melee", "lrtactical:consumable")) output.remove(base);
             Class<?> lr = Class.forName("me.xjqsh.lrtactical.api.LrTacticalAPI");
             for (String method : List.of("getThrowableIndexes", "getMeleeIndexes", "getConsumableIndexes")) {
                 for (Object index : (Collection<?>) lr.getMethod(method).invoke(null)) {
