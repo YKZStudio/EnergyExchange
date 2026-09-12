@@ -23,6 +23,7 @@ public final class EnergyExchange implements ModInitializer {
     @Override
     public void onInitialize() {
         ExchangeContent.init();
+        Armory.init();
         ExchangeNetwork.init();
         ServerLifecycleEvents.SERVER_STARTING.register(server -> ExchangeConfig.server = ExchangeConfig.load());
         ResourceLoader.get(PackType.SERVER_DATA).registerReloadListener(
@@ -31,6 +32,7 @@ public final class EnergyExchange implements ModInitializer {
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, manager, success) -> RULES.complete(success));
         ServerLifecycleEvents.SERVER_STARTED.register(server -> RULES.complete(true));
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> RULES.clear());
+        PriceSync.init();
         CommandRegistrationCallback.EVENT.register((dispatcher, context, environment) -> ExchangeCommands.register(dispatcher));
     }
 }

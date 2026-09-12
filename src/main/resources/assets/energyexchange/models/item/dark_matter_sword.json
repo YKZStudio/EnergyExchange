@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "energyexchange:item/dark_matter_sword"
+  }
+}

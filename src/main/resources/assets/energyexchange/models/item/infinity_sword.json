@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "energyexchange:item/infinity_sword",
+    "layer1": "energyexchange:item/infinity_sword_edge"
+  }
+}

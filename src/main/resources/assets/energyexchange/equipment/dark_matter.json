@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "energyexchange:dark_matter"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "energyexchange:dark_matter"
+      }
+    ]
+  }
+}

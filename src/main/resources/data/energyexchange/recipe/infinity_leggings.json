@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "MMM",
+    "MGM",
+    "MMM"
+  ],
+  "key": {
+    "M": "energyexchange:infinity_ingot",
+    "G": "energyexchange:red_matter_leggings"
+  },
+  "result": {
+    "id": "energyexchange:infinity_leggings",
+    "count": 1
+  }
+}

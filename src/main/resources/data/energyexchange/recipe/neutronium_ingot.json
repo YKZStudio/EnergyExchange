@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "NNN",
+    "NSN",
+    "NNN"
+  ],
+  "key": {
+    "N": "minecraft:netherite_block",
+    "S": "minecraft:nether_star"
+  },
+  "result": {
+    "id": "energyexchange:neutronium_ingot",
+    "count": 1
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "DDD",
+    "DSD",
+    "DDD"
+  ],
+  "key": {
+    "D": "energyexchange:dark_matter",
+    "S": "minecraft:nether_star"
+  },
+  "result": {
+    "id": "energyexchange:red_matter",
+    "count": 1
+  }
+}

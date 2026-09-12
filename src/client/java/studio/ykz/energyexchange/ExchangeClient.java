@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screens.MenuScreens;
 
 public final class ExchangeClient implements ClientModInitializer {
     public void onInitializeClient() {
+        EnergyTooltip.init();
         MenuScreens.register(ExchangeContent.MENU, ExchangeScreen::new);
         ClientPlayNetworking.registerGlobalReceiver(ExchangeNetwork.Page.TYPE, (packet, context) -> {
             if (context.client().gui.screen() instanceof ExchangeScreen screen) screen.receive(packet);
