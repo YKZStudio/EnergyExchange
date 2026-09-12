@@ -62,11 +62,16 @@
   "energyexchange.ui.learned_only": "Erlernte",
   "energyexchange.ui.empty": "Lege Gegenstände links ein und wähle „Alles umwandeln“, um Energie zu erhalten und sie zu erlernen.",
   "energyexchange.ui.no_results": "Keine Treffer. Versuche die Ansicht „Alle“.",
-  "energyexchange.ui.burn_hint": "Wandelt die gesamte Eingabe um und erlernt sie automatisch. Aktive Energieregel und unterstützte Komponenten erforderlich.",
+  "energyexchange.ui.burn_hint": "Den ganzen Stapel zum Grundwert umwandeln. Verzauberungen, Schaden, Namen, Inhalte, Flüssigkeiten und Verbesserungen gehen verloren. Käufe liefern Standardgegenstände; die TaCZ-Modellidentität bleibt erhalten.",
   "energyexchange.ui.price": "Kauf: %s Energie pro Stück",
   "energyexchange.config.pinyin": "Pinyin-Suche (experimentell): %s",
   "energyexchange.config.pinyin_hint": "Standardmäßig aus. Chinesische Namen per Pinyin, Initialen, gemischten Schriftzeichen, Tonzeichen oder Vollbreitzeichen suchen. Mehrere Lesungen unterstützt. Kein REI/Netzwerk nötig; keine Tippfehlerkorrektur.",
   "energyexchange.error.purchase_count": "Wähle 1, 16, 32 oder 64, höchstens jedoch die Stapelgröße des Gegenstands.",
   "modmenu.nameTranslation.energyexchange": "Energieaustausch",
-  "modmenu.descriptionTranslation.energyexchange": "Wandle Gegenstände in persönliche Energie um, erlerne sie und kaufe sie zurück."
+  "modmenu.descriptionTranslation.energyexchange": "Wandle Gegenstände in persönliche Energie um, erlerne sie und kaufe sie zurück.",
+  "energyexchange.config.sort": "Sortierung: %s",
+  "energyexchange.config.sort.energy_desc": "Energie absteigend",
+  "energyexchange.config.sort.energy_asc": "Energie aufsteigend",
+  "energyexchange.config.sort.name": "Name",
+  "energyexchange.ui.data_discard": "Daten verfallen"
 }

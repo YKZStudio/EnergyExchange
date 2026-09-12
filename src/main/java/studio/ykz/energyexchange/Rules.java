@@ -34,10 +34,27 @@ public final class Rules {
                 next.put(key, ValueRule.parse("{\"value\":" + entry.getValue() + "}"));
             }
         } catch (IOException exception) { throw new IllegalStateException(exception); }
+        String profile = compatibilityProfile();
+        com.google.gson.JsonObject profileData = null;
+        if (!profile.isEmpty()) {
+            try (var reader = manager.getResourceOrThrow(Identifier.parse("energyexchange:energyexchange/compat/" + profile + ".json")).openAsReader()) {
+                profileData = studio.ykz.energyexchange.core.StrictJson.parse(readBounded(reader, 2_000_000)).getAsJsonObject();
+                if (!profileData.keySet().equals(java.util.Set.of("values", "salvage"))) throw new IllegalArgumentException("Invalid compatibility profile");
+                var prices = profileData.getAsJsonObject("values");
+                if (prices.size() > 16384) throw new IllegalArgumentException("Too many compatibility prices");
+                for (var entry : prices.entrySet()) {
+                    String key = entry.getKey();
+                    if (key.length() > 256 || !key.matches("[a-z0-9_.-]+:[a-z0-9/._-]+(#[a-z0-9_.-]+:[a-z0-9/._-]+)?")) throw new IllegalArgumentException("Invalid compatibility key");
+                    next.put(key, ValueRule.parse("{\"value\":" + entry.getValue() + "}"));
+                }
+            } catch (IOException e) { throw new IllegalStateException(e); }
+        }
         defaults = Map.copyOf(next);
         var fractions = new HashMap<String, java.math.BigInteger[]>();
         try (var reader = manager.getResourceOrThrow(Identifier.parse("energyexchange:energyexchange/salvage.json")).openAsReader()) {
             var object = studio.ykz.energyexchange.core.StrictJson.parse(readBounded(reader, 2_000_000)).getAsJsonObject();
+            if (profileData != null) object = profileData.getAsJsonObject("salvage");
+            if (object.size() > 16384) throw new IllegalArgumentException("Too many salvage fractions");
             for (var entry : object.entrySet()) {
                 var pair = entry.getValue().getAsJsonArray();
                 if (pair.size() != 2 || !pair.get(0).isJsonPrimitive() || !pair.get(1).isJsonPrimitive() || !pair.get(0).getAsJsonPrimitive().isString() || !pair.get(1).getAsJsonPrimitive().isString()) throw new IllegalArgumentException("Invalid salvage fraction");
@@ -80,6 +97,12 @@ public final class Rules {
         values = Map.copyOf(next); salvage = Map.copyOf(fractions); overrides = java.util.Set.copyOf(overridden);
         valid = true;
         EnergyExchange.LOGGER.info("Loaded {} energy rules / 已加载 {} 条能量规则", values.size(), values.size());
+    }
+
+    static String compatibilityProfile() {
+        var loader = net.fabricmc.loader.api.FabricLoader.getInstance();
+        boolean tacz = loader.isModLoaded("tacz"), backpack = loader.isModLoaded("travelersbackpack");
+        return tacz && backpack ? "tacz-travelersbackpack" : tacz ? "tacz" : backpack ? "travelersbackpack" : "";
     }
 
     private static String readBounded(java.io.Reader reader, int limit) throws IOException {

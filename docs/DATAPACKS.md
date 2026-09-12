@@ -53,6 +53,9 @@ Reload pauses every transaction, including XP. Failure remains locked until a su
 
 ## Component and server settings policy
 
-Prices do not grant permission to copy arbitrary components. Vanilla uses default stacks; TaCZ/LRTactical uses independently built standard prototypes. Extra ammunition, attachments, renamed items, written data, damage and filled containers remain rejected. `allow_nbt` and similar flags are unsupported.
+Data-bearing items convert at their base item price, discarding enchantments, damage, names, stored contents and other data. Purchases create default stacks. TaCZ/LRTactical retain only validated model identities and use standard prototypes; ammunition and attachments are discarded. `allow_nbt` and component-copying flags are unsupported.
 
 XP enablement and cost are server configuration, not data-pack rules. Edit `config/energyexchange.json` and restart the world/server. Mod Menu edits the local defaults for the next server start, not a remote server's economy.
+
+
+0.2.1: sample data is discarded at base value. See [pricing and compatibility](PRICING.md). Only stable versions create Releases; pre versions retain CI artifacts.

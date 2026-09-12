@@ -62,11 +62,16 @@
   "energyexchange.ui.learned_only": "Изученные",
   "energyexchange.ui.empty": "Положите предметы слева и нажмите «Преобразовать всё», чтобы получить энергию и изучить их.",
   "energyexchange.ui.no_results": "Совпадений нет. Попробуйте режим «Все».",
-  "energyexchange.ui.burn_hint": "Преобразует весь входной набор и автоматически изучает его. Нужны активное правило энергии и допустимые компоненты.",
+  "energyexchange.ui.burn_hint": "Весь набор преобразуется по базовой цене. Чары, износ, имена, содержимое, жидкости и улучшения удаляются. Покупка возвращает предмет в исходном состоянии; модель TaCZ сохраняется.",
   "energyexchange.ui.price": "Покупка: %s энергии за предмет",
   "energyexchange.config.pinyin": "Пиньинь (эксперимент): %s",
   "energyexchange.config.pinyin_hint": "По умолчанию выключено. Пиньинь, инициалы, смешанный китайский текст, тоны, полноширинные буквы и несколько чтений. REI и сеть не нужны; опечатки не исправляются.",
   "energyexchange.error.purchase_count": "Выберите 1, 16, 32 или 64, не превышая максимальный размер стопки предмета.",
   "modmenu.nameTranslation.energyexchange": "Обмен энергией",
-  "modmenu.descriptionTranslation.energyexchange": "Преобразуйте предметы в личную энергию, изучайте и покупайте их обратно."
+  "modmenu.descriptionTranslation.energyexchange": "Преобразуйте предметы в личную энергию, изучайте и покупайте их обратно.",
+  "energyexchange.config.sort": "Порядок: %s",
+  "energyexchange.config.sort.energy_desc": "Энергия по убыванию",
+  "energyexchange.config.sort.energy_asc": "Энергия по возрастанию",
+  "energyexchange.config.sort.name": "Название",
+  "energyexchange.ui.data_discard": "Данные удалятся"
 }
