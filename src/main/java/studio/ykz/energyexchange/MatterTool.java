@@ -57,9 +57,9 @@ public final class MatterTool extends Item {
     }
     public int sweep(ServerPlayer p) {
         if (!combat() || p.getMainHandItem().getItem() != this || !p.isAlive() || p.gameMode.getGameModeForPlayer() != GameType.SURVIVAL || p.getCooldowns().isOnCooldown(p.getMainHandItem())) return 0;
-        p.getCooldowns().addCooldown(p.getMainHandItem(), 20); int hits = 0; double radius = tier * 2 + 1;
-        for (var mob : p.level().getEntitiesOfClass(Mob.class, p.getBoundingBox().inflate(radius), e -> e instanceof Enemy && e.isAlive() && p.distanceToSqr(e) <= radius * radius && p.hasLineOfSight(e))) {
-            if (hits >= 64) break;
+        p.getCooldowns().addCooldown(p.getMainHandItem(), 20); int hits = 0, examined = 0; double radius = tier * 2 + 1;
+        for (var mob : p.level().getEntitiesOfClass(Mob.class, p.getBoundingBox().inflate(radius), e -> e instanceof Enemy && !(e instanceof TamableAnimal tame && tame.isTame()) && e.isAlive() && p.distanceToSqr(e) <= radius * radius && p.hasLineOfSight(e))) {
+            if (examined++ >= 64) break;
             if (mob.hurtServer(p.level(), p.damageSources().playerAttack(p), tier == 3 ? 1024 : tier * 12)) hits++;
         }
         return hits;

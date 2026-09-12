@@ -22,7 +22,9 @@ import java.util.*;
 public final class Armory {
     public static final Map<String, Item> ITEMS = new LinkedHashMap<>();
     private static final Map<Item, Integer> ARMOR_TIERS = new IdentityHashMap<>();
-    private static final Set<ServerPlayer> GRANTED_FLIGHT = Collections.newSetFromMap(new WeakHashMap<>());
+    // Persist ownership alongside vanilla abilities so saving/rejoining cannot leave permanent flight.
+    public static final net.fabricmc.fabric.api.attachment.v1.AttachmentType<Boolean> FLIGHT_OWNER =
+            net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry.create(id("armory_flight"), b -> b.persistent(com.mojang.serialization.Codec.BOOL));
     private Armory() {}
     static Identifier id(String name) { return Identifier.fromNamespaceAndPath(EnergyExchange.ID, name); }
     private static Item.Properties properties(String name) { return new Item.Properties().setId(ResourceKey.create(Registries.ITEM, id(name))).fireResistant().rarity(Rarity.EPIC); }
@@ -73,7 +75,7 @@ public final class Armory {
     }
     public static void tick(ServerPlayer p) {
         int tier = p.isAlive() && !p.isSpectator() ? fullTier(p) : 0;
-        if (tier == 3 && !p.getAbilities().mayfly && !p.isCreative()) { p.getAbilities().mayfly = true; GRANTED_FLIGHT.add(p); p.onUpdateAbilities(); }
+        if (tier == 3 && !p.getAbilities().mayfly && !p.isCreative()) { p.getAbilities().mayfly = true; p.setAttached(FLIGHT_OWNER, true); p.onUpdateAbilities(); }
         if (tier != 3) revokeFlight(p);
         if (tier > 0 && p.tickCount % 20 == 0) {
             p.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 40, 0, false, false));
@@ -85,7 +87,9 @@ public final class Armory {
         }
     }
     private static void revokeFlight(ServerPlayer p) {
-        if (!GRANTED_FLIGHT.remove(p) || p.isCreative() || p.isSpectator()) return;
+        if (!p.getAttachedOrElse(FLIGHT_OWNER, false)) return;
+        p.setAttached(FLIGHT_OWNER, false);
+        if (p.isCreative() || p.isSpectator()) return;
         boolean flying = p.getAbilities().flying;
         p.getAbilities().mayfly = false; p.getAbilities().flying = false; p.onUpdateAbilities();
         if (flying && p.isAlive()) p.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 100, 0, false, false));

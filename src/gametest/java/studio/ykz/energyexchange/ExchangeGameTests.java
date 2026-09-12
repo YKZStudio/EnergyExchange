@@ -342,6 +342,11 @@ public final class ExchangeGameTests {
         var callback = net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DAMAGE.invoker();
         helper.assertTrue(!callback.allowDamage(p, p.damageSources().generic(), 20), "Infinity damage protection");
         helper.assertTrue(callback.allowDamage(p, p.damageSources().fellOutOfWorld(), 20), "Void remains authoritative");
+        var save = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, p.registryAccess());
+        p.saveWithoutId(save); var restored = player(helper);
+        restored.load(TagValueInput.create(ProblemReporter.DISCARDING, restored.registryAccess(), save.buildResult()));
+        restored.setItemSlot(slots.getFirst(), ItemStack.EMPTY); Armory.tick(restored);
+        helper.assertTrue(!restored.getAbilities().mayfly && !restored.getAttachedOrElse(Armory.FLIGHT_OWNER, false), "Saved flight ownership is revoked after reload and unequip");
         p.getAbilities().flying = true; p.setItemSlot(slots.getFirst(), ItemStack.EMPTY); Armory.tick(p);
         helper.assertTrue(!p.getAbilities().mayfly && !p.getAbilities().flying && p.hasEffect(net.minecraft.world.effect.MobEffects.SLOW_FALLING), "Unequipping revokes flight and allows safe landing");
         helper.assertTrue(callback.allowDamage(p, p.damageSources().generic(), 20), "Incomplete suit has no invulnerability");
@@ -393,6 +398,24 @@ public final class ExchangeGameTests {
             var recipe = helper.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, helper.getLevel()).orElseThrow();
             helper.assertTrue(recipe.value().assemble(input).getItem() == Armory.ITEMS.get(name), "Vanilla 3x3 recipe output: " + name);
         }
+        helper.succeed();
+    }
+
+    @GameTest
+    public void sweepRespectsDamageVetoAndLeavesAnimals(GameTestHelper helper) {
+        var p = player(helper); var center = helper.absolutePos(new net.minecraft.core.BlockPos(1, 2, 1));
+        p.setPos(center.getX() + .5, center.getY(), center.getZ() + .5);
+        var zombie = helper.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, new net.minecraft.core.BlockPos(2, 2, 1)); zombie.setNoAi(true);
+        var pig = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, new net.minecraft.core.BlockPos(1, 2, 2)); pig.setNoAi(true);
+        var tool = (MatterTool) Armory.ITEMS.get("infinity_sword"); p.getInventory().setItem(0, new ItemStack(tool));
+        var veto = new java.util.concurrent.atomic.AtomicBoolean(true);
+        net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) -> entity != zombie || !veto.get());
+        try {
+            helper.assertTrue(tool.sweep(p) == 0 && zombie.isAlive(), "Area damage respects other mods' veto");
+            veto.set(false); for (int i = 0; i < 20; i++) p.getCooldowns().tick();
+            helper.assertTrue(tool.sweep(p) == 1 && !zombie.isAlive(), "Infinity sweep defeats a hostile mob");
+            helper.assertTrue(pig.isAlive() && pig.getHealth() == pig.getMaxHealth(), "Passive animals are untouched");
+        } finally { veto.set(false); }
         helper.succeed();
     }
 
