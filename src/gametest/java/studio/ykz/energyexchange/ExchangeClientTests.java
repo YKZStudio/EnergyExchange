@@ -11,6 +11,10 @@ public final class ExchangeClientTests implements FabricClientGameTest {
     @Override public void runTest(ClientGameTestContext context) {
         try (var world = context.worldBuilder().create()) {
             context.waitFor(client -> "1".equals(EnergyTooltip.value(new ItemStack(Items.DIRT))));
+            world.getServer().runOnServer(server -> { EnergyExchange.RULES.pause(); PriceSync.send(server.getPlayerList().getPlayers().getFirst()); });
+            context.waitFor(client -> EnergyTooltip.value(new ItemStack(Items.DIRT)) == null);
+            world.getServer().runOnServer(server -> { EnergyExchange.RULES.complete(true); PriceSync.send(server.getPlayerList().getPlayers().getFirst()); });
+            context.waitFor(client -> "1".equals(EnergyTooltip.value(new ItemStack(Items.DIRT))));
             context.runOnClient(client -> {
                 var stack = new ItemStack(Items.DIRT);
                 var lines = stack.getTooltipLines(net.minecraft.world.item.Item.TooltipContext.of(client.level), client.player, net.minecraft.world.item.TooltipFlag.ADVANCED);
@@ -152,6 +156,7 @@ public final class ExchangeClientTests implements FabricClientGameTest {
                 p.inventoryMenu.broadcastChanges();
             });
             context.waitTicks(10);
+            context.runOnClient(client -> client.options.advancedItemTooltips = true);
             context.setScreen(() -> new net.minecraft.client.gui.screens.inventory.InventoryScreen(net.minecraft.client.Minecraft.getInstance().player));
             context.takeScreenshot("armory-infinity-zh_cn");
 
