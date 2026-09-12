@@ -31,6 +31,11 @@ public final class Catalog {
         return stack.copy();
     }
     public static String identify(ItemStack stack) {
+        String key = key(stack);
+        sample(key); // Server validation of model identity.
+        return key;
+    }
+    public static String key(ItemStack stack) {
         if (stack.isEmpty()) throw new IllegalArgumentException("energyexchange.error.empty_hand");
         String base = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
         // Model IDs define TaCZ/LR identity. All other component data is disposable.
@@ -49,7 +54,6 @@ public final class Catalog {
             var tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
             key += "#" + tag.getStringOr(field, "");
         }
-        sample(key); // Unknown model IDs remain unavailable; never trust arbitrary NBT identifiers.
         return key;
     }
 }

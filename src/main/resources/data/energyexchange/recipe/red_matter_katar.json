@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "energyexchange:red_matter_sword",
+    "energyexchange:red_matter_axe",
+    "energyexchange:red_matter",
+    "energyexchange:red_matter"
+  ],
+  "result": {
+    "id": "energyexchange:red_matter_katar",
+    "count": 1
+  }
+}

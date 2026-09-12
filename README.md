@@ -1,17 +1,17 @@
 # Energy Exchange
 
-[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.2.1.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
+[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.3.0.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
 
 An independent energy-exchange mod for **Minecraft Java 26.2 + Fabric**, inspired by equivalent exchange. It is not an official ProjectE port and includes no ProjectE code or assets.
 
-**0.2.1: items → personal Energy and knowledge → table purchases of items or XP.**
+**0.3.0: items → personal Energy and knowledge → table purchases of items or XP.**
 
 ## Install
 
 - Java 25, Minecraft 26.2, Fabric Loader 0.19.5+, Fabric API 0.159.0+26.2.
 - Install this mod and Fabric API on both client and server. The 0.2 blocks, items and menus require both sides.
 - Optional: Mod Menu 20.0.2; TaCZ Refabricated 26.2 R3-hotfix with Forge Config API Port 26.2.1. Use matching TaCZ versions and gun packs on both sides.
-- Put `energyexchange-0.2.1.jar` in `mods`, not the sources JAR. English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese and Russian are included, with additional Traditional Chinese (Taiwan/Hong Kong) locales. The in-game name follows the selected language; Mod Menu uses its standard translated-name setting.
+- Put `energyexchange-0.3.0.jar` in `mods`, not the sources JAR. English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese and Russian are included, with additional Traditional Chinese (Taiwan/Hong Kong) locales. The in-game name follows the selected language; Mod Menu uses its standard translated-name setting.
 - Compatibility is `~26.2`; later series require fresh validation.
 - Existing 0.1 balances and knowledge are retained without scaling or reset. Back up the world before upgrading; 0.2 items and variant knowledge do not support direct downgrade to 0.1.
 
@@ -81,10 +81,14 @@ Every stable version receives a GitHub Release containing its runtime JAR and bi
 
 MIT licensed. Bundled Unicode pronunciation data retains its own license; see [third-party notices](THIRD_PARTY_NOTICES.md). The TaCZ adapter is independently implemented against public APIs; no upstream code or assets are bundled.
 
-## 0.2.1 compatibility and pricing
+## 0.3.0 compatibility and pricing
 
 Optional Traveler’s Backpack **Fabric 26.2-11.3.2** is supported with prices for all 80 registered items. Filled, dyed or upgraded backpacks convert at the base registered item price and buy back empty at the default tier. Remove anything you want to keep before converting.
 
 The server selects a vanilla-only, TaCZ, backpack, or combined recipe price profile based on installed mods. This fixes the cheaper TaCZ gunpowder crafting loop and recalculates ammunition, firearms, attachments and backpacks from the actual cheapest resolved recipes. Fractional yields remain exact until batch rounding. Data-pack item/variant overrides still take priority. See [pricing details](docs/PRICING.md).
 
 Only stable versions create GitHub Releases with JAR and bilingual notes. Versions containing `pre` still build in CI but do not create a Release.
+
+## 0.3 armory and advanced tooltips
+
+Adds 32 materials, tools, weapons and armor across Dark Matter, Red Matter and Infinity tiers. Every recipe uses the vanilla 3×3 table, with area mining, hostile sweeps and Infinity suit flight. F3+H tooltips show exact server ENERGY above the item ID. See [all recipes and controls](docs/ARMORY.md).

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "MMM",
+    "MGM",
+    "MMM"
+  ],
+  "key": {
+    "M": "energyexchange:red_matter",
+    "G": "energyexchange:dark_matter_helmet"
+  },
+  "result": {
+    "id": "energyexchange:red_matter_helmet",
+    "count": 1
+  }
+}

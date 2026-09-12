@@ -7,6 +7,7 @@ Run these commands in order to reproduce prices:
 ```sh
 python tools/generate_values.py client.jar /path/to/tacz
 python tools/generate_mod_values.py client.jar /path/to/tacz travelersbackpack.jar
+python tools/generate_armory.py
 ```
 
 Use the pinned 26.2 vanilla client, TaCZ source commit `05ec226310545d89cec9169a10105e32d1ed262b`, and Traveler's Backpack Fabric 26.2-11.3.2. The backpack archive is checked with SHA-256. Tools extract item, tag and recipe facts; no upstream code/assets are bundled.

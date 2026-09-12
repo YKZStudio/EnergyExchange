@@ -10,6 +10,19 @@ import net.minecraft.world.level.GameType;
 public final class ExchangeClientTests implements FabricClientGameTest {
     @Override public void runTest(ClientGameTestContext context) {
         try (var world = context.worldBuilder().create()) {
+            context.waitFor(client -> "1".equals(EnergyTooltip.value(new ItemStack(Items.DIRT))));
+            world.getServer().runOnServer(server -> { EnergyExchange.RULES.pause(); PriceSync.send(server.getPlayerList().getPlayers().getFirst()); });
+            context.waitFor(client -> EnergyTooltip.value(new ItemStack(Items.DIRT)) == null);
+            world.getServer().runOnServer(server -> { EnergyExchange.RULES.complete(true); PriceSync.send(server.getPlayerList().getPlayers().getFirst()); });
+            context.waitFor(client -> "1".equals(EnergyTooltip.value(new ItemStack(Items.DIRT))));
+            context.runOnClient(client -> {
+                var stack = new ItemStack(Items.DIRT);
+                var lines = stack.getTooltipLines(net.minecraft.world.item.Item.TooltipContext.of(client.level), client.player, net.minecraft.world.item.TooltipFlag.ADVANCED);
+                int id = -1; for (int i = 0; i < lines.size(); i++) if (lines.get(i).getString().equals("minecraft:dirt")) id = i;
+                if (id <= 0 || !lines.get(id - 1).getString().equals("ENERGY 1")) throw new AssertionError("ENERGY immediately above advanced item ID");
+                var normal = stack.getTooltipLines(net.minecraft.world.item.Item.TooltipContext.of(client.level), client.player, net.minecraft.world.item.TooltipFlag.NORMAL);
+                if (normal.stream().anyMatch(c -> c.getString().startsWith("ENERGY "))) throw new AssertionError("Normal tooltip must not show ENERGY");
+            });
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst(); p.setGameMode(GameType.SURVIVAL);
                 p.getInventory().setItem(p.getInventory().getSelectedSlot(), new ItemStack(ExchangeContent.TABLET));
@@ -133,6 +146,19 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             });
             context.waitTicks(20);
             context.takeScreenshot("transmutation-table-model");
+            world.getServer().runOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst(); int slot = 0;
+                for (var item : Armory.ITEMS.values()) p.getInventory().setItem(slot++, new ItemStack(item));
+                p.setItemSlot(net.minecraft.world.entity.EquipmentSlot.HEAD, new ItemStack(Armory.ITEMS.get("infinity_helmet")));
+                p.setItemSlot(net.minecraft.world.entity.EquipmentSlot.CHEST, new ItemStack(Armory.ITEMS.get("infinity_chestplate")));
+                p.setItemSlot(net.minecraft.world.entity.EquipmentSlot.LEGS, new ItemStack(Armory.ITEMS.get("infinity_leggings")));
+                p.setItemSlot(net.minecraft.world.entity.EquipmentSlot.FEET, new ItemStack(Armory.ITEMS.get("infinity_boots")));
+                p.inventoryMenu.broadcastChanges();
+            });
+            context.waitTicks(10);
+            context.runOnClient(client -> client.options.advancedItemTooltips = true);
+            context.setScreen(() -> new net.minecraft.client.gui.screens.inventory.InventoryScreen(net.minecraft.client.Minecraft.getInstance().player));
+            context.takeScreenshot("armory-infinity-zh_cn");
 
         }
     }

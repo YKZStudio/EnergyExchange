@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "energyexchange:dark_matter",
+    "energyexchange:red_matter",
+    "energyexchange:crystal_matrix_ingot",
+    "energyexchange:neutronium_ingot",
+    "minecraft:nether_star",
+    "minecraft:dragon_breath",
+    "minecraft:heart_of_the_sea",
+    "minecraft:echo_shard",
+    "minecraft:netherite_block"
+  ],
+  "result": {
+    "id": "energyexchange:infinity_catalyst",
+    "count": 1
+  }
+}

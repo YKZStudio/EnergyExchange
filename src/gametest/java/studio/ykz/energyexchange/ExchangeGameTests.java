@@ -323,6 +323,102 @@ public final class ExchangeGameTests {
         helper.succeed();
     }
 
+    @GameTest
+    public void armoryCoverageAndFlightLifecycle(GameTestHelper helper) {
+        helper.assertTrue(Armory.ITEMS.size() == 32, "32 registered armory items");
+        for (var e : Armory.ITEMS.entrySet()) {
+            String key = "energyexchange:" + e.getKey();
+            helper.assertTrue(EnergyExchange.RULES.require(key).value().signum() > 0, "Armory priced: " + key);
+            helper.assertTrue(Catalog.identify(e.getValue().getDefaultInstance()).equals(key), "Armory identity");
+            if (e.getValue() instanceof MatterTool || e.getKey().matches(".*_(helmet|chestplate|leggings|boots)"))
+                helper.assertTrue(e.getValue().getDefaultInstance().has(DataComponents.UNBREAKABLE), "Unbreakable equipment");
+        }
+        var p = player(helper);
+        var slots = java.util.List.of(net.minecraft.world.entity.EquipmentSlot.HEAD, net.minecraft.world.entity.EquipmentSlot.CHEST, net.minecraft.world.entity.EquipmentSlot.LEGS, net.minecraft.world.entity.EquipmentSlot.FEET);
+        var names = java.util.List.of("helmet", "chestplate", "leggings", "boots");
+        for (int i = 0; i < slots.size(); i++) p.setItemSlot(slots.get(i), new ItemStack(Armory.ITEMS.get("infinity_" + names.get(i))));
+        Armory.tick(p);
+        helper.assertTrue(Armory.fullTier(p) == 3 && p.getAbilities().mayfly, "Complete infinity suit grants flight");
+        var callback = net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DAMAGE.invoker();
+        helper.assertTrue(!callback.allowDamage(p, p.damageSources().generic(), 20), "Infinity damage protection");
+        helper.assertTrue(callback.allowDamage(p, p.damageSources().fellOutOfWorld(), 20), "Void remains authoritative");
+        var save = TagValueOutput.createWithContext(ProblemReporter.DISCARDING, p.registryAccess());
+        p.saveWithoutId(save); var restored = player(helper);
+        restored.load(TagValueInput.create(ProblemReporter.DISCARDING, restored.registryAccess(), save.buildResult()));
+        restored.setItemSlot(slots.getFirst(), ItemStack.EMPTY); Armory.tick(restored);
+        helper.assertTrue(!restored.getAbilities().mayfly && !restored.getAttachedOrElse(Armory.FLIGHT_OWNER, false), "Saved flight ownership is revoked after reload and unequip");
+        p.getAbilities().flying = true; p.setItemSlot(slots.getFirst(), ItemStack.EMPTY); Armory.tick(p);
+        helper.assertTrue(!p.getAbilities().mayfly && !p.getAbilities().flying && p.hasEffect(net.minecraft.world.effect.MobEffects.SLOW_FALLING), "Unequipping revokes flight and allows safe landing");
+        helper.assertTrue(callback.allowDamage(p, p.damageSources().generic(), 20), "Incomplete suit has no invulnerability");
+        p.getAbilities().mayfly = true; Armory.tick(p);
+        helper.assertTrue(p.getAbilities().mayfly, "Pre-existing external flight preserved");
+        helper.succeed();
+    }
+
+    @GameTest
+    public void areaMiningHonorsProtectionAndBounds(GameTestHelper helper) {
+        var p = player(helper);
+        var center = helper.absolutePos(new net.minecraft.core.BlockPos(1, 2, 1));
+        p.setPos(center.getX() + .5, center.getY() + 1, center.getZ() + .5);
+        var tool = (MatterTool) Armory.ITEMS.get("dark_matter_pickaxe"); p.getInventory().setItem(0, new ItemStack(tool));
+        for (int a = -1; a <= 1; a++) for (int b = -1; b <= 1; b++) p.level().setBlockAndUpdate(center.offset(a, 0, b), net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+        var denied = center.offset(-1, 0, -1); var chest = center.offset(1, 0, 1); var bedrock = center.offset(-1, 0, 1);
+        p.level().setBlockAndUpdate(chest, net.minecraft.world.level.block.Blocks.CHEST.defaultBlockState());
+        p.level().setBlockAndUpdate(bedrock, net.minecraft.world.level.block.Blocks.BEDROCK.defaultBlockState());
+        var active = new java.util.concurrent.atomic.AtomicBoolean(true);
+        net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents.BEFORE.register((level, player, pos, state, entity) -> !active.get() || player != p || !pos.equals(denied));
+        try {
+            int count = tool.mineArea(p, center, net.minecraft.core.Direction.UP);
+            helper.assertTrue(count == 6, "3x3 skips denied block, chest and bedrock: " + count);
+            helper.assertTrue(p.level().getBlockState(denied).is(net.minecraft.world.level.block.Blocks.STONE) && p.level().getBlockState(chest).hasBlockEntity() && p.level().getBlockState(bedrock).is(net.minecraft.world.level.block.Blocks.BEDROCK), "Protected blocks preserved");
+            helper.assertTrue(tool.mineArea(p, center, net.minecraft.core.Direction.UP) == 0, "Ability cooldown");
+            helper.assertTrue(p.getMainHandItem().getDamageValue() == 0, "Mining consumes no durability");
+        } finally { active.set(false); }
+        helper.succeed();
+    }
+
+    @GameTest
+    public void armoryCraftsOnVanillaTable(GameTestHelper helper) throws Exception {
+        for (String name : Armory.ITEMS.keySet()) {
+            var grid = new java.util.ArrayList<ItemStack>(java.util.Collections.nCopies(9, ItemStack.EMPTY));
+            try (var in = getClass().getResourceAsStream("/data/energyexchange/recipe/" + name + ".json")) {
+                var json = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+                if (json.has("pattern")) {
+                    var rows = json.getAsJsonArray("pattern"); helper.assertTrue(rows.size() <= 3, "3x3 height");
+                    for (int y = 0; y < rows.size(); y++) {
+                        String row = rows.get(y).getAsString(); helper.assertTrue(row.length() <= 3, "3x3 width");
+                        for (int x = 0; x < row.length(); x++) if (row.charAt(x) != ' ') grid.set(y * 3 + x, Catalog.sample(json.getAsJsonObject("key").get(String.valueOf(row.charAt(x))).getAsString()));
+                    }
+                } else {
+                    var inputs = json.getAsJsonArray("ingredients"); helper.assertTrue(inputs.size() <= 9, "At most nine ingredients");
+                    for (int i = 0; i < inputs.size(); i++) grid.set(i, Catalog.sample(inputs.get(i).getAsString()));
+                }
+            }
+            var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, grid);
+            var recipe = helper.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, helper.getLevel()).orElseThrow();
+            helper.assertTrue(recipe.value().assemble(input).getItem() == Armory.ITEMS.get(name), "Vanilla 3x3 recipe output: " + name);
+        }
+        helper.succeed();
+    }
+
+    @GameTest
+    public void sweepRespectsDamageVetoAndLeavesAnimals(GameTestHelper helper) {
+        var p = player(helper); var center = helper.absolutePos(new net.minecraft.core.BlockPos(1, 2, 1));
+        p.setPos(center.getX() + .5, center.getY(), center.getZ() + .5);
+        var zombie = helper.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, new net.minecraft.core.BlockPos(2, 2, 1)); zombie.setNoAi(true);
+        var pig = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, new net.minecraft.core.BlockPos(1, 2, 2)); pig.setNoAi(true);
+        var tool = (MatterTool) Armory.ITEMS.get("infinity_sword"); p.getInventory().setItem(0, new ItemStack(tool));
+        var veto = new java.util.concurrent.atomic.AtomicBoolean(true);
+        net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) -> entity != zombie || !veto.get());
+        try {
+            helper.assertTrue(tool.sweep(p) == 0 && zombie.isAlive(), "Area damage respects other mods' veto");
+            veto.set(false); for (int i = 0; i < 20; i++) p.getCooldowns().tick();
+            helper.assertTrue(tool.sweep(p) == 1 && !zombie.isAlive(), "Infinity sweep defeats a hostile mob");
+            helper.assertTrue(pig.isAlive() && pig.getHealth() == pig.getMaxHealth(), "Passive animals are untouched");
+        } finally { veto.set(false); }
+        helper.succeed();
+    }
+
     private static ResourceManager resources(GameTestHelper helper, String value) {
         var pack = helper.getLevel().getServer().getResourceManager().listPacks().findFirst().orElseThrow();
         var resource = new Resource(pack, () -> new ByteArrayInputStream(value.getBytes(StandardCharsets.UTF_8)));

@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "energyexchange:infinity"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "energyexchange:infinity"
+      }
+    ]
+  }
+}

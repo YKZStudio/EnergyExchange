@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "equipment",
+  "ingredients": [
+    "energyexchange:red_matter_pickaxe",
+    "energyexchange:red_matter_shovel",
+    "energyexchange:red_matter",
+    "energyexchange:red_matter"
+  ],
+  "result": {
+    "id": "energyexchange:red_matter_morning_star",
+    "count": 1
+  }
+}

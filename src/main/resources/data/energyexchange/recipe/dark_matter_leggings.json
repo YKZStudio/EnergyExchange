@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "MMM",
+    "M M",
+    "M M"
+  ],
+  "key": {
+    "M": "energyexchange:dark_matter"
+  },
+  "result": {
+    "id": "energyexchange:dark_matter_leggings",
+    "count": 1
+  }
+}

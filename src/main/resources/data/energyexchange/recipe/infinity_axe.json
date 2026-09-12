@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "MMM",
+    "MGM",
+    "MMM"
+  ],
+  "key": {
+    "M": "energyexchange:infinity_ingot",
+    "G": "energyexchange:red_matter_axe"
+  },
+  "result": {
+    "id": "energyexchange:infinity_axe",
+    "count": 1
+  }
+}
