@@ -31,8 +31,9 @@ public final class PriceSync {
         ServerLifecycleEvents.START_DATA_PACK_RELOAD.register((server, manager) -> server.getPlayerList().getPlayers().forEach(PriceSync::clear));
         ServerLifecycleEvents.END_DATA_PACK_RELOAD.register((server, manager, success) -> server.getPlayerList().getPlayers().forEach(PriceSync::send));
     }
-    private static void clear(ServerPlayer player) { ServerPlayNetworking.send(player, new Page(EnergyExchange.RULES.revision(), 0, true, List.of())); }
+    private static void clear(ServerPlayer player) { if (!ServerPlayNetworking.canSend(player, Page.TYPE)) return; ServerPlayNetworking.send(player, new Page(EnergyExchange.RULES.revision(), 0, true, List.of())); }
     public static void send(ServerPlayer player) {
+        if (!ServerPlayNetworking.canSend(player, Page.TYPE)) return;
         var prices = new ArrayList<Price>();
         try {
             EnergyExchange.RULES.checkReady();

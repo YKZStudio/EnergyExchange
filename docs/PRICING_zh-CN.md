@@ -7,6 +7,7 @@
 ```sh
 python tools/generate_values.py client.jar /path/to/tacz
 python tools/generate_mod_values.py client.jar /path/to/tacz travelersbackpack.jar
+python tools/generate_armory.py
 ```
 
 输入为固定的 26.2 原版客户端、TaCZ 源码提交 `05ec226310545d89cec9169a10105e32d1ed262b` 和旅行者背包 Fabric 26.2-11.3.2。背包 JAR 校验 SHA-256。工具仅读取物品、标签、配方事实，不捆绑上游代码或素材。

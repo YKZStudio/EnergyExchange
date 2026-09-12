@@ -31,7 +31,11 @@ for kind,pattern in patterns.items():
 shapeless('red_matter_katar','red_matter_sword','red_matter_axe','red_matter','red_matter')
 shapeless('red_matter_morning_star','red_matter_pickaxe','red_matter_shovel','red_matter','red_matter')
 RECIPES.mkdir(exist_ok=True)
-for k,v in recipes.items():(RECIPES/(k+'.json')).write_text(json.dumps(v,indent=2)+'\n')
+for k,v in recipes.items():
+ (RECIPES/(k+'.json')).write_text(json.dumps(v,indent=2)+'\n')
+ first=v['ingredients'][0] if 'ingredients' in v else next(iter(v['key'].values()))
+ adv=DATA/'advancement/recipes/armory'/f'{k}.json';adv.parent.mkdir(parents=True,exist_ok=True)
+ adv.write_text(json.dumps({'parent':'minecraft:recipes/root','criteria':{'has_material':{'trigger':'minecraft:inventory_changed','conditions':{'items':[{'items':[first]}]}},'has_the_recipe':{'trigger':'minecraft:recipe_unlocked','conditions':{'recipe':item(k)}}},'requirements':[['has_material','has_the_recipe']],'rewards':{'recipes':[item(k)]}},indent=2)+'\n')
 def apply(values,salvage):
  rates={k:Fraction(*map(int,salvage[k])) if k in salvage else Fraction(v) for k,v in values.items()}
  for name,r in recipes.items():

@@ -65,7 +65,7 @@ public final class MatterTool extends Item {
         return hits;
     }
     @Override public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, Consumer<Component> text, TooltipFlag flag) {
-        if (!kind.equals("sword")) text.accept(Messages.text("gear.mine", tier * 2 + 1, tier * 2 + 1).withStyle(ChatFormatting.GRAY));
-        if (combat()) text.accept(Messages.text("gear.sweep", tier * 2 + 1).withStyle(ChatFormatting.GRAY));
+        if (!kind.equals("sword")) text.accept(Messages.text("gear.mine", tier * 2 + 1, tier * 2 + 1).copy().withStyle(ChatFormatting.GRAY));
+        if (combat()) text.accept(Messages.text("gear.sweep", tier * 2 + 1).copy().withStyle(ChatFormatting.GRAY));
     }
 }

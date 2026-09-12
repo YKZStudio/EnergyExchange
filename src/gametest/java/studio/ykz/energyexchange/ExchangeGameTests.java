@@ -372,6 +372,30 @@ public final class ExchangeGameTests {
         helper.succeed();
     }
 
+    @GameTest
+    public void armoryCraftsOnVanillaTable(GameTestHelper helper) throws Exception {
+        for (String name : Armory.ITEMS.keySet()) {
+            var grid = new java.util.ArrayList<ItemStack>(java.util.Collections.nCopies(9, ItemStack.EMPTY));
+            try (var in = getClass().getResourceAsStream("/data/energyexchange/recipe/" + name + ".json")) {
+                var json = com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(in, StandardCharsets.UTF_8)).getAsJsonObject();
+                if (json.has("pattern")) {
+                    var rows = json.getAsJsonArray("pattern"); helper.assertTrue(rows.size() <= 3, "3x3 height");
+                    for (int y = 0; y < rows.size(); y++) {
+                        String row = rows.get(y).getAsString(); helper.assertTrue(row.length() <= 3, "3x3 width");
+                        for (int x = 0; x < row.length(); x++) if (row.charAt(x) != ' ') grid.set(y * 3 + x, Catalog.sample(json.getAsJsonObject("key").get(String.valueOf(row.charAt(x))).getAsString()));
+                    }
+                } else {
+                    var inputs = json.getAsJsonArray("ingredients"); helper.assertTrue(inputs.size() <= 9, "At most nine ingredients");
+                    for (int i = 0; i < inputs.size(); i++) grid.set(i, Catalog.sample(inputs.get(i).getAsString()));
+                }
+            }
+            var input = net.minecraft.world.item.crafting.CraftingInput.of(3, 3, grid);
+            var recipe = helper.getLevel().getServer().getRecipeManager().getRecipeFor(net.minecraft.world.item.crafting.RecipeType.CRAFTING, input, helper.getLevel()).orElseThrow();
+            helper.assertTrue(recipe.value().assemble(input).getItem() == Armory.ITEMS.get(name), "Vanilla 3x3 recipe output: " + name);
+        }
+        helper.succeed();
+    }
+
     private static ResourceManager resources(GameTestHelper helper, String value) {
         var pack = helper.getLevel().getServer().getResourceManager().listPacks().findFirst().orElseThrow();
         var resource = new Resource(pack, () -> new ByteArrayInputStream(value.getBytes(StandardCharsets.UTF_8)));

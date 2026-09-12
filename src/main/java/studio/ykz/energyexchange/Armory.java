@@ -42,7 +42,7 @@ public final class Armory {
                 final int rank = tier;
                 var item = add(name, new Item(properties(name).humanoidArmor(armor, type).component(DataComponents.UNBREAKABLE, Unit.INSTANCE)) {
                     @Override public void appendHoverText(ItemStack stack, TooltipContext context, net.minecraft.world.item.component.TooltipDisplay display, java.util.function.Consumer<net.minecraft.network.chat.Component> text, TooltipFlag flag) {
-                        text.accept(Messages.text("gear.armor." + rank).withStyle(net.minecraft.ChatFormatting.GRAY));
+                        text.accept(Messages.text("gear.armor." + rank).copy().withStyle(net.minecraft.ChatFormatting.GRAY));
                     }
                 });
                 ARMOR_TIERS.put(item, tier);
