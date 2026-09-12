@@ -62,11 +62,16 @@
   "energyexchange.ui.learned_only": "Aprendidos",
   "energyexchange.ui.empty": "Coloque itens à esquerda e escolha «Converter tudo» para ganhar energia e aprendê-los.",
   "energyexchange.ui.no_results": "Nenhum resultado. Tente a visualização «Todos».",
-  "energyexchange.ui.burn_hint": "Converte a pilha inteira e aprende automaticamente. Exige regra de energia ativa e componentes compatíveis.",
+  "energyexchange.ui.burn_hint": "Converte toda a pilha pelo valor base. Encantamentos, dano, nomes, conteúdo, líquidos e melhorias são descartados. Compras retornam itens padrão; o modelo TaCZ é mantido.",
   "energyexchange.ui.price": "Compra: %s energia por item",
   "energyexchange.config.pinyin": "Pinyin (experimental): %s",
   "energyexchange.config.pinyin_hint": "Desativado por padrão. Aceita pinyin, iniciais, caracteres chineses misturados, tons e letras de largura completa. Várias leituras aceitas. Sem REI ou rede; não corrige erros de digitação.",
   "energyexchange.error.purchase_count": "Escolha 1, 16, 32 ou 64 sem ultrapassar o tamanho máximo da pilha.",
   "modmenu.nameTranslation.energyexchange": "Troca de energia",
-  "modmenu.descriptionTranslation.energyexchange": "Converta itens em energia pessoal, aprenda-os e compre-os de volta."
+  "modmenu.descriptionTranslation.energyexchange": "Converta itens em energia pessoal, aprenda-os e compre-os de volta.",
+  "energyexchange.config.sort": "Ordenação: %s",
+  "energyexchange.config.sort.energy_desc": "Energia decrescente",
+  "energyexchange.config.sort.energy_asc": "Energia crescente",
+  "energyexchange.config.sort.name": "Nome",
+  "energyexchange.ui.data_discard": "Dados perdidos"
 }

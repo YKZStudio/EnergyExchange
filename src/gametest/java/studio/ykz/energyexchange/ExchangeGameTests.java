@@ -58,9 +58,11 @@ public final class ExchangeGameTests {
             java.nio.file.Files.writeString(path, "{\"showUnlearned\":true,\"compactNumbers\":false,\"xpEnabled\":false,\"xpCost\":\"256\"}");
             var config = ExchangeConfig.load();
             helper.assertTrue(!config.showUnlearned() && !config.pinyinSearch() && !config.compactNumbers() && !config.xpEnabled() && config.xpCost().equals("256"), "Legacy settings migration");
-            new ExchangeConfig(true, false, false, "256", true).save();
+            java.nio.file.Files.writeString(path, "{\"showUnlearned\":true,\"compactNumbers\":false,\"xpEnabled\":false,\"xpCost\":\"256\",\"pinyinSearch\":true}");
+            helper.assertTrue(ExchangeConfig.load().sortOrder() == studio.ykz.energyexchange.core.CatalogOrder.ENERGY_DESC && ExchangeConfig.load().pinyinSearch(), "0.2 settings preserve preferences and default to energy descending");
+            new ExchangeConfig(true, false, false, "256", true, studio.ykz.energyexchange.core.CatalogOrder.NAME).save();
             var saved = ExchangeConfig.load();
-            helper.assertTrue(saved.showUnlearned() && saved.pinyinSearch() && saved.xpCost().equals("256"), "New settings round trip");
+            helper.assertTrue(saved.showUnlearned() && saved.pinyinSearch() && saved.xpCost().equals("256") && saved.sortOrder() == studio.ykz.energyexchange.core.CatalogOrder.NAME, "New settings round trip");
             helper.assertTrue(ExchangeContent.TABLE.defaultBlockState().getShape(helper.getLevel(), net.minecraft.core.BlockPos.ZERO).max(net.minecraft.core.Direction.Axis.Y) == 3.0 / 16, "Table collision matches low model");
         } finally {
             if (previous == null) java.nio.file.Files.deleteIfExists(path); else java.nio.file.Files.write(path, previous);
@@ -111,9 +113,10 @@ public final class ExchangeGameTests {
         var named = new ItemStack(Items.DIRT, 2);
         named.set(DataComponents.CUSTOM_NAME, Component.literal("Protected / 受保护"));
         player.getInventory().setItem(0, named);
-        reject(helper, "components", () -> ExchangeService.burn(player, 1));
-        helper.assertTrue(named.getCount() == 2, "Named stack untouched / 命名物品不变");
-        player.getInventory().setItem(0, new ItemStack(Items.DIRT, 2));
+        ExchangeService.burn(player, 2);
+        ExchangeService.buy(player, DIRT, 2);
+        helper.assertTrue(!player.getMainHandItem().has(DataComponents.CUSTOM_NAME), "Purchases discard sample name");
+        player.getInventory().setItem(0, new ItemStack(Items.STONE, 2));
         ExchangeService.learn(player);
         reject(helper, "already_learned", () -> ExchangeService.learn(player));
         helper.assertTrue(player.getMainHandItem().getCount() == 1 && ExchangeService.account(player).energy().signum() == 0, "Learning consumes exactly one and no credit / 学习只消耗一个且不入账");
@@ -248,7 +251,7 @@ public final class ExchangeGameTests {
     }
 
     @GameTest
-    public void taczModelsRoundTripAndLoadedGunRejection(GameTestHelper helper) {
+    public void taczModelsRoundTripAndDataDiscard(GameTestHelper helper) {
         if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("tacz")) { helper.succeed(); return; }
         var p = player(helper);
         int variants = 0;
@@ -269,8 +272,54 @@ public final class ExchangeGameTests {
         var loaded = p.getMainHandItem();
         var tag = loaded.getOrDefault(DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.EMPTY).copyTag();
         tag.putInt("GunCurrentAmmoCount", 1); loaded.set(DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(tag));
-        reject(helper, "components", () -> ExchangeService.burn(p, 1));
-        helper.assertTrue(loaded.getCount() == 1, "Loaded gun retained / 装弹枪保留");
+        ExchangeService.burn(p, 1); ExchangeService.buy(p, key, 1);
+        helper.assertTrue(ItemStack.isSameItemSameComponents(p.getMainHandItem(), Catalog.sample(key)), "Loaded data is discarded; model retained");
+        var powder = EnergyExchange.RULES.burnCredit("minecraft:gunpowder", 3);
+        var materials = EnergyExchange.RULES.require("minecraft:flint").value().add(EnergyExchange.RULES.require("minecraft:sugar").value().multiply(BigInteger.TWO)).add(EnergyExchange.RULES.require("minecraft:charcoal").value().multiply(BigInteger.valueOf(3)));
+        helper.assertTrue(powder.compareTo(materials) <= 0, "TaCZ powder recipe cannot mint energy");
+        helper.succeed();
+    }
+
+    @GameTest
+    public void decoratedItemsAndContainersLoseData(GameTestHelper helper) {
+        var p = player(helper);
+        var sword = new ItemStack(Items.DIAMOND_SWORD);
+        sword.setDamageValue(50); sword.set(DataComponents.CUSTOM_NAME, Component.literal("Sample"));
+        sword.enchant(p.registryAccess().lookupOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(net.minecraft.world.item.enchantment.Enchantments.UNBREAKING), 3);
+        p.getInventory().setItem(0, sword);
+        ExchangeService.burn(p, 1); ExchangeService.buy(p, "minecraft:diamond_sword", 1);
+        helper.assertTrue(ItemStack.isSameItemSameComponents(p.getMainHandItem(), new ItemStack(Items.DIAMOND_SWORD)), "Enchantment/name/damage are not copied");
+        var box = new ItemStack(Items.SHULKER_BOX);
+        box.set(DataComponents.CONTAINER, net.minecraft.world.item.component.ItemContainerContents.fromItems(java.util.List.of(new ItemStack(Items.DIAMOND, 64))));
+        var spoof = new net.minecraft.nbt.CompoundTag(); spoof.putString("GunId", "tacz:ak47");
+        box.set(DataComponents.CUSTOM_DATA, net.minecraft.world.item.component.CustomData.of(spoof));
+        p.getInventory().setItem(0, box);
+        var before = ExchangeService.account(p).energy();
+        ExchangeService.burn(p, 1);
+        helper.assertTrue(ExchangeService.account(p).energy().subtract(before).equals(EnergyExchange.RULES.burnCredit("minecraft:shulker_box", 1)), "Only shell value, unrelated model fields ignored");
+        ExchangeService.buy(p, "minecraft:shulker_box", 1);
+        helper.assertTrue(ItemStack.isSameItemSameComponents(p.getMainHandItem(), new ItemStack(Items.SHULKER_BOX)) && p.getInventory().countItem(Items.DIAMOND) == 0, "Contents discarded without duplication");
+        helper.succeed();
+    }
+
+    @GameTest
+    public void travelersBackpackCoverageAndEmptyPurchases(GameTestHelper helper) {
+        if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("travelersbackpack")) { helper.succeed(); return; }
+        int count = 0;
+        for (var entry : Catalog.entries().entrySet()) if (entry.getKey().startsWith("travelersbackpack:")) {
+            count++; helper.assertTrue(EnergyExchange.RULES.require(entry.getKey()).value().signum() > 0, "Backpack item priced: " + entry.getKey());
+        }
+        helper.assertTrue(count == 80, "Pinned backpack registry coverage: " + count);
+        var p = player(helper); var bag = Catalog.sample("travelersbackpack:standard");
+        @SuppressWarnings("unchecked")
+        var container = (net.minecraft.core.component.DataComponentType<net.minecraft.world.item.component.ItemContainerContents>) net.minecraft.core.registries.BuiltInRegistries.DATA_COMPONENT_TYPE.getValue(Identifier.parse("travelersbackpack:backpack_container"));
+        helper.assertTrue(container != null, "Real backpack component registered");
+        bag.set(container, net.minecraft.world.item.component.ItemContainerContents.fromItems(java.util.List.of(new ItemStack(Items.DIAMOND, 64))));
+        bag.set(DataComponents.CUSTOM_NAME, Component.literal("Filled backpack"));
+        p.getInventory().setItem(0, bag);
+        ExchangeService.burn(p, 1); ExchangeService.buy(p, "travelersbackpack:standard", 1);
+        helper.assertTrue(ItemStack.isSameItemSameComponents(p.getMainHandItem(), Catalog.sample("travelersbackpack:standard")), "Backpack returns at default tier with no contents");
+        helper.assertTrue(p.getInventory().countItem(Items.DIAMOND) == 0, "Stored diamonds do not escape or duplicate");
         helper.succeed();
     }
 

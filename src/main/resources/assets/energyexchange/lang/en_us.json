@@ -62,11 +62,16 @@
   "energyexchange.ui.learned_only": "Learned items",
   "energyexchange.ui.empty": "Place items in the left slot, then Convert all to gain Energy and learn them.",
   "energyexchange.ui.no_results": "No matching items. Try switching to All items.",
-  "energyexchange.ui.burn_hint": "Convert the entire input stack and learn it automatically. Requires an enabled Energy rule and supported components.",
+  "energyexchange.ui.burn_hint": "Convert the whole stack at its base value. Enchantments, damage, names, container contents, fluids and upgrades are discarded. Purchases return default items; TaCZ model identity is retained.",
   "energyexchange.ui.price": "Purchase: %s Energy each",
   "energyexchange.config.pinyin": "Pinyin search (experimental): %s",
   "energyexchange.config.pinyin_hint": "Off by default. Search Chinese names with full pinyin, initials, mixed Chinese/pinyin, tones or full-width letters. Multiple readings are supported. No REI or network required; this is not typo correction.",
   "energyexchange.error.purchase_count": "Choose 1, 16, 32 or 64, without exceeding the item stack limit.",
   "modmenu.nameTranslation.energyexchange": "Energy Exchange",
-  "modmenu.descriptionTranslation.energyexchange": "Turn items into personal Energy, learn them and exchange them back."
+  "modmenu.descriptionTranslation.energyexchange": "Turn items into personal Energy, learn them and exchange them back.",
+  "energyexchange.config.sort": "Sort: %s",
+  "energyexchange.config.sort.energy_desc": "Energy: high to low",
+  "energyexchange.config.sort.energy_asc": "Energy: low to high",
+  "energyexchange.config.sort.name": "Name",
+  "energyexchange.ui.data_discard": "Data discarded"
 }

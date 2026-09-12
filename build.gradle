@@ -20,8 +20,9 @@ dependencies {
     implementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
     clientCompileOnly 'com.terraformersmc:modmenu:20.0.2'
     clientRuntimeOnly 'com.terraformersmc:modmenu:20.0.2'
-    if (providers.gradleProperty('withTacz').isPresent()) {
-        runtimeOnly files('test-mods/tacz.jar')
+    if (providers.gradleProperty('withTacz').isPresent()) runtimeOnly files('test-mods/tacz.jar')
+    if (providers.gradleProperty('withBackpack').isPresent()) runtimeOnly files('test-mods/backpack.jar')
+    if (providers.gradleProperty('withTacz').isPresent() || providers.gradleProperty('withBackpack').isPresent()) {
         runtimeOnly 'fuzs.forgeconfigapiport:forgeconfigapiport-fabric:26.2.1'
         runtimeOnly 'me.shedaniel.cloth:cloth-config-fabric:26.2.155'
     }

@@ -33,5 +33,6 @@
   "suggests": {
     "modmenu": ">=20.0.0",
     "tacz": "*"
-  }
+  },
+  "icon": "assets/energyexchange/icon.png"
 }

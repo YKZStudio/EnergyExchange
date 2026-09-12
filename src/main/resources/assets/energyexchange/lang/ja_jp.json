@@ -62,11 +62,16 @@
   "energyexchange.ui.learned_only": "習得済み",
   "energyexchange.ui.empty": "左のスロットに入れ「すべて変換」でエネルギーを獲得し、アイテムを習得します。",
   "energyexchange.ui.no_results": "一致するアイテムがありません。「すべて」に切り替えてみてください。",
-  "energyexchange.ui.burn_hint": "入力スタック全体を変換して自動習得します。有効な価格と対応する状態が必要です。",
+  "energyexchange.ui.burn_hint": "スタック全体を基本価格で変換します。エンチャント、耐久値、名前、内容物、液体、アップグレードは破棄され、購入品は初期状態になります。TaCZ のモデル識別は維持されます。",
   "energyexchange.ui.price": "購入：1個あたり %s エネルギー",
   "energyexchange.config.pinyin": "ピンイン検索（実験的）：%s",
   "energyexchange.config.pinyin_hint": "初期設定はオフ。全ピンイン、頭文字、漢字との混在、声調、全角文字、多音字に対応。REI や通信は不要です。誤字の訂正は行いません。",
   "energyexchange.error.purchase_count": "1、16、32、64個から選択し、スタック上限を超えないようにしてください。",
   "modmenu.nameTranslation.energyexchange": "エネルギー交換",
-  "modmenu.descriptionTranslation.energyexchange": "アイテムを個人のエネルギーに変換し、習得して再購入できます。"
+  "modmenu.descriptionTranslation.energyexchange": "アイテムを個人のエネルギーに変換し、習得して再購入できます。",
+  "energyexchange.config.sort": "並び順：%s",
+  "energyexchange.config.sort.energy_desc": "エネルギーの高い順",
+  "energyexchange.config.sort.energy_asc": "エネルギーの低い順",
+  "energyexchange.config.sort.name": "名前",
+  "energyexchange.ui.data_discard": "データは破棄"
 }

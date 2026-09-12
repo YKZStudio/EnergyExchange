@@ -88,7 +88,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         filtered = catalog.values().stream().filter(e -> showAll || e.learned())
                 .filter(e -> e.key().contains(query) || e.stack().getHoverName().getString().toLowerCase(Locale.ROOT).contains(query)
                         || config.pinyinSearch() && studio.ykz.energyexchange.core.PinyinSearch.matches(e.stack().getHoverName().getString(), query))
-                .sorted(Comparator.comparing(ExchangeNetwork.Entry::learned).reversed().thenComparing(e -> e.stack().getHoverName().getString()).thenComparing(ExchangeNetwork.Entry::key)).toList();
+                .sorted(config.sortOrder().comparator(ExchangeNetwork.Entry::learned, ExchangeNetwork.Entry::value, e -> e.stack().getHoverName().getString(), ExchangeNetwork.Entry::key)).toList();
         if (filtered.stream().noneMatch(e -> e.key().equals(selected))) selected = "";
         page = Math.min(page, Math.max(0, (filtered.size() - 1) / 24)); updateButtons();
     }
@@ -162,6 +162,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         g.text(font, (page + 1) + "/" + Math.max(1, (filtered.size() + 23) / 24), leftPos + 246, topPos + 143, 0xFF404040, false);
         g.text(font, Messages.text("ui.purchase"), leftPos + 106, topPos + 121, 0xFF404040, false);
         if (filtered.isEmpty()) g.textWithWordWrap(font, Messages.text(search.getValue().isBlank() ? "ui.empty" : "ui.no_results"), leftPos + 110, topPos + 62, 174, 0xFF555555);
+        g.text(font, font.plainSubstrByWidth(Messages.text("ui.data_discard").getString(), 88), leftPos + 8, topPos + 130, 0xFF9A3412, false);
         extractTooltip(g, mouseX, mouseY);
     }
 }

@@ -65,9 +65,43 @@ jobs:
           path: |
             build/reports/gametest/
             build/run/gameTest/logs/
+  backpack:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        with_tacz: [false, true]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '25'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Fetch pinned backpack / 获取固定版本旅行者背包
+        run: |
+          mkdir -p test-mods
+          curl --fail --location --retry 3 https://cdn.modrinth.com/data/rlloIFEV/versions/jp51VM8M/travelersbackpack-fabric-26.2-11.3.2.jar -o test-mods/backpack.jar
+          echo 'b06753dbd277700e97efaefa541e757fa7fd6cdd91538bf4a1df851072b981de  test-mods/backpack.jar' | sha256sum --check
+      - name: Fetch TaCZ for combined test / 同时加载 TaCZ
+        if: matrix.with_tacz
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download 26.2_R3_HOTFIX --repo q14433686-arch/TaCZ_Refabricated_Unofficial --pattern '*.jar' --output test-mods/tacz.jar
+          echo 'ef803b881e3753bc879737c83caf5cbd8f8b9874c115bf547451eb683f3a389a  test-mods/tacz.jar' | sha256sum --check
+      - name: Backpack integration / 背包集成测试
+        run: ./gradlew runGameTest -PwithBackpack ${{ matrix.with_tacz && '-PwithTacz' || '' }} --no-daemon
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backpack-reports-${{ matrix.with_tacz }}
+          path: |
+            build/reports/gametest/
+            build/run/gameTest/logs/
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [build, tacz]
+    needs: [build, tacz, backpack]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -83,10 +117,8 @@ jobs:
         shell: bash
         run: |
           version=$(sed -n 's/^version=//p' gradle.properties)
-          flags=()
-          if [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+-pre[0-9]+$ ]]; then
-            flags+=(--prerelease)
-          elif [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Skipping prerelease / 预发布不创建发行版"
             exit 0
           fi
           notes="docs/releases/$version.md"
@@ -98,4 +130,4 @@ jobs:
           test -f "release-artifacts/energyexchange-$version.jar"
           gh release create "v$version" \
             "release-artifacts/energyexchange-$version.jar" "$notes" \
-            --target "$GITHUB_SHA" --title "Energy Exchange $version" --notes-file "$notes" "${flags[@]}"
+            --target "$GITHUB_SHA" --title "Energy Exchange $version" --notes-file "$notes"

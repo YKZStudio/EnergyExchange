@@ -71,6 +71,7 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
             context.runOnClient(client -> {
                 var screen = (ExchangeScreen) client.gui.screen();
+                if (!screen.visibleKeys().equals(java.util.List.of("minecraft:mace", "minecraft:ender_pearl", "minecraft:green_wool", "minecraft:dirt"))) throw new AssertionError("Default energy descending order");
                 for (String query : java.util.List.of("myzz", "moyingzhenzhu", "moyzz", "MO YING ZHEN ZHU", "末影zz", "mo影z珠", "ｍｙｚｚ", "mò yǐng zhēn zhū")) {
                     screen.search(query);
                     if (!screen.visibleKeys().equals(java.util.List.of("minecraft:ender_pearl"))) throw new AssertionError("Pinyin failed: " + query);
@@ -100,7 +101,7 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.runOnClient(client -> client.gui.screen().onClose());
             context.setScreen(() -> new ConfigScreen(null));
             context.takeScreenshot("modmenu-settings-zh_cn");
-            context.runOnClient(client -> new ExchangeConfig(false, true, true, "128", false).save());
+            context.runOnClient(client -> new ExchangeConfig(false, true, true, "128", false, studio.ykz.energyexchange.core.CatalogOrder.NAME).save());
             context.setScreen(() -> null);
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst(); ExchangeContent.TABLET.use(p.level(), p, InteractionHand.MAIN_HAND);
@@ -109,6 +110,7 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
             context.runOnClient(client -> {
                 var screen = (ExchangeScreen) client.gui.screen();
+                if (!screen.visibleKeys().equals(java.util.List.of("minecraft:ender_pearl", "minecraft:dirt", "minecraft:green_wool", "minecraft:mace"))) throw new AssertionError("Configured name order");
                 screen.search("myzz");
                 if (!screen.visibleKeys().isEmpty()) throw new AssertionError("Disabled pinyin must not affect search");
                 screen.search("末影珍珠");

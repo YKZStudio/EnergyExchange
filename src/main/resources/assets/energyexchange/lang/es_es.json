@@ -62,11 +62,16 @@
   "energyexchange.ui.learned_only": "Aprendidos",
   "energyexchange.ui.empty": "Coloca objetos a la izquierda y pulsa «Convertir todo» para obtener energía y aprenderlos.",
   "energyexchange.ui.no_results": "Sin resultados. Prueba la vista «Todos».",
-  "energyexchange.ui.burn_hint": "Convierte toda la pila y la aprende automáticamente. Requiere una regla de energía activa y componentes compatibles.",
+  "energyexchange.ui.burn_hint": "Convierte toda la pila por su valor base. Se descartan encantamientos, daño, nombres, contenido, líquidos y mejoras. Las compras son objetos predeterminados; se conserva el modelo TaCZ.",
   "energyexchange.ui.price": "Compra: %s energía por objeto",
   "energyexchange.config.pinyin": "Pinyin (experimental): %s",
   "energyexchange.config.pinyin_hint": "Desactivado por defecto. Admite pinyin, iniciales, mezcla de caracteres chinos, tonos y letras de ancho completo. Acepta varias lecturas. Sin REI ni conexión; no corrige errores tipográficos.",
   "energyexchange.error.purchase_count": "Elige 1, 16, 32 o 64 sin superar el tamaño máximo de pila del objeto.",
   "modmenu.nameTranslation.energyexchange": "Intercambio de energía",
-  "modmenu.descriptionTranslation.energyexchange": "Convierte objetos en energía personal, apréndelos y vuelve a comprarlos."
+  "modmenu.descriptionTranslation.energyexchange": "Convierte objetos en energía personal, apréndelos y vuelve a comprarlos.",
+  "energyexchange.config.sort": "Orden: %s",
+  "energyexchange.config.sort.energy_desc": "Energía descendente",
+  "energyexchange.config.sort.energy_asc": "Energía ascendente",
+  "energyexchange.config.sort.name": "Nombre",
+  "energyexchange.ui.data_discard": "Datos perdidos"
 }

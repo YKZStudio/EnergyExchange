@@ -534,5 +534,137 @@
   "minecraft:yellow_stained_glass_pane": [
     "15",
     "8"
+  ],
+  "tacz:ammo#tacz:12g": [
+    "1430",
+    "27"
+  ],
+  "tacz:ammo#tacz:22wmr": [
+    "139",
+    "75"
+  ],
+  "tacz:ammo#tacz:308": [
+    "2341",
+    "135"
+  ],
+  "tacz:ammo#tacz:30_06": [
+    "1091",
+    "72"
+  ],
+  "tacz:ammo#tacz:338": [
+    "2488",
+    "27"
+  ],
+  "tacz:ammo#tacz:357mag": [
+    "1171",
+    "108"
+  ],
+  "tacz:ammo#tacz:40mm": [
+    "667",
+    "3"
+  ],
+  "tacz:ammo#tacz:45_70": [
+    "8519",
+    "162"
+  ],
+  "tacz:ammo#tacz:45acp": [
+    "278",
+    "45"
+  ],
+  "tacz:ammo#tacz:46x30": [
+    "449",
+    "108"
+  ],
+  "tacz:ammo#tacz:500mag": [
+    "4805",
+    "72"
+  ],
+  "tacz:ammo#tacz:50ae": [
+    "8519",
+    "162"
+  ],
+  "tacz:ammo#tacz:50bmg": [
+    "7349",
+    "27"
+  ],
+  "tacz:ammo#tacz:545x39": [
+    "2374",
+    "405"
+  ],
+  "tacz:ammo#tacz:556x45": [
+    "278",
+    "45"
+  ],
+  "tacz:ammo#tacz:57x28": [
+    "3377",
+    "108"
+  ],
+  "tacz:ammo#tacz:58x42": [
+    "139",
+    "20"
+  ],
+  "tacz:ammo#tacz:68x51fury": [
+    "353",
+    "36"
+  ],
+  "tacz:ammo#tacz:762x25": [
+    "556",
+    "135"
+  ],
+  "tacz:ammo#tacz:762x39": [
+    "278",
+    "35"
+  ],
+  "tacz:ammo#tacz:762x54": [
+    "476",
+    "45"
+  ],
+  "tacz:ammo#tacz:792x57": [
+    "1091",
+    "108"
+  ],
+  "tacz:ammo#tacz:9mm": [
+    "278",
+    "75"
+  ],
+  "tacz:ammo#tacz:rpg_rocket": [
+    "4964",
+    "9"
+  ],
+  "tacz:attachment#tacz:scope_1873_6x": [
+    "10132",
+    "9"
+  ],
+  "tacz:workbench_a": [
+    "5168",
+    "9"
+  ],
+  "travelersbackpack:cake": [
+    "6146",
+    "3"
+  ],
+  "travelersbackpack:creeper": [
+    "7816",
+    "9"
+  ],
+  "travelersbackpack:ghast": [
+    "2626",
+    "3"
+  ],
+  "travelersbackpack:hay": [
+    "3968",
+    "9"
+  ],
+  "travelersbackpack:horse": [
+    "2176",
+    "3"
+  ],
+  "travelersbackpack:light_blue_sleeping_bag": [
+    "1040",
+    "9"
+  ],
+  "travelersbackpack:light_gray_sleeping_bag": [
+    "328",
+    "3"
   ]
 }

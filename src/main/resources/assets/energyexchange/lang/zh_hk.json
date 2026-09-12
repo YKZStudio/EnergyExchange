@@ -62,11 +62,16 @@
   "energyexchange.ui.learned_only": "已學物品",
   "energyexchange.ui.empty": "將物品放入左側槽位，然後點擊「全部轉化」以獲得能量並學習。",
   "energyexchange.ui.no_results": "沒有匹配的物品。可切換至全部物品查看。",
-  "energyexchange.ui.burn_hint": "轉化槽內整組物品並自動學習。只有具備有效能量規則的原始物品可轉化。",
+  "energyexchange.ui.burn_hint": "整組按物品基礎價值轉化。附魔、耐久、名稱、容器內容、液體與升級資料均捨棄；買回預設狀態物品，TaCZ 型號身分保留。",
   "energyexchange.ui.price": "購買：每個 %s 能量",
   "energyexchange.config.pinyin": "實驗性拼音搜索：%s",
   "energyexchange.config.pinyin_hint": "預設關閉。支援全拼、首字母、漢字與拼音混輸、聲調及全形字母，多音字可用不同讀音搜尋。無需 REI 或連網，不提供錯字修正。",
   "energyexchange.error.purchase_count": "購買數量必須為 1、16、32 或 64，且不能超過物品的堆疊上限。",
   "modmenu.nameTranslation.energyexchange": "能量交換",
-  "modmenu.descriptionTranslation.energyexchange": "將物品轉化為個人能量，學習並兑換物品。"
+  "modmenu.descriptionTranslation.energyexchange": "將物品轉化為個人能量，學習並兑換物品。",
+  "energyexchange.config.sort": "排序：%s",
+  "energyexchange.config.sort.energy_desc": "能量由高到低",
+  "energyexchange.config.sort.energy_asc": "能量由低到高",
+  "energyexchange.config.sort.name": "名稱",
+  "energyexchange.ui.data_discard": "資料將捨棄"
 }
