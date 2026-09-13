@@ -5,7 +5,7 @@ plugins {
 def target = providers.gradleProperty('minecraft_version').get()
 if (!(target in ['26.1.2', '26.2'])) throw new GradleException("Unsupported Minecraft target: $target")
 def profile = new Properties()
-file("versions/$target.properties").withInputStream { profile.load(it) }
+file("versions/${target}.properties").withInputStream { profile.load(it) }
 base.archivesName = "energyexchange-mc$target"
 
 repositories {

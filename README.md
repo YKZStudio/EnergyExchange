@@ -1,18 +1,24 @@
 # Energy Exchange
 
-[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.3.1.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
+[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.3.2.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
 
-An independent energy-exchange mod for **Minecraft Java 26.2 + Fabric**, inspired by equivalent exchange. It is not an official ProjectE port and includes no ProjectE code or assets.
+An independent energy-exchange mod for **Minecraft Java 26.1.2 / 26.2 + Fabric**, inspired by equivalent exchange. It is not an official ProjectE port and includes no ProjectE code or assets.
 
-**0.3.1: items → personal Energy and knowledge → table purchases of items or experience bottles.**
+**0.3.2: items → personal Energy and knowledge → table purchases of items or experience bottles.**
 
 ## Install
 
-- Java 25, Minecraft 26.2, Fabric Loader 0.19.5+, Fabric API 0.159.0+26.2.
-- Install this mod and Fabric API on both client and server. The 0.2 blocks, items and menus require both sides.
-- Optional: Mod Menu 20.0.2; TaCZ Refabricated 26.2 R3-hotfix with Forge Config API Port 26.2.1. Use matching TaCZ versions and gun packs on both sides.
-- Put `energyexchange-0.3.1.jar` in `mods`, not the sources JAR. English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese and Russian are included, with additional Traditional Chinese (Taiwan/Hong Kong) locales. The in-game name follows the selected language; Mod Menu uses its standard translated-name setting.
-- Compatibility is `~26.2`; later series require fresh validation.
+Requires Java 25 and **Fabric Loader 0.18.4+**. Install exactly one matching runtime JAR on both client and server; do not install the sources JAR or both target JARs.
+
+| Minecraft | Runtime JAR | Fabric API minimum | Optional Mod Menu |
+| --- | --- | --- | --- |
+| 26.1.2 | `energyexchange-mc26.1.2-0.3.2.jar` | 0.155.3+26.1.2 | 18.0.1 |
+| 26.2 | `energyexchange-mc26.2-0.3.2.jar` | 0.159.0+26.2 | 20.0.2 |
+
+TaCZ R3-hotfix has builds for both targets, but independently requires Loader **0.19.3+** (integration tests use 0.19.5). For 26.1.2 use Forge Config API Port 26.1.5; for 26.2 use 26.2.1. Match TaCZ and gun packs on both sides. Do not downgrade a 26.2 world to 26.1.2; this is a separate game-version build, not a world downgrade converter.
+
+Ten locales remain available. The in-game mod name follows the selected language; Mod Menu uses its translated-name setting.
+
 - Existing 0.1 balances and knowledge are retained without scaling or reset. Back up the world before upgrading; 0.2 items and variant knowledge do not support direct downgrade to 0.1.
 
 ## Craft and trade
@@ -43,7 +49,7 @@ Only living survival/adventure players can trade. A placed table must exist with
 
 ## Prices and compatibility
 
-- Positive purchase prices for all **1,537 vanilla item IDs** in 26.2. Non-survival items still require an obtained and learned sample; they are not automatically unlocked.
+- Positive purchase prices for all **1,506 vanilla item IDs in 26.1.2 / 1,537 in 26.2**. Non-survival items still require an obtained and learned sample; they are not automatically unlocked.
 - TaCZ guns, ammunition, attachments, workbenches and bundled LRTactical items use model-specific identities. Loaded additional gun-pack models receive their base item's fallback value, with per-model data-pack overrides available.
 - `tools/generate_values.py` generates defaults constrained by ordinary vanilla crafting, smelting, stonecutting and smithing recipes. Purchase units round up; fractional conversion yields round down once per batch. Batches worth less than one Energy are rejected without consuming items.
 - This is a configurable starter balance baseline, not a proof for every machine, villager trade, special recipe or gun pack. Pack authors should audit additions and override or disable values. Some 0.1 item prices change under the recipe constraints; saved balances do not.
@@ -75,15 +81,15 @@ See [data-pack documentation](docs/DATAPACKS.md) for item/variant overrides, dis
 
 ## Build and releases
 
-`./gradlew build` compiles and runs unit/server GameTests. `xvfb-run -a ./gradlew runClientGameTest` tests the client trading flow on Linux. On Windows use `gradlew.bat`.
+`./gradlew build -Pminecraft_version=26.1.2` or `./gradlew build -Pminecraft_version=26.2` compiles and runs unit/server GameTests. `xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=26.1.2` (or `26.2`) tests the client trading flow on Linux. On Windows use `gradlew.bat`.
 
-Every stable version receives a GitHub Release containing its runtime JAR and bilingual changelog. Existing assets are never silently replaced. [0.1.0 release](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0).
+Every stable version receives a GitHub Release containing both target runtime JARs and a bilingual changelog. Existing assets are never silently replaced. [0.1.0 release](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0).
 
 MIT licensed. Bundled Unicode pronunciation data retains its own license; see [third-party notices](THIRD_PARTY_NOTICES.md). The TaCZ adapter is independently implemented against public APIs; no upstream code or assets are bundled.
 
 ## 0.3.1 compatibility and pricing
 
-Optional Traveler’s Backpack **Fabric 26.2-11.3.2** is supported with prices for all 80 registered items. Filled, dyed or upgraded backpacks convert at the base registered item price and buy back empty at the default tier. Remove anything you want to keep before converting.
+Optional Traveler’s Backpack **Fabric 26.1.2-11.2.10 / 26.2-11.3.2** is supported with prices for all 80 registered items. Filled, dyed or upgraded backpacks convert at the base registered item price and buy back empty at the default tier. Remove anything you want to keep before converting.
 
 The server selects a vanilla-only, TaCZ, backpack, or combined recipe price profile based on installed mods. This fixes the cheaper TaCZ gunpowder crafting loop and recalculates ammunition, firearms, attachments and backpacks from the actual cheapest resolved recipes. Fractional yields remain exact until batch rounding. Data-pack item/variant overrides still take priority. See [pricing details](docs/PRICING.md).
 
@@ -97,4 +103,4 @@ Adds 32 materials, tools, weapons and armor across Dark Matter, Red Matter and I
 
 The single input holds **256 identical items with identical components**, including ordinarily unstackable tools. Deposit through clicks or repeated Shift transfers. Left-click withdraws at most one native stack; right-click withdraws half, capped at the native limit; Shift moves as much as fits into inventory. Number-key swaps, dropping, closing/death returns all split into native stacks. Full-inventory returns use vanilla dropping rules. Drag distribution excludes this special slot.
 
-The lower-left discard warning appears only when the input differs from its default prototype; empty/default inputs show no warning. Valid TaCZ model identities compare against their model prototype. Update both client and server to 0.3.1.
+The lower-left discard warning appears only when the input differs from its default prototype; empty/default inputs show no warning. Valid TaCZ model identities compare against their model prototype. Update both client and server to 0.3.2 for their Minecraft version.

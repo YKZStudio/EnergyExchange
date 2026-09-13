@@ -42,7 +42,7 @@
 
 ## 覆盖与重载
 
-1. 将完整[示例数据包](../examples/value-overrides)复制到 `<世界>/datapacks/`，根目录应有 `pack.mcmeta`。Minecraft 26.2 的数据包格式为 107.1。
+1. 将完整[示例数据包](../examples/value-overrides)复制到 `<世界>/datapacks/`，根目录应有 `pack.mcmeta`。Minecraft 26.1.2 的数据包格式为 101.1，26.2 为 107.1；示例声明兼容两者。
 2. 修改圆石价格；示例还会禁用钻石。
 3. 管理员执行 `/reload`，必要时用 `/datapack list` 确认启用。
 4. 手持物品执行 `/ee value`，或重新打开转化桌查看提示。

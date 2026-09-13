@@ -42,7 +42,7 @@ Defaults are an authored balance baseline constrained by supported vanilla recip
 
 ## Overrides and reload
 
-1. Copy the entire [example pack](../examples/value-overrides) into `<world>/datapacks/`; `pack.mcmeta` belongs at its root. Minecraft 26.2 uses data-pack format 107.1.
+1. Copy the entire [example pack](../examples/value-overrides) into `<world>/datapacks/`; `pack.mcmeta` belongs at its root. Minecraft 26.1.2 uses data-pack format 101.1; 26.2 uses 107.1. The example declares both.
 2. Edit the cobblestone price; the example also disables diamond.
 3. As an administrator run `/reload`, and use `/datapack list` to confirm activation.
 4. Hold an item and use `/ee value`, or reopen the table and inspect its tooltip.
