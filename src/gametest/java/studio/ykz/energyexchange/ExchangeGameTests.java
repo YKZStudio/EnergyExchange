@@ -428,10 +428,10 @@ public final class ExchangeGameTests {
         helper.assertTrue(menu.input.getItem(0).getCount() == 256, "Four normal stacks merge in the single input");
         p.getInventory().setItem(4, new ItemStack(Items.DIRT)); menu.quickMoveStack(p, 32);
         helper.assertTrue(menu.input.getItem(0).getCount() == 256 && p.getInventory().getItem(4).getCount() == 1, "256 cap preserves excess items");
-        menu.clicked(0, 0, net.minecraft.world.inventory.ClickType.PICKUP, p);
+        menu.clicked(0, 0, net.minecraft.world.inventory.ContainerInput.PICKUP, p);
         helper.assertTrue(menu.getCarried().getCount() == 64 && menu.input.getItem(0).getCount() == 192, "Cursor receives only a native stack");
-        menu.clicked(0, 0, net.minecraft.world.inventory.ClickType.PICKUP, p);
-        menu.clicked(0, 0, net.minecraft.world.inventory.ClickType.SWAP, p);
+        menu.clicked(0, 0, net.minecraft.world.inventory.ContainerInput.PICKUP, p);
+        menu.clicked(0, 0, net.minecraft.world.inventory.ContainerInput.SWAP, p);
         helper.assertTrue(p.getInventory().getItem(0).getCount() == 64 && menu.input.getItem(0).getCount() == 192, "Number-key withdrawal respects native limit");
         menu.quickMoveStack(p, 28);
         for (int i = 0; i < 36; i++) p.getInventory().setItem(i, new ItemStack(Items.STONE, 64));

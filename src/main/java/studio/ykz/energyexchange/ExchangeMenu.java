@@ -51,11 +51,11 @@ public final class ExchangeMenu extends AbstractContainerMenu {
         source.shrink(amount); input.setChanged(); return amount;
     }
     @Override public boolean canDragTo(Slot slot) { return slot.index != 0 && super.canDragTo(slot); }
-    @Override public void clicked(int index, int button, ClickType type, Player player) {
+    @Override public void clicked(int index, int button, ContainerInput type, Player player) {
         if (index != 0) { super.clicked(index, button, type, player); return; }
         if (!stillValid(player)) return;
         ItemStack stack = input.getItem(0), carried = getCarried();
-        if (type == ClickType.PICKUP && (button == 0 || button == 1)) {
+        if (type == ContainerInput.PICKUP && (button == 0 || button == 1)) {
             if (carried.isEmpty()) {
                 if (!stack.isEmpty()) setCarried(input.removeItem(0, Math.min(stack.getMaxStackSize(), button == 0 ? stack.getCount() : (stack.getCount() + 1) / 2)));
             } else if (stack.isEmpty() || ItemStack.isSameItemSameComponents(stack, carried)) {
@@ -64,18 +64,18 @@ public final class ExchangeMenu extends AbstractContainerMenu {
             } else if (stack.getCount() <= stack.getMaxStackSize() && carried.getCount() <= INPUT_LIMIT) {
                 input.setItem(0, carried); setCarried(stack);
             }
-        } else if (type == ClickType.SWAP && (button >= 0 && button < 9 || button == 40) && button != anchor) {
+        } else if (type == ContainerInput.SWAP && (button >= 0 && button < 9 || button == 40) && button != anchor) {
             ItemStack hotbar = player.getInventory().getItem(button);
             if (hotbar.isEmpty()) player.getInventory().setItem(button, input.removeItem(0, stack.getMaxStackSize()));
             else if (stack.isEmpty() || ItemStack.isSameItemSameComponents(stack, hotbar)) deposit(hotbar, hotbar.getCount());
             else if (stack.getCount() <= stack.getMaxStackSize() && hotbar.getCount() <= INPUT_LIMIT) {
                 input.setItem(0, hotbar); player.getInventory().setItem(button, stack);
             }
-        } else if (type == ClickType.THROW && carried.isEmpty() && !stack.isEmpty() && (button == 0 || button == 1)) {
+        } else if (type == ContainerInput.THROW && carried.isEmpty() && !stack.isEmpty() && (button == 0 || button == 1)) {
             int remaining = button == 0 ? 1 : stack.getCount();
             while (remaining > 0) { int count = Math.min(remaining, stack.getMaxStackSize()); player.drop(input.removeItem(0, count), true); remaining -= count; }
-        } else if (type == ClickType.QUICK_MOVE) quickMoveStack(player, 0);
-        else if (type == ClickType.PICKUP_ALL) super.clicked(index, button, type, player);
+        } else if (type == ContainerInput.QUICK_MOVE) quickMoveStack(player, 0);
+        else if (type == ContainerInput.PICKUP_ALL) super.clicked(index, button, type, player);
         input.setChanged(); player.getInventory().setChanged(); broadcastChanges();
     }
     @Override public ItemStack quickMoveStack(Player player, int index) {

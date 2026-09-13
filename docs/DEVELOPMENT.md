@@ -54,7 +54,7 @@ References: [Fabric 26.2](https://fabricmc.net/2026/06/15/262.html), [data attac
 
 ## 0.2 validation additions
 
-`./gradlew build` includes server tests for portable/placed menu validity, input return, XP points, complete vanilla coverage and fractional conversion. `xvfb-run -a ./gradlew runClientGameTest` exercises real server-to-client catalog synchronization and client-to-server convert/buy requests, then opens the configuration screen. Screenshots and logs are uploaded by CI.
+`./gradlew build` includes server tests for portable/placed menu validity, input return, experience-bottle inventory delivery, complete vanilla coverage and fractional conversion. `xvfb-run -a ./gradlew runClientGameTest` exercises real server-to-client catalog synchronization and client-to-server convert/buy requests, then opens the configuration screen. Screenshots and logs are uploaded by CI.
 
 For optional integration, download the pinned TaCZ 26.2 R3-hotfix runtime JAR into `test-mods/tacz.jar`, then run `./gradlew runGameTest -PwithTacz`. Gradle resolves Forge Config API Port 26.2.1 and Cloth Config 26.2.155 for that run. The adapter test enumerates model families, verifies prototype identity and positive prices, buys back an empty gun and discards loaded-gun data.
 
@@ -72,3 +72,5 @@ Use `python tools/generate_pinyin.py /path/to/Unihan.zip` to reproduce the offli
 
 
 0.2.1: sample data is discarded at base value. See [pricing and compatibility](PRICING.md). Only stable versions create Releases; pre versions retain CI artifacts.
+
+0.3.1: both input container and slot limits are 256. Dedicated click handling restores native limits for cursor/hotbar withdrawal, drops and close-time returns. Bottle purchases preflight inventory before debit/delivery and never change XP. The client discard warning compares components with the server prototype, ignoring count.

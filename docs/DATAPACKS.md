@@ -49,13 +49,13 @@ Defaults are an authored balance baseline constrained by supported vanilla recip
 
 Minecraft pack priority chooses the winning resource at each location. Individual item/variant resources override the bulk defaults. Fields are not merged. Deleting an override reveals the default again; use `enabled:false` to prohibit it.
 
-Reload pauses every transaction, including XP. Failure remains locked until a successful corrected reload. Menus reject stale rule revisions and refresh their catalog before another purchase; current input stacks and saved knowledge remain intact. Disabling/removing a model preserves knowledge but blocks exchange until that model and its rule return. Price changes affect future transactions without altering existing balances.
+Reload pauses every transaction, including experience-bottle purchases. Failure remains locked until a successful corrected reload. Menus reject stale rule revisions and refresh their catalog before another purchase; current input stacks and saved knowledge remain intact. Disabling/removing a model preserves knowledge but blocks exchange until that model and its rule return. Price changes affect future transactions without altering existing balances.
 
 ## Component and server settings policy
 
 Data-bearing items convert at their base item price, discarding enchantments, damage, names, stored contents and other data. Purchases create default stacks. TaCZ/LRTactical retain only validated model identities and use standard prototypes; ammunition and attachments are discarded. `allow_nbt` and component-copying flags are unsupported.
 
-XP enablement and cost are server configuration, not data-pack rules. Edit `config/energyexchange.json` and restart the world/server. Mod Menu edits the local defaults for the next server start, not a remote server's economy.
+Experience bottles use normal datapack pricing: `data/minecraft/energyexchange/values/experience_bottle.json`, default `{"value":"896"}`; disable with `{"enabled":false}`. Direct XP purchases are removed in 0.3.1; legacy `xpEnabled`/`xpCost` configuration fields no longer apply.
 
 
 0.2.1: sample data is discarded at base value. See [pricing and compatibility](PRICING.md). Only stable versions create Releases; pre versions retain CI artifacts.
