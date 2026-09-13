@@ -407,8 +407,8 @@ public final class ExchangeGameTests {
     public void sweepRespectsDamageVetoAndLeavesAnimals(GameTestHelper helper) {
         var p = player(helper); var center = helper.absolutePos(new net.minecraft.core.BlockPos(1, 2, 1));
         p.setPos(center.getX() + .5, center.getY(), center.getZ() + .5);
-        var zombie = helper.spawn(net.minecraft.world.entity.EntityTypes.ZOMBIE, new net.minecraft.core.BlockPos(2, 2, 1)); zombie.setNoAi(true);
-        var pig = helper.spawn(net.minecraft.world.entity.EntityTypes.PIG, new net.minecraft.core.BlockPos(1, 2, 2)); pig.setNoAi(true);
+        var zombie = (net.minecraft.world.entity.Mob) helper.spawn(net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse("minecraft:zombie")), new net.minecraft.core.BlockPos(2, 2, 1)); zombie.setNoAi(true);
+        var pig = (net.minecraft.world.entity.Mob) helper.spawn(net.minecraft.core.registries.BuiltInRegistries.ENTITY_TYPE.getValue(Identifier.parse("minecraft:pig")), new net.minecraft.core.BlockPos(1, 2, 2)); pig.setNoAi(true);
         var tool = (MatterTool) Armory.ITEMS.get("infinity_sword"); p.getInventory().setItem(0, new ItemStack(tool));
         var veto = new java.util.concurrent.atomic.AtomicBoolean(true);
         net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) -> entity != zombie || !veto.get());

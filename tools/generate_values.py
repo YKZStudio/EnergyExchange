@@ -1,9 +1,8 @@
-import os
 """Reproduce starter prices from 26.2 item IDs and the selected TaCZ checkout.
 根据 26.2 物品 ID 和指定 TaCZ 仓库生成可复现的初始价格。
 Usage: python tools/generate_values.py client.jar /path/to/tacz
 """
-import json, sys, zipfile, re
+import os, json, sys, zipfile, re
 from fractions import Fraction
 from math import ceil
 from pathlib import Path

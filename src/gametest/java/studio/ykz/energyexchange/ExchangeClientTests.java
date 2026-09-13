@@ -50,7 +50,7 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.waitFor(client -> ((ExchangeMenu) client.player.containerMenu).input.getItem(0).getCount() == 32);
             context.takeScreenshot("transmutation-empty-en_us");
             context.runOnClient(client -> ((ExchangeScreen) ClientPlatform.screen(client)).request(1, "", 0));
-            world.getServer().waitFor(server -> ExchangeService.account(server.getPlayerList().getPlayers().getFirst()).energy().intValue() == 32);
+            awaitServer(context, world.getServer(), server -> ExchangeService.account(server.getPlayerList().getPlayers().getFirst()).energy().intValue() == 32);
             context.waitFor(client -> ((ExchangeScreen) ClientPlatform.screen(client)).isReady());
             context.runOnClient(client -> {
                 var screen = (ExchangeScreen) ClientPlatform.screen(client);
@@ -67,7 +67,7 @@ public final class ExchangeClientTests implements FabricClientGameTest {
                 return new ExchangeNetwork.Action(menu.containerId, menu.nonce, EnergyExchange.RULES.revision(), menu.sequence, 3, "minecraft:dirt", 16);
             });
             context.runOnClient(client -> net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(purchase));
-            world.getServer().waitFor(server -> ExchangeService.account(server.getPlayerList().getPlayers().getFirst()).energy().intValue() == 16);
+            awaitServer(context, world.getServer(), server -> ExchangeService.account(server.getPlayerList().getPlayers().getFirst()).energy().intValue() == 16);
             context.waitTicks(4);
             context.runOnClient(client -> net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking.send(purchase));
             context.waitTicks(4);
@@ -123,7 +123,7 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             });
             context.waitTicks(3);
             context.runOnClient(client -> ((ExchangeScreen) ClientPlatform.screen(client)).request(3, "minecraft:ender_pearl", 16));
-            world.getServer().waitFor(server -> server.getPlayerList().getPlayers().getFirst().getInventory().countItem(Items.ENDER_PEARL) == 16);
+            awaitServer(context, world.getServer(), server -> server.getPlayerList().getPlayers().getFirst().getInventory().countItem(Items.ENDER_PEARL) == 16);
             context.runOnClient(client -> ClientPlatform.screen(client).onClose());
             context.setScreen(() -> new ConfigScreen(null));
             context.takeScreenshot("modmenu-settings-zh_cn");
@@ -146,7 +146,7 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             });
             context.waitForScreen(null);
             // Wait for the close packet before opening another server menu.
-            world.getServer().waitFor(server -> { var p = server.getPlayerList().getPlayers().getFirst(); return p.containerMenu == p.inventoryMenu; });
+            awaitServer(context, world.getServer(), server -> { var p = server.getPlayerList().getPlayers().getFirst(); return p.containerMenu == p.inventoryMenu; });
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
                 p.setAttached(EnergyExchange.ACCOUNT, studio.ykz.energyexchange.core.AccountJson.write(new studio.ykz.energyexchange.core.Account(java.math.BigInteger.valueOf(896 * 32), java.util.Set.of())));
@@ -156,7 +156,7 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.runOnClient(client -> { var screen = (ExchangeScreen) ClientPlatform.screen(client); screen.select(ExchangeService.BOTTLE); if (!screen.canPurchase(32) || screen.canPurchase(64)) throw new AssertionError("Bottle quantity affordability"); });
             context.takeScreenshot("bottle-purchase-zh_cn");
             context.runOnClient(client -> ((ExchangeScreen) ClientPlatform.screen(client)).request(4, ExchangeService.BOTTLE, 32));
-            world.getServer().waitFor(server -> server.getPlayerList().getPlayers().getFirst().getInventory().countItem(Items.EXPERIENCE_BOTTLE) == 32);
+            awaitServer(context, world.getServer(), server -> server.getPlayerList().getPlayers().getFirst().getInventory().countItem(Items.EXPERIENCE_BOTTLE) == 32);
             context.waitFor(client -> ((ExchangeScreen) ClientPlatform.screen(client)).isReady());
             context.runOnClient(client -> ClientPlatform.screen(client).onClose()); context.waitForScreen(null);
             var tablePos = world.getServer().computeOnServer(server -> {
@@ -188,5 +188,14 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.takeScreenshot("armory-infinity-zh_cn");
 
         }
+    }
+    private static void awaitServer(ClientGameTestContext context,
+            net.fabricmc.fabric.api.client.gametest.v1.context.TestServerContext server,
+            java.util.function.Predicate<net.minecraft.server.MinecraftServer> predicate) {
+        for (int tick = 0; tick < 400; tick++) {
+            if (server.computeOnServer(predicate::test)) return;
+            context.waitTicks(1);
+        }
+        throw new AssertionError("Server condition did not settle within 400 ticks");
     }
 }

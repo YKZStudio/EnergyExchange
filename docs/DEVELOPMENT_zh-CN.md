@@ -4,10 +4,11 @@
 
 ## 工具链
 
-Java 25、Gradle Wrapper 9.5.1、Loom 1.17.12、Fabric Loader 0.19.5、Fabric API 0.159.0+26.2。依赖固定在 `gradle.properties`。26.2 使用官方未混淆名称和 `net.fabricmc.fabric-loom`，不配置 Yarn、不使用旧 `modImplementation` 或 `remapJar`。
+Java 25、Gradle Wrapper 9.5.1 与 Loom 1.17.12。`gradle.properties` 选择 Minecraft，`versions/<版本>.properties` 固定已验证的最低 Loader、Fabric API、Mod Menu、Forge Config API Port 与 Cloth Config。26.1.2 的最低 Loader 是 0.18.4；26.2 的游戏启动程序不能在 0.18.4 上启动，最低为 0.19.3。两个目标都使用官方未混淆名称和 `net.fabricmc.fabric-loom`。
 
 ```sh
-./gradlew build
+./gradlew clean build -Pminecraft_version=26.1.2
+./gradlew clean build -Pminecraft_version=26.2
 ./gradlew runClient
 ./gradlew runServer
 ```
@@ -74,3 +75,10 @@ main 上每个正式版本附带运行 JAR 与对应双语 `docs/releases/<版�
 0.2.1：带数据物品按基础价值转化并丢弃数据；见[定价与兼容](PRICING_zh-CN.md)。仅正式版创建发行版，pre 版本保留 CI 构建产物。
 
 0.3.1：输入容器和槽位上限均为 256；专用点击逻辑保证光标、快捷栏、丢弃与关闭返还恢复原生堆叠。附魔之瓶交易先预检空间，再扣款与发货，不改变经验。客户端数据提示比较输入与服务端默认模板，不比较数量。
+
+
+## 0.3.2 双版本构建
+
+`versions/<版本>/client` 提供很薄的客户端接口适配，交易、账户、装备和搜索共用源码。`versions/<版本>/resources` 优先覆盖公共资源，26.1.2 使用自己的原版／兼容价格表。每次切换目标使用 `clean`，避免旧构建产物混入。发布文件分别为 `energyexchange-mc26.1.2-0.3.2.jar` 与 `energyexchange-mc26.2-0.3.2.jar`，元数据严格限定对应版本。
+
+CI 对两个目标分别运行独立、TaCZ、背包、同时加载四种组合；独立组合还运行单元与客户端测试。独立与背包测试以各自打包的最低 Loader 启动（26.1.2 为 0.18.4，26.2 为 0.19.3）；TaCZ 自身要求 0.19.3+，组合测试使用 0.19.5。用 `python tools/fetch_test_mods.py 26.1.2 tacz backpack` 下载校验过的测试依赖，再运行 `./gradlew runGameTest -Pminecraft_version=26.1.2 -Ploader_version=0.19.5 -PwithTacz -PwithBackpack`。26.2 同理。存档账户格式保持 schema 1；这不代表 Minecraft 世界可以从 26.2 降级。

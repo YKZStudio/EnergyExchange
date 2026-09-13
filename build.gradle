@@ -6,6 +6,8 @@ def target = providers.gradleProperty('minecraft_version').get()
 if (!(target in ['26.1.2', '26.2'])) throw new GradleException("Unsupported Minecraft target: $target")
 def profile = new Properties()
 file("versions/${target}.properties").withInputStream { profile.load(it) }
+def minimumLoader = profile.loader_version
+def selectedLoader = providers.gradleProperty('loader_version').getOrElse(minimumLoader)
 base.archivesName = "energyexchange-mc$target"
 
 repositories {
@@ -22,7 +24,7 @@ loom {
 
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
-    implementation "net.fabricmc:fabric-loader:${loader_version}"
+    implementation "net.fabricmc:fabric-loader:${selectedLoader}"
     implementation "net.fabricmc.fabric-api:fabric-api:${profile.fabric_api_version}"
     clientCompileOnly "com.terraformersmc:modmenu:${profile.modmenu_version}"
     clientRuntimeOnly "com.terraformersmc:modmenu:${profile.modmenu_version}"
@@ -42,10 +44,12 @@ processResources {
     inputs.property 'minecraft_target', target
     inputs.property 'fabric_api_version', profile.fabric_api_version
     inputs.property 'modmenu_version', profile.modmenu_version
+    inputs.property 'minimum_loader_version', minimumLoader
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     filesMatching('fabric.mod.json') {
         expand version: project.version, minecraft_target: target,
-                fabric_api_version: profile.fabric_api_version, modmenu_version: profile.modmenu_version
+                fabric_api_version: profile.fabric_api_version, modmenu_version: profile.modmenu_version,
+                minimum_loader_version: minimumLoader
     }
 }
 
@@ -77,3 +81,10 @@ loom.runs.named('gameTest') {
 // Version-specific bridges and price resources; gameplay logic stays shared.
 sourceSets.client.java.srcDir("versions/$target/client")
 sourceSets.main.resources.setSrcDirs(["versions/$target/resources", 'src/main/resources'])
+
+// Compile and launch the selected Loader. Each target ships its tested minimum;
+// integration CI may request a newer Loader without raising the packaged minimum.
+configurations.configureEach {
+    resolutionStrategy.force("net.fabricmc:fabric-loader:${selectedLoader}")
+}
+tasks.named('sourcesJar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
