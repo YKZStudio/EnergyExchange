@@ -1,0 +1,22 @@
+{
+  "26.2": {
+    "tacz": {
+      "url": "https://github.com/q14433686-arch/TaCZ_Refabricated_Unofficial/releases/download/26.2_R3_HOTFIX/TACZ-Refabricated-26.2-1.1.8%2Bfabric.26.2.R3-hotfix.jar",
+      "sha256": "ef803b881e3753bc879737c83caf5cbd8f8b9874c115bf547451eb683f3a389a"
+    },
+    "backpack": {
+      "url": "https://cdn.modrinth.com/data/rlloIFEV/versions/jp51VM8M/travelersbackpack-fabric-26.2-11.3.2.jar",
+      "sha256": "b06753dbd277700e97efaefa541e757fa7fd6cdd91538bf4a1df851072b981de"
+    }
+  },
+  "26.1.2": {
+    "tacz": {
+      "url": "https://github.com/q14433686-arch/TaCZ_Refabricated_Unofficial/releases/download/26.1.2_R3_HOTFIX/TACZ-Refabricated-26.1.2-1.1.8%2Bfabric.26.1.2.R3-hotfix.jar",
+      "sha256": "1dda29f82b42585ec101628e9078dd860d5f68de5aa22b026b9050f4d8537db5"
+    },
+    "backpack": {
+      "url": "https://cdn.modrinth.com/data/rlloIFEV/versions/Ah1lkxJY/travelersbackpack-fabric-26.1.2-11.2.10.jar",
+      "sha256": "129ba08f703259396cc042779b3404c99dcb3447e957e16a7d9b3d42d1ae4210"
+    }
+  }
+}

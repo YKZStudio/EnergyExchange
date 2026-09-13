@@ -10,9 +10,14 @@ concurrency:
   group: build-${{ github.head_ref || github.ref_name }}
   cancel-in-progress: true
 jobs:
-  build:
+  verify:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        minecraft: ['26.1.2', '26.2']
+        mods: [vanilla, tacz, backpack, combined]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
@@ -20,88 +25,50 @@ jobs:
           distribution: temurin
           java-version: '25'
       - uses: gradle/actions/setup-gradle@v4
-      - name: Build and test / 构建与测试
-        run: ./gradlew build --no-daemon
+      - name: Fetch pinned integrations / 获取固定兼容模组
+        env:
+          MC_TARGET: ${{ matrix.minecraft }}
+          MOD_PROFILE: ${{ matrix.mods }}
+        run: |
+          case "$MOD_PROFILE" in
+            tacz) python tools/fetch_test_mods.py "$MC_TARGET" tacz ;;
+            backpack) python tools/fetch_test_mods.py "$MC_TARGET" backpack ;;
+            combined) python tools/fetch_test_mods.py "$MC_TARGET" tacz backpack ;;
+          esac
+      - name: Build and server tests / 构建及服务端测试
+        env:
+          MC_TARGET: ${{ matrix.minecraft }}
+          MOD_PROFILE: ${{ matrix.mods }}
+        run: |
+          args=("-Pminecraft_version=$MC_TARGET" --no-daemon)
+          case "$MOD_PROFILE" in
+            vanilla) ./gradlew build "${args[@]}" ;;
+            tacz) ./gradlew runGameTest -Ploader_version=0.19.5 -PwithTacz "${args[@]}" ;;
+            backpack) ./gradlew runGameTest -PwithBackpack "${args[@]}" ;;
+            combined) ./gradlew runGameTest -Ploader_version=0.19.5 -PwithTacz -PwithBackpack "${args[@]}" ;;
+          esac
       - name: Client trading test / 客户端交易测试
-        run: xvfb-run -a ./gradlew runClientGameTest --no-daemon
+        if: matrix.mods == 'vanilla'
+        run: xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=${{ matrix.minecraft }} --no-daemon
       - uses: actions/upload-artifact@v4
+        if: matrix.mods == 'vanilla'
         with:
-          name: energyexchange-mc26.2
+          name: energyexchange-mc${{ matrix.minecraft }}
           path: build/libs/*.jar
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: test-reports
+          name: reports-${{ matrix.minecraft }}-${{ matrix.mods }}
           path: |
             build/reports/
             build/test-results/
             build/run/gameTest/logs/
             build/run/clientGameTest/logs/
             build/run/clientGameTest/screenshots/
-  tacz:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '25'
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Fetch pinned TaCZ release / 获取固定版本 TaCZ
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          mkdir -p test-mods
-          gh release download 26.2_R3_HOTFIX --repo q14433686-arch/TaCZ_Refabricated_Unofficial --pattern '*.jar' --output test-mods/tacz.jar
-          echo 'ef803b881e3753bc879737c83caf5cbd8f8b9874c115bf547451eb683f3a389a  test-mods/tacz.jar' | sha256sum --check
-      - name: TaCZ server integration / TaCZ 服务端集成测试
-        run: ./gradlew runGameTest -PwithTacz --no-daemon
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: tacz-test-reports
-          path: |
-            build/reports/gametest/
-            build/run/gameTest/logs/
-  backpack:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    strategy:
-      matrix:
-        with_tacz: [false, true]
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '25'
-      - uses: gradle/actions/setup-gradle@v4
-      - name: Fetch pinned backpack / 获取固定版本旅行者背包
-        run: |
-          mkdir -p test-mods
-          curl --fail --location --retry 3 https://cdn.modrinth.com/data/rlloIFEV/versions/jp51VM8M/travelersbackpack-fabric-26.2-11.3.2.jar -o test-mods/backpack.jar
-          echo 'b06753dbd277700e97efaefa541e757fa7fd6cdd91538bf4a1df851072b981de  test-mods/backpack.jar' | sha256sum --check
-      - name: Fetch TaCZ for combined test / 同时加载 TaCZ
-        if: matrix.with_tacz
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release download 26.2_R3_HOTFIX --repo q14433686-arch/TaCZ_Refabricated_Unofficial --pattern '*.jar' --output test-mods/tacz.jar
-          echo 'ef803b881e3753bc879737c83caf5cbd8f8b9874c115bf547451eb683f3a389a  test-mods/tacz.jar' | sha256sum --check
-      - name: Backpack integration / 背包集成测试
-        run: ./gradlew runGameTest -PwithBackpack ${{ matrix.with_tacz && '-PwithTacz' || '' }} --no-daemon
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: backpack-reports-${{ matrix.with_tacz }}
-          path: |
-            build/reports/gametest/
-            build/run/gameTest/logs/
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [build, tacz, backpack]
+    needs: [verify]
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -109,7 +76,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          name: energyexchange-mc26.2
+          pattern: energyexchange-mc*
+          merge-multiple: true
           path: release-artifacts
       - name: Publish release / 发布发行版
         env:
@@ -127,7 +95,8 @@ jobs:
             echo "Release already exists / 发行版已存在"
             exit 0
           fi
-          test -f "release-artifacts/energyexchange-$version.jar"
-          gh release create "v$version" \
-            "release-artifacts/energyexchange-$version.jar" "$notes" \
+          jar261="release-artifacts/energyexchange-mc26.1.2-$version.jar"
+          jar262="release-artifacts/energyexchange-mc26.2-$version.jar"
+          test -f "$jar261" && test -f "$jar262"
+          gh release create "v$version" "$jar261" "$jar262" "$notes" \
             --target "$GITHUB_SHA" --title "Energy Exchange $version" --notes-file "$notes"

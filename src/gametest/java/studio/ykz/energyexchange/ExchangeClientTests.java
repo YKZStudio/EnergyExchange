@@ -31,29 +31,29 @@ public final class ExchangeClientTests implements FabricClientGameTest {
                 p.containerMenu.broadcastChanges();
             });
             context.waitForScreen(ExchangeScreen.class);
-            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
+            context.waitFor(client -> ((ExchangeScreen) ClientPlatform.screen(client)).isReady());
             context.runOnClient(client -> {
-                if (!((ExchangeScreen) client.gui.screen()).visibleKeys().isEmpty()) throw new AssertionError("New accounts must not show the entire catalog");
+                if (!((ExchangeScreen) ClientPlatform.screen(client)).visibleKeys().isEmpty()) throw new AssertionError("New accounts must not show the entire catalog");
             });
-            context.runOnClient(client -> { if (((ExchangeScreen) client.gui.screen()).showsDataWarning()) throw new AssertionError("Default input has no data warning"); });
+            context.runOnClient(client -> { if (((ExchangeScreen) ClientPlatform.screen(client)).showsDataWarning()) throw new AssertionError("Default input has no data warning"); });
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst(); var stack = new ItemStack(Items.DIRT, 32);
                 stack.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Named input"));
                 ((ExchangeMenu) p.containerMenu).input.setItem(0, stack); p.containerMenu.broadcastChanges();
             });
-            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).showsDataWarning());
+            context.waitFor(client -> ((ExchangeScreen) ClientPlatform.screen(client)).showsDataWarning());
             context.takeScreenshot("transmutation-data-warning");
             world.getServer().runOnServer(server -> { var p = server.getPlayerList().getPlayers().getFirst(); ((ExchangeMenu) p.containerMenu).input.setItem(0, new ItemStack(Items.DIRT, 256)); p.containerMenu.broadcastChanges(); });
-            context.waitFor(client -> ((ExchangeMenu) client.player.containerMenu).input.getItem(0).getCount() == 256 && !((ExchangeScreen) client.gui.screen()).showsDataWarning());
+            context.waitFor(client -> ((ExchangeMenu) client.player.containerMenu).input.getItem(0).getCount() == 256 && !((ExchangeScreen) ClientPlatform.screen(client)).showsDataWarning());
             context.takeScreenshot("transmutation-input-256");
             world.getServer().runOnServer(server -> { var p = server.getPlayerList().getPlayers().getFirst(); ((ExchangeMenu) p.containerMenu).input.setItem(0, new ItemStack(Items.DIRT, 32)); p.containerMenu.broadcastChanges(); });
             context.waitFor(client -> ((ExchangeMenu) client.player.containerMenu).input.getItem(0).getCount() == 32);
             context.takeScreenshot("transmutation-empty-en_us");
-            context.runOnClient(client -> ((ExchangeScreen) client.gui.screen()).request(1, "", 0));
+            context.runOnClient(client -> ((ExchangeScreen) ClientPlatform.screen(client)).request(1, "", 0));
             world.getServer().waitFor(server -> ExchangeService.account(server.getPlayerList().getPlayers().getFirst()).energy().intValue() == 32);
-            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
+            context.waitFor(client -> ((ExchangeScreen) ClientPlatform.screen(client)).isReady());
             context.runOnClient(client -> {
-                var screen = (ExchangeScreen) client.gui.screen();
+                var screen = (ExchangeScreen) ClientPlatform.screen(client);
                 if (!screen.visibleKeys().equals(java.util.List.of("minecraft:dirt"))) throw new AssertionError("Conversion must automatically learn and show the input");
                 screen.toggleBrowse();
                 if (screen.visibleKeys().size() < 2 || !screen.visibleKeys().getFirst().equals("minecraft:dirt")) throw new AssertionError("All view must sort learned items first");
@@ -76,7 +76,7 @@ public final class ExchangeClientTests implements FabricClientGameTest {
                 if (ExchangeService.account(p).energy().intValue() != 16 || p.getInventory().countItem(Items.DIRT) != 16)
                     throw new AssertionError("Replayed request settled twice / 重复请求重复结算");
             });
-            context.runOnClient(client -> client.gui.screen().onClose());
+            context.runOnClient(client -> ClientPlatform.screen(client).onClose());
             context.waitForScreen(null);
             context.setScreen(() -> new ConfigScreen(null));
             context.waitForScreen(ConfigScreen.class);
@@ -86,7 +86,7 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.runOnClient(client -> {
                 client.getLanguageManager().setSelected("zh_cn"); client.options.languageCode = "zh_cn"; client.reloadResourcePacks();
             });
-            context.waitFor(client -> net.minecraft.client.resources.language.I18n.get("energyexchange.ui.title").equals("转化") && client.gui.overlay() == null);
+            context.waitFor(client -> net.minecraft.client.resources.language.I18n.get("energyexchange.ui.title").equals("转化") && !ClientPlatform.overlayActive(client));
             context.waitTicks(3);
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
@@ -94,9 +94,9 @@ public final class ExchangeClientTests implements FabricClientGameTest {
                 ExchangeContent.TABLET.use(p.level(), p, InteractionHand.MAIN_HAND);
             });
             context.waitForScreen(ExchangeScreen.class);
-            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
+            context.waitFor(client -> ((ExchangeScreen) ClientPlatform.screen(client)).isReady());
             context.runOnClient(client -> {
-                var screen = (ExchangeScreen) client.gui.screen();
+                var screen = (ExchangeScreen) ClientPlatform.screen(client);
                 if (!screen.visibleKeys().equals(java.util.List.of("minecraft:mace", "minecraft:ender_pearl", "minecraft:green_wool", "minecraft:dirt"))) throw new AssertionError("Default energy descending order");
                 for (String query : java.util.List.of("myzz", "moyingzhenzhu", "moyzz", "MO YING ZHEN ZHU", "末影zz", "mo影z珠", "ｍｙｚｚ", "mò yǐng zhēn zhū")) {
                     screen.search(query);
@@ -115,16 +115,16 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             });
             context.takeScreenshot("transmutation-zh_cn");
             context.waitTicks(3);
-            context.runOnClient(client -> ((ExchangeScreen) client.gui.screen()).request(3, "minecraft:ender_pearl", 64));
-            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
+            context.runOnClient(client -> ((ExchangeScreen) ClientPlatform.screen(client)).request(3, "minecraft:ender_pearl", 64));
+            context.waitFor(client -> ((ExchangeScreen) ClientPlatform.screen(client)).isReady());
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
                 if (ExchangeService.account(p).energy().intValue() != 65536 || p.getInventory().countItem(Items.ENDER_PEARL) != 0) throw new AssertionError("Forged oversized purchase accepted");
             });
             context.waitTicks(3);
-            context.runOnClient(client -> ((ExchangeScreen) client.gui.screen()).request(3, "minecraft:ender_pearl", 16));
+            context.runOnClient(client -> ((ExchangeScreen) ClientPlatform.screen(client)).request(3, "minecraft:ender_pearl", 16));
             world.getServer().waitFor(server -> server.getPlayerList().getPlayers().getFirst().getInventory().countItem(Items.ENDER_PEARL) == 16);
-            context.runOnClient(client -> client.gui.screen().onClose());
+            context.runOnClient(client -> ClientPlatform.screen(client).onClose());
             context.setScreen(() -> new ConfigScreen(null));
             context.takeScreenshot("modmenu-settings-zh_cn");
             context.runOnClient(client -> new ExchangeConfig(false, true, true, "128", false, studio.ykz.energyexchange.core.CatalogOrder.NAME).save());
@@ -133,9 +133,9 @@ public final class ExchangeClientTests implements FabricClientGameTest {
                 var p = server.getPlayerList().getPlayers().getFirst(); ExchangeContent.TABLET.use(p.level(), p, InteractionHand.MAIN_HAND);
             });
             context.waitForScreen(ExchangeScreen.class);
-            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
+            context.waitFor(client -> ((ExchangeScreen) ClientPlatform.screen(client)).isReady());
             context.runOnClient(client -> {
-                var screen = (ExchangeScreen) client.gui.screen();
+                var screen = (ExchangeScreen) ClientPlatform.screen(client);
                 if (!screen.visibleKeys().equals(java.util.List.of("minecraft:ender_pearl", "minecraft:dirt", "minecraft:green_wool", "minecraft:mace"))) throw new AssertionError("Configured name order");
                 screen.search("myzz");
                 if (!screen.visibleKeys().isEmpty()) throw new AssertionError("Disabled pinyin must not affect search");
@@ -152,13 +152,13 @@ public final class ExchangeClientTests implements FabricClientGameTest {
                 p.setAttached(EnergyExchange.ACCOUNT, studio.ykz.energyexchange.core.AccountJson.write(new studio.ykz.energyexchange.core.Account(java.math.BigInteger.valueOf(896 * 32), java.util.Set.of())));
                 ExchangeContent.TABLET.use(p.level(), p, InteractionHand.MAIN_HAND);
             });
-            context.waitForScreen(ExchangeScreen.class); context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
-            context.runOnClient(client -> { var screen = (ExchangeScreen) client.gui.screen(); screen.select(ExchangeService.BOTTLE); if (!screen.canPurchase(32) || screen.canPurchase(64)) throw new AssertionError("Bottle quantity affordability"); });
+            context.waitForScreen(ExchangeScreen.class); context.waitFor(client -> ((ExchangeScreen) ClientPlatform.screen(client)).isReady());
+            context.runOnClient(client -> { var screen = (ExchangeScreen) ClientPlatform.screen(client); screen.select(ExchangeService.BOTTLE); if (!screen.canPurchase(32) || screen.canPurchase(64)) throw new AssertionError("Bottle quantity affordability"); });
             context.takeScreenshot("bottle-purchase-zh_cn");
-            context.runOnClient(client -> ((ExchangeScreen) client.gui.screen()).request(4, ExchangeService.BOTTLE, 32));
+            context.runOnClient(client -> ((ExchangeScreen) ClientPlatform.screen(client)).request(4, ExchangeService.BOTTLE, 32));
             world.getServer().waitFor(server -> server.getPlayerList().getPlayers().getFirst().getInventory().countItem(Items.EXPERIENCE_BOTTLE) == 32);
-            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
-            context.runOnClient(client -> client.gui.screen().onClose()); context.waitForScreen(null);
+            context.waitFor(client -> ((ExchangeScreen) ClientPlatform.screen(client)).isReady());
+            context.runOnClient(client -> ClientPlatform.screen(client).onClose()); context.waitForScreen(null);
             var tablePos = world.getServer().computeOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
                 var pos = p.blockPosition().offset(0, 0, 3);

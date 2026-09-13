@@ -25,13 +25,13 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=0.19.5",
-    "minecraft": "~26.2",
+    "fabricloader": ">=0.18.4",
+    "minecraft": "${minecraft_target}",
     "java": ">=25",
-    "fabric-api": ">=0.159.0"
+    "fabric-api": ">=${fabric_api_version}"
   },
   "suggests": {
-    "modmenu": ">=20.0.0",
+    "modmenu": ">=${modmenu_version}",
     "tacz": "*"
   },
   "icon": "assets/energyexchange/icon.png"

@@ -43,5 +43,5 @@ public final class ConfigScreen extends Screen {
 
         if (!error.isEmpty()) g.centeredText(font, Messages.text(error), width / 2, height - 42, 0xFFFF5555);
     }
-    @Override public void onClose() { minecraft.gui.setScreen(parent); }
+    @Override public void onClose() { ClientPlatform.setScreen(minecraft, parent); }
 }
