@@ -1,0 +1,340 @@
+{
+  "values": {
+    "ubesdelight:arroz_caldo": "792",
+    "ubesdelight:baking_mat_bamboo": "576",
+    "ubesdelight:bangsilog": "320",
+    "ubesdelight:bulalo": "1072",
+    "ubesdelight:chicken_inasal": "326",
+    "ubesdelight:chicken_inasal_rice": "518",
+    "ubesdelight:condensed_milk_bottle": "202",
+    "ubesdelight:cookie_ginger": "16",
+    "ubesdelight:cookie_ube": "31",
+    "ubesdelight:ensaymada": "104",
+    "ubesdelight:ensaymada_raw": "104",
+    "ubesdelight:ensaymada_stage0": "256",
+    "ubesdelight:ensaymada_stage1": "256",
+    "ubesdelight:ensaymada_stage2": "256",
+    "ubesdelight:ensaymada_stage3": "256",
+    "ubesdelight:ensaymada_ube": "218",
+    "ubesdelight:ensaymada_ube_raw": "218",
+    "ubesdelight:ensaymada_ube_stage0": "256",
+    "ubesdelight:ensaymada_ube_stage1": "256",
+    "ubesdelight:ensaymada_ube_stage2": "256",
+    "ubesdelight:ensaymada_ube_stage3": "256",
+    "ubesdelight:fish_sauce_bottle": "208",
+    "ubesdelight:garlic": "256",
+    "ubesdelight:garlic_chop": "128",
+    "ubesdelight:garlic_crate": "2304",
+    "ubesdelight:ginger": "256",
+    "ubesdelight:ginger_chop": "128",
+    "ubesdelight:ginger_crate": "2304",
+    "ubesdelight:halo_halo": "677",
+    "ubesdelight:halo_halo_feast": "2232",
+    "ubesdelight:hopia_munggo": "43",
+    "ubesdelight:hopia_munggo_raw": "43",
+    "ubesdelight:hopia_munggo_stage0": "256",
+    "ubesdelight:hopia_munggo_stage1": "256",
+    "ubesdelight:hopia_munggo_stage2": "256",
+    "ubesdelight:hopia_ube": "128",
+    "ubesdelight:hopia_ube_raw": "128",
+    "ubesdelight:hopia_ube_stage0": "256",
+    "ubesdelight:hopia_ube_stage1": "256",
+    "ubesdelight:hopia_ube_stage2": "256",
+    "ubesdelight:kalan": "2823",
+    "ubesdelight:kinilaw": "838",
+    "ubesdelight:leaf_feast": "24",
+    "ubesdelight:leaf_feast_cooked_rice": "408",
+    "ubesdelight:leaf_feast_cooked_rice_half": "216",
+    "ubesdelight:leaf_feast_ensaymada": "647",
+    "ubesdelight:leaf_feast_ensaymada_half": "336",
+    "ubesdelight:leaf_feast_ensaymada_ube": "1330",
+    "ubesdelight:leaf_feast_ensaymada_ube_half": "677",
+    "ubesdelight:leaf_feast_fried_rice": "2472",
+    "ubesdelight:leaf_feast_fried_rice_half": "1248",
+    "ubesdelight:leaf_feast_hopia_munggo": "280",
+    "ubesdelight:leaf_feast_hopia_munggo_half": "152",
+    "ubesdelight:leaf_feast_hopia_ube": "792",
+    "ubesdelight:leaf_feast_hopia_ube_half": "408",
+    "ubesdelight:leaf_feast_pandesal": "91",
+    "ubesdelight:leaf_feast_pandesal_half": "58",
+    "ubesdelight:leaf_feast_pandesal_ube": "432",
+    "ubesdelight:leaf_feast_pandesal_ube_half": "228",
+    "ubesdelight:leaf_feast_sinangag": "1176",
+    "ubesdelight:leaf_feast_sinangag_half": "600",
+    "ubesdelight:leche_flan": "84",
+    "ubesdelight:leche_flan_feast": "420",
+    "ubesdelight:lemongrass": "256",
+    "ubesdelight:lemongrass_crate": "2304",
+    "ubesdelight:lemongrass_seeds": "8",
+    "ubesdelight:lumpia": "256",
+    "ubesdelight:lumpia_feast": "792",
+    "ubesdelight:lumpia_wrapper": "27",
+    "ubesdelight:mechado": "1136",
+    "ubesdelight:milk_powder": "202",
+    "ubesdelight:milk_tea_ube": "268",
+    "ubesdelight:milk_tea_ube_feast": "1003",
+    "ubesdelight:pandesal": "12",
+    "ubesdelight:pandesal_raw": "12",
+    "ubesdelight:pandesal_stage0": "256",
+    "ubesdelight:pandesal_stage1": "256",
+    "ubesdelight:pandesal_stage2": "256",
+    "ubesdelight:pandesal_ube": "68",
+    "ubesdelight:pandesal_ube_raw": "68",
+    "ubesdelight:pandesal_ube_stage0": "256",
+    "ubesdelight:pandesal_ube_stage1": "256",
+    "ubesdelight:pandesal_ube_stage2": "256",
+    "ubesdelight:poisonous_ube": "256",
+    "ubesdelight:polvorone": "48",
+    "ubesdelight:polvorone_cc": "50",
+    "ubesdelight:polvorone_cc_stage0": "256",
+    "ubesdelight:polvorone_cc_stage1": "256",
+    "ubesdelight:polvorone_cc_stage2": "256",
+    "ubesdelight:polvorone_pinipig": "62",
+    "ubesdelight:polvorone_pinipig_stage0": "256",
+    "ubesdelight:polvorone_pinipig_stage1": "256",
+    "ubesdelight:polvorone_pinipig_stage2": "256",
+    "ubesdelight:polvorone_stage0": "256",
+    "ubesdelight:polvorone_stage1": "256",
+    "ubesdelight:polvorone_stage2": "256",
+    "ubesdelight:polvorone_ube": "105",
+    "ubesdelight:polvorone_ube_stage0": "256",
+    "ubesdelight:polvorone_ube_stage1": "256",
+    "ubesdelight:polvorone_ube_stage2": "256",
+    "ubesdelight:raw_polvorone": "54",
+    "ubesdelight:raw_polvorone_cc": "56",
+    "ubesdelight:raw_polvorone_pinipig": "70",
+    "ubesdelight:raw_polvorone_ube": "118",
+    "ubesdelight:rolling_pin_diamond": "8200",
+    "ubesdelight:rolling_pin_gold": "1374",
+    "ubesdelight:rolling_pin_iron": "2739",
+    "ubesdelight:rolling_pin_netherite": "114696",
+    "ubesdelight:rolling_pin_wood": "22",
+    "ubesdelight:sinangag": "192",
+    "ubesdelight:sisig": "688",
+    "ubesdelight:sugar_brown": "6",
+    "ubesdelight:tocino": "230",
+    "ubesdelight:tosilog": "486",
+    "ubesdelight:ube": "256",
+    "ubesdelight:ube_cake": "448",
+    "ubesdelight:ube_cake_slice": "64",
+    "ubesdelight:ube_crate": "2304",
+    "ubesdelight:wild_garlic": "256",
+    "ubesdelight:wild_ginger": "256",
+    "ubesdelight:wild_lemongrass": "256",
+    "ubesdelight:wild_ube": "256"
+  },
+  "salvage": {
+    "ubesdelight:arroz_caldo": [
+      "7120",
+      "9"
+    ],
+    "ubesdelight:chicken_inasal": [
+      "977",
+      "3"
+    ],
+    "ubesdelight:chicken_inasal_rice": [
+      "1553",
+      "3"
+    ],
+    "ubesdelight:condensed_milk_bottle": [
+      "605",
+      "3"
+    ],
+    "ubesdelight:cookie_ginger": [
+      "1280",
+      "81"
+    ],
+    "ubesdelight:cookie_ube": [
+      "2432",
+      "81"
+    ],
+    "ubesdelight:ensaymada": [
+      "36440",
+      "351"
+    ],
+    "ubesdelight:ensaymada_raw": [
+      "36440",
+      "351"
+    ],
+    "ubesdelight:ensaymada_ube": [
+      "76376",
+      "351"
+    ],
+    "ubesdelight:ensaymada_ube_raw": [
+      "76376",
+      "351"
+    ],
+    "ubesdelight:halo_halo": [
+      "12179",
+      "18"
+    ],
+    "ubesdelight:halo_halo_feast": [
+      "4463",
+      "2"
+    ],
+    "ubesdelight:hopia_munggo": [
+      "4988",
+      "117"
+    ],
+    "ubesdelight:hopia_munggo_raw": [
+      "4988",
+      "117"
+    ],
+    "ubesdelight:hopia_ube": [
+      "14972",
+      "117"
+    ],
+    "ubesdelight:hopia_ube_raw": [
+      "14972",
+      "117"
+    ],
+    "ubesdelight:kalan": [
+      "8468",
+      "3"
+    ],
+    "ubesdelight:leaf_feast_ensaymada": [
+      "75688",
+      "117"
+    ],
+    "ubesdelight:leaf_feast_ensaymada_half": [
+      "39248",
+      "117"
+    ],
+    "ubesdelight:leaf_feast_ensaymada_ube": [
+      "155560",
+      "117"
+    ],
+    "ubesdelight:leaf_feast_ensaymada_ube_half": [
+      "79184",
+      "117"
+    ],
+    "ubesdelight:leaf_feast_hopia_munggo": [
+      "10912",
+      "39"
+    ],
+    "ubesdelight:leaf_feast_hopia_munggo_half": [
+      "5924",
+      "39"
+    ],
+    "ubesdelight:leaf_feast_hopia_ube": [
+      "30880",
+      "39"
+    ],
+    "ubesdelight:leaf_feast_hopia_ube_half": [
+      "15908",
+      "39"
+    ],
+    "ubesdelight:leaf_feast_pandesal": [
+      "31684",
+      "351"
+    ],
+    "ubesdelight:leaf_feast_pandesal_half": [
+      "20054",
+      "351"
+    ],
+    "ubesdelight:leaf_feast_pandesal_ube": [
+      "151492",
+      "351"
+    ],
+    "ubesdelight:leaf_feast_pandesal_ube_half": [
+      "79958",
+      "351"
+    ],
+    "ubesdelight:leche_flan": [
+      "503",
+      "6"
+    ],
+    "ubesdelight:leche_flan_feast": [
+      "2515",
+      "6"
+    ],
+    "ubesdelight:lumpia_wrapper": [
+      "236",
+      "9"
+    ],
+    "ubesdelight:milk_powder": [
+      "605",
+      "3"
+    ],
+    "ubesdelight:milk_tea_ube": [
+      "3205",
+      "12"
+    ],
+    "ubesdelight:milk_tea_ube_feast": [
+      "12035",
+      "12"
+    ],
+    "ubesdelight:pandesal": [
+      "11630",
+      "1053"
+    ],
+    "ubesdelight:pandesal_raw": [
+      "11630",
+      "1053"
+    ],
+    "ubesdelight:pandesal_ube": [
+      "71534",
+      "1053"
+    ],
+    "ubesdelight:pandesal_ube_raw": [
+      "71534",
+      "1053"
+    ],
+    "ubesdelight:polvorone": [
+      "3860",
+      "81"
+    ],
+    "ubesdelight:polvorone_cc": [
+      "36148",
+      "729"
+    ],
+    "ubesdelight:polvorone_pinipig": [
+      "5012",
+      "81"
+    ],
+    "ubesdelight:polvorone_ube": [
+      "8468",
+      "81"
+    ],
+    "ubesdelight:raw_polvorone": [
+      "965",
+      "18"
+    ],
+    "ubesdelight:raw_polvorone_cc": [
+      "9037",
+      "162"
+    ],
+    "ubesdelight:raw_polvorone_pinipig": [
+      "1253",
+      "18"
+    ],
+    "ubesdelight:raw_polvorone_ube": [
+      "2117",
+      "18"
+    ],
+    "ubesdelight:rolling_pin_gold": [
+      "4120",
+      "3"
+    ],
+    "ubesdelight:rolling_pin_iron": [
+      "8216",
+      "3"
+    ],
+    "ubesdelight:rolling_pin_wood": [
+      "64",
+      "3"
+    ],
+    "ubesdelight:sugar_brown": [
+      "17",
+      "3"
+    ],
+    "ubesdelight:tocino": [
+      "689",
+      "3"
+    ],
+    "ubesdelight:tosilog": [
+      "1457",
+      "3"
+    ]
+  }
+}

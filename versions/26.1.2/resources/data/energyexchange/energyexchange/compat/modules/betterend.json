@@ -1,0 +1,1724 @@
+{
+  "values": {
+    "betterend:aeridium": "256",
+    "betterend:aeternium_anvil": "118358",
+    "betterend:aeternium_axe": "106842",
+    "betterend:aeternium_axe_head": "49451",
+    "betterend:aeternium_block": "445056",
+    "betterend:aeternium_boots": "108160",
+    "betterend:aeternium_chestplate": "109355",
+    "betterend:aeternium_forged_plate": "49451",
+    "betterend:aeternium_hammer": "106842",
+    "betterend:aeternium_hammer_head": "49451",
+    "betterend:aeternium_helmet": "108459",
+    "betterend:aeternium_hoe": "106842",
+    "betterend:aeternium_hoe_head": "49451",
+    "betterend:aeternium_ingot": "49451",
+    "betterend:aeternium_leggings": "109056",
+    "betterend:aeternium_pickaxe": "106842",
+    "betterend:aeternium_pickaxe_head": "49451",
+    "betterend:aeternium_shovel": "106842",
+    "betterend:aeternium_shovel_head": "49451",
+    "betterend:aeternium_spear": "106842",
+    "betterend:aeternium_spear_tip": "49451",
+    "betterend:aeternium_sword": "160128",
+    "betterend:aeternium_sword_blade": "49451",
+    "betterend:aeternium_sword_handle": "109114",
+    "betterend:aeternium_upgrade_smithing_template": "59648",
+    "betterend:amaranita_cap": "256",
+    "betterend:amaranita_fur": "256",
+    "betterend:amaranita_hymenophore": "256",
+    "betterend:amaranita_hyphae": "32",
+    "betterend:amaranita_lantern": "256",
+    "betterend:amaranita_stem": "32",
+    "betterend:amber_block": "4096",
+    "betterend:amber_gem": "1024",
+    "betterend:amber_grass": "8",
+    "betterend:amber_moss": "256",
+    "betterend:amber_moss_path": "256",
+    "betterend:amber_ore": "4096",
+    "betterend:amber_root_raw": "256",
+    "betterend:amber_root_seed": "8",
+    "betterend:ancient_emerald_ice": "9216",
+    "betterend:andesite_lantern": "264",
+    "betterend:andesite_pedestal": "9",
+    "betterend:aurant_polypore": "256",
+    "betterend:aurora_crystal": "1024",
+    "betterend:azure_jadestone": "256",
+    "betterend:azure_jadestone_brick": "256",
+    "betterend:azure_jadestone_brick_slab": "128",
+    "betterend:azure_jadestone_brick_stairs": "256",
+    "betterend:azure_jadestone_brick_wall": "256",
+    "betterend:azure_jadestone_button": "256",
+    "betterend:azure_jadestone_flower_pot": "256",
+    "betterend:azure_jadestone_furnace": "2048",
+    "betterend:azure_jadestone_lantern": "512",
+    "betterend:azure_jadestone_pedestal": "256",
+    "betterend:azure_jadestone_pillar": "256",
+    "betterend:azure_jadestone_plate": "512",
+    "betterend:azure_jadestone_polished": "256",
+    "betterend:azure_jadestone_slab": "128",
+    "betterend:azure_jadestone_stairs": "256",
+    "betterend:azure_jadestone_tiles": "256",
+    "betterend:azure_jadestone_wall": "256",
+    "betterend:blackstone_lantern": "264",
+    "betterend:blooming_cooksonia": "256",
+    "betterend:blossom_berry": "256",
+    "betterend:blossom_berry_jelly": "582",
+    "betterend:blossom_berry_seed": "8",
+    "betterend:blue_vine_fur": "256",
+    "betterend:blue_vine_lantern": "256",
+    "betterend:blue_vine_seed": "8",
+    "betterend:bolux_mushroom": "8",
+    "betterend:bolux_mushroom_cooked": "8",
+    "betterend:brimstone": "256",
+    "betterend:bubble_coral": "256",
+    "betterend:bucket_cubozoa": "256",
+    "betterend:bucket_end_fish": "256",
+    "betterend:budding_smaragdant_crystal": "1024",
+    "betterend:bulb_moss": "256",
+    "betterend:bulb_vine": "256",
+    "betterend:bulb_vine_seed": "8",
+    "betterend:bushy_grass": "8",
+    "betterend:cave_bush": "256",
+    "betterend:cave_grass": "8",
+    "betterend:cave_moss": "256",
+    "betterend:cave_moss_path": "256",
+    "betterend:cave_pumpkin": "256",
+    "betterend:cave_pumpkin_pie": "1303",
+    "betterend:cave_pumpkin_seed": "8",
+    "betterend:charcoal_block": "288",
+    "betterend:charnia_cyan": "256",
+    "betterend:charnia_green": "256",
+    "betterend:charnia_light_blue": "256",
+    "betterend:charnia_orange": "256",
+    "betterend:charnia_purple": "256",
+    "betterend:charnia_red": "256",
+    "betterend:chorus_grass": "8",
+    "betterend:chorus_mushroom_cooked": "256",
+    "betterend:chorus_mushroom_raw": "256",
+    "betterend:chorus_mushroom_seed": "8",
+    "betterend:chorus_nylium": "256",
+    "betterend:chorus_nylium_path": "256",
+    "betterend:clawfern": "256",
+    "betterend:creeping_moss": "256",
+    "betterend:crystal_grass": "8",
+    "betterend:crystal_moss": "256",
+    "betterend:crystal_moss_cover": "256",
+    "betterend:crystal_moss_path": "256",
+    "betterend:crystal_shards": "256",
+    "betterend:crystalite_boots": "2731",
+    "betterend:crystalite_chestplate": "4438",
+    "betterend:crystalite_helmet": "3030",
+    "betterend:crystalite_leggings": "3883",
+    "betterend:crystalline_sulphur": "256",
+    "betterend:cyan_moss": "256",
+    "betterend:dense_emerald_ice": "1024",
+    "betterend:dense_snow": "256",
+    "betterend:dense_vine": "256",
+    "betterend:diamond_hammer": "32776",
+    "betterend:diorite_lantern": "264",
+    "betterend:diorite_pedestal": "13",
+    "betterend:dragon_bone_block": "72",
+    "betterend:dragon_bone_slab": "36",
+    "betterend:dragon_bone_stairs": "72",
+    "betterend:dragon_tree_bar_stool": "24",
+    "betterend:dragon_tree_bark": "43",
+    "betterend:dragon_tree_barrel": "56",
+    "betterend:dragon_tree_boat": "40",
+    "betterend:dragon_tree_bookshelf": "240",
+    "betterend:dragon_tree_button": "8",
+    "betterend:dragon_tree_chair": "20",
+    "betterend:dragon_tree_chest": "64",
+    "betterend:dragon_tree_chest_boat": "104",
+    "betterend:dragon_tree_chiseled_bookshelf": "60",
+    "betterend:dragon_tree_composter": "28",
+    "betterend:dragon_tree_crafting_table": "32",
+    "betterend:dragon_tree_door": "16",
+    "betterend:dragon_tree_fence": "14",
+    "betterend:dragon_tree_gate": "32",
+    "betterend:dragon_tree_hanging_sign": "107",
+    "betterend:dragon_tree_ladder": "11",
+    "betterend:dragon_tree_leaves": "8",
+    "betterend:dragon_tree_log": "32",
+    "betterend:dragon_tree_planks": "8",
+    "betterend:dragon_tree_plate": "16",
+    "betterend:dragon_tree_sapling": "8",
+    "betterend:dragon_tree_shelf": "32",
+    "betterend:dragon_tree_sign": "18",
+    "betterend:dragon_tree_slab": "4",
+    "betterend:dragon_tree_stairs": "12",
+    "betterend:dragon_tree_stripped_bark": "43",
+    "betterend:dragon_tree_stripped_log": "32",
+    "betterend:dragon_tree_taburet": "16",
+    "betterend:dragon_tree_trapdoor": "24",
+    "betterend:dragon_tree_wall": "10",
+    "betterend:elytra_armored": "371243",
+    "betterend:elytra_crystalite": "267456",
+    "betterend:emerald_ice": "256",
+    "betterend:enchanted_membrane": "1088",
+    "betterend:enchanted_petal": "1280",
+    "betterend:end_fish_cooked": "256",
+    "betterend:end_fish_raw": "256",
+    "betterend:end_lily_leaf": "256",
+    "betterend:end_lily_leaf_dried": "256",
+    "betterend:end_lily_seed": "8",
+    "betterend:end_lotus_bar_stool": "24",
+    "betterend:end_lotus_bark": "43",
+    "betterend:end_lotus_barrel": "56",
+    "betterend:end_lotus_bookshelf": "240",
+    "betterend:end_lotus_button": "8",
+    "betterend:end_lotus_chair": "20",
+    "betterend:end_lotus_chest": "64",
+    "betterend:end_lotus_chest_raft": "104",
+    "betterend:end_lotus_chiseled_bookshelf": "60",
+    "betterend:end_lotus_composter": "28",
+    "betterend:end_lotus_crafting_table": "32",
+    "betterend:end_lotus_door": "16",
+    "betterend:end_lotus_fence": "14",
+    "betterend:end_lotus_gate": "32",
+    "betterend:end_lotus_hanging_sign": "107",
+    "betterend:end_lotus_ladder": "11",
+    "betterend:end_lotus_log": "32",
+    "betterend:end_lotus_planks": "8",
+    "betterend:end_lotus_plate": "16",
+    "betterend:end_lotus_raft": "40",
+    "betterend:end_lotus_seed": "8",
+    "betterend:end_lotus_shelf": "32",
+    "betterend:end_lotus_sign": "18",
+    "betterend:end_lotus_slab": "4",
+    "betterend:end_lotus_stairs": "12",
+    "betterend:end_lotus_stem": "32",
+    "betterend:end_lotus_stripped_bark": "43",
+    "betterend:end_lotus_stripped_log": "32",
+    "betterend:end_lotus_taburet": "16",
+    "betterend:end_lotus_trapdoor": "24",
+    "betterend:end_lotus_wall": "10",
+    "betterend:end_moss": "256",
+    "betterend:end_moss_path": "256",
+    "betterend:end_mycelium": "256",
+    "betterend:end_mycelium_path": "256",
+    "betterend:end_stone_brick_cracked": "64",
+    "betterend:end_stone_brick_cracked_slab": "32",
+    "betterend:end_stone_brick_cracked_stairs": "64",
+    "betterend:end_stone_brick_cracked_wall": "64",
+    "betterend:end_stone_brick_weathered": "128",
+    "betterend:end_stone_brick_weathered_slab": "64",
+    "betterend:end_stone_brick_weathered_stairs": "128",
+    "betterend:end_stone_brick_weathered_wall": "128",
+    "betterend:end_stone_flower_pot": "64",
+    "betterend:end_stone_furnace": "512",
+    "betterend:end_stone_lantern": "264",
+    "betterend:end_stone_slab": "32",
+    "betterend:end_stone_smelter": "12075",
+    "betterend:end_stone_stairs": "64",
+    "betterend:end_stone_stalactite": "256",
+    "betterend:end_stone_stalactite_cavemoss": "256",
+    "betterend:end_stone_wall": "64",
+    "betterend:ender_block": "4096",
+    "betterend:ender_dust": "128",
+    "betterend:ender_ore": "4096",
+    "betterend:ender_shard": "128",
+    "betterend:endstone_dust": "256",
+    "betterend:eternal_crystal": "1600",
+    "betterend:eternal_pedestal": "256",
+    "betterend:filalux": "256",
+    "betterend:filalux_lantern": "2304",
+    "betterend:filalux_wings": "256",
+    "betterend:flamaea": "256",
+    "betterend:flammalix": "256",
+    "betterend:flavolite": "256",
+    "betterend:flavolite_brick": "256",
+    "betterend:flavolite_brick_slab": "128",
+    "betterend:flavolite_brick_stairs": "256",
+    "betterend:flavolite_brick_wall": "256",
+    "betterend:flavolite_button": "256",
+    "betterend:flavolite_flower_pot": "256",
+    "betterend:flavolite_furnace": "2048",
+    "betterend:flavolite_lantern": "512",
+    "betterend:flavolite_pedestal": "256",
+    "betterend:flavolite_pillar": "256",
+    "betterend:flavolite_plate": "512",
+    "betterend:flavolite_polished": "256",
+    "betterend:flavolite_runed": "1280",
+    "betterend:flavolite_runed_eternal": "256",
+    "betterend:flavolite_slab": "128",
+    "betterend:flavolite_stairs": "256",
+    "betterend:flavolite_tiles": "256",
+    "betterend:flavolite_wall": "256",
+    "betterend:fracturn": "256",
+    "betterend:gelatine": "256",
+    "betterend:globulagus": "256",
+    "betterend:glowing_bulb": "256",
+    "betterend:glowing_pillar_leaves": "8",
+    "betterend:glowing_pillar_luminophor": "256",
+    "betterend:glowing_pillar_seed": "8",
+    "betterend:gold_chandelier": "3243",
+    "betterend:golden_hammer": "5470",
+    "betterend:granite_lantern": "264",
+    "betterend:granite_pedestal": "21",
+    "betterend:guidebook": "256",
+    "betterend:handle_attachment_smithing_template": "8220",
+    "betterend:helix_tree_bar_stool": "24",
+    "betterend:helix_tree_bark": "43",
+    "betterend:helix_tree_barrel": "56",
+    "betterend:helix_tree_boat": "40",
+    "betterend:helix_tree_bookshelf": "240",
+    "betterend:helix_tree_button": "8",
+    "betterend:helix_tree_chair": "20",
+    "betterend:helix_tree_chest": "64",
+    "betterend:helix_tree_chest_boat": "104",
+    "betterend:helix_tree_chiseled_bookshelf": "60",
+    "betterend:helix_tree_composter": "28",
+    "betterend:helix_tree_crafting_table": "32",
+    "betterend:helix_tree_door": "16",
+    "betterend:helix_tree_fence": "14",
+    "betterend:helix_tree_gate": "32",
+    "betterend:helix_tree_hanging_sign": "107",
+    "betterend:helix_tree_ladder": "11",
+    "betterend:helix_tree_leaves": "8",
+    "betterend:helix_tree_log": "32",
+    "betterend:helix_tree_planks": "8",
+    "betterend:helix_tree_plate": "16",
+    "betterend:helix_tree_sapling": "8",
+    "betterend:helix_tree_shelf": "32",
+    "betterend:helix_tree_sign": "18",
+    "betterend:helix_tree_slab": "4",
+    "betterend:helix_tree_stairs": "12",
+    "betterend:helix_tree_stripped_bark": "43",
+    "betterend:helix_tree_stripped_log": "32",
+    "betterend:helix_tree_taburet": "16",
+    "betterend:helix_tree_trapdoor": "24",
+    "betterend:helix_tree_wall": "10",
+    "betterend:hydralux_petal": "256",
+    "betterend:hydralux_petal_block": "1024",
+    "betterend:hydralux_petal_block_black": "1025",
+    "betterend:hydralux_petal_block_blue": "1025",
+    "betterend:hydralux_petal_block_brown": "1028",
+    "betterend:hydralux_petal_block_cyan": "1027",
+    "betterend:hydralux_petal_block_gray": "1025",
+    "betterend:hydralux_petal_block_green": "1028",
+    "betterend:hydralux_petal_block_light_blue": "1025",
+    "betterend:hydralux_petal_block_light_gray": "1025",
+    "betterend:hydralux_petal_block_lime": "1027",
+    "betterend:hydralux_petal_block_magenta": "1025",
+    "betterend:hydralux_petal_block_orange": "1028",
+    "betterend:hydralux_petal_block_pink": "1026",
+    "betterend:hydralux_petal_block_purple": "1027",
+    "betterend:hydralux_petal_block_red": "1028",
+    "betterend:hydralux_petal_block_white": "1025",
+    "betterend:hydralux_petal_block_yellow": "1028",
+    "betterend:hydralux_sapling": "8",
+    "betterend:hydrothermal_vent": "256",
+    "betterend:inflexia": "256",
+    "betterend:infusion_pedestal": "3968",
+    "betterend:iron_bulb_lantern": "491",
+    "betterend:iron_bulb_lantern_black": "499",
+    "betterend:iron_bulb_lantern_blue": "499",
+    "betterend:iron_bulb_lantern_brown": "523",
+    "betterend:iron_bulb_lantern_cyan": "511",
+    "betterend:iron_bulb_lantern_gray": "499",
+    "betterend:iron_bulb_lantern_green": "523",
+    "betterend:iron_bulb_lantern_light_blue": "499",
+    "betterend:iron_bulb_lantern_light_gray": "498",
+    "betterend:iron_bulb_lantern_lime": "511",
+    "betterend:iron_bulb_lantern_magenta": "499",
+    "betterend:iron_bulb_lantern_orange": "523",
+    "betterend:iron_bulb_lantern_pink": "507",
+    "betterend:iron_bulb_lantern_purple": "511",
+    "betterend:iron_bulb_lantern_red": "523",
+    "betterend:iron_bulb_lantern_white": "498",
+    "betterend:iron_bulb_lantern_yellow": "523",
+    "betterend:iron_chandelier": "854",
+    "betterend:iron_hammer": "691",
+    "betterend:jellyshroom_bar_stool": "24",
+    "betterend:jellyshroom_bark": "43",
+    "betterend:jellyshroom_barrel": "56",
+    "betterend:jellyshroom_boat": "40",
+    "betterend:jellyshroom_bookshelf": "240",
+    "betterend:jellyshroom_button": "8",
+    "betterend:jellyshroom_cap_purple": "256",
+    "betterend:jellyshroom_chair": "20",
+    "betterend:jellyshroom_chest": "64",
+    "betterend:jellyshroom_chest_boat": "104",
+    "betterend:jellyshroom_chiseled_bookshelf": "60",
+    "betterend:jellyshroom_composter": "28",
+    "betterend:jellyshroom_crafting_table": "32",
+    "betterend:jellyshroom_door": "16",
+    "betterend:jellyshroom_fence": "14",
+    "betterend:jellyshroom_gate": "32",
+    "betterend:jellyshroom_hanging_sign": "107",
+    "betterend:jellyshroom_ladder": "11",
+    "betterend:jellyshroom_log": "32",
+    "betterend:jellyshroom_planks": "8",
+    "betterend:jellyshroom_plate": "16",
+    "betterend:jellyshroom_shelf": "32",
+    "betterend:jellyshroom_sign": "18",
+    "betterend:jellyshroom_slab": "4",
+    "betterend:jellyshroom_stairs": "12",
+    "betterend:jellyshroom_stripped_bark": "43",
+    "betterend:jellyshroom_stripped_log": "32",
+    "betterend:jellyshroom_taburet": "16",
+    "betterend:jellyshroom_trapdoor": "24",
+    "betterend:jellyshroom_wall": "10",
+    "betterend:jungle_fern": "256",
+    "betterend:jungle_grass": "8",
+    "betterend:jungle_moss": "256",
+    "betterend:jungle_moss_path": "256",
+    "betterend:jungle_vine": "256",
+    "betterend:lacugrove_bar_stool": "24",
+    "betterend:lacugrove_bark": "43",
+    "betterend:lacugrove_barrel": "56",
+    "betterend:lacugrove_boat": "40",
+    "betterend:lacugrove_bookshelf": "240",
+    "betterend:lacugrove_button": "8",
+    "betterend:lacugrove_chair": "20",
+    "betterend:lacugrove_chest": "64",
+    "betterend:lacugrove_chest_boat": "104",
+    "betterend:lacugrove_chiseled_bookshelf": "60",
+    "betterend:lacugrove_composter": "28",
+    "betterend:lacugrove_crafting_table": "32",
+    "betterend:lacugrove_door": "16",
+    "betterend:lacugrove_fence": "14",
+    "betterend:lacugrove_gate": "32",
+    "betterend:lacugrove_hanging_sign": "107",
+    "betterend:lacugrove_ladder": "11",
+    "betterend:lacugrove_leaves": "8",
+    "betterend:lacugrove_log": "32",
+    "betterend:lacugrove_planks": "8",
+    "betterend:lacugrove_plate": "16",
+    "betterend:lacugrove_sapling": "8",
+    "betterend:lacugrove_shelf": "32",
+    "betterend:lacugrove_sign": "18",
+    "betterend:lacugrove_slab": "4",
+    "betterend:lacugrove_stairs": "12",
+    "betterend:lacugrove_stripped_bark": "43",
+    "betterend:lacugrove_stripped_log": "32",
+    "betterend:lacugrove_taburet": "16",
+    "betterend:lacugrove_trapdoor": "24",
+    "betterend:lacugrove_wall": "10",
+    "betterend:lamellarium": "256",
+    "betterend:lanceleaf": "256",
+    "betterend:lanceleaf_seed": "8",
+    "betterend:large_amaranita_mushroom": "8",
+    "betterend:leather_handle_attachment_smithing_template": "57376",
+    "betterend:leather_stripe": "11",
+    "betterend:leather_wrapped_stick": "15",
+    "betterend:lucernia_bar_stool": "24",
+    "betterend:lucernia_bark": "43",
+    "betterend:lucernia_barrel": "56",
+    "betterend:lucernia_boat": "40",
+    "betterend:lucernia_bookshelf": "240",
+    "betterend:lucernia_button": "8",
+    "betterend:lucernia_chair": "20",
+    "betterend:lucernia_chest": "64",
+    "betterend:lucernia_chest_boat": "104",
+    "betterend:lucernia_chiseled_bookshelf": "60",
+    "betterend:lucernia_composter": "28",
+    "betterend:lucernia_crafting_table": "32",
+    "betterend:lucernia_door": "16",
+    "betterend:lucernia_fence": "14",
+    "betterend:lucernia_gate": "32",
+    "betterend:lucernia_hanging_sign": "107",
+    "betterend:lucernia_jellyshroom_bar_stool": "32",
+    "betterend:lucernia_jellyshroom_chair": "28",
+    "betterend:lucernia_jellyshroom_hanging_sign": "107",
+    "betterend:lucernia_jellyshroom_taburet": "24",
+    "betterend:lucernia_ladder": "11",
+    "betterend:lucernia_leaves": "8",
+    "betterend:lucernia_log": "32",
+    "betterend:lucernia_outer_leaves": "8",
+    "betterend:lucernia_planks": "8",
+    "betterend:lucernia_plate": "16",
+    "betterend:lucernia_sapling": "8",
+    "betterend:lucernia_shelf": "32",
+    "betterend:lucernia_sign": "18",
+    "betterend:lucernia_slab": "4",
+    "betterend:lucernia_stairs": "12",
+    "betterend:lucernia_stripped_bark": "43",
+    "betterend:lucernia_stripped_log": "32",
+    "betterend:lucernia_taburet": "16",
+    "betterend:lucernia_trapdoor": "24",
+    "betterend:lucernia_wall": "10",
+    "betterend:lumecorn_rod": "256",
+    "betterend:lumecorn_seed": "8",
+    "betterend:lutebus": "256",
+    "betterend:magnula": "256",
+    "betterend:menger_sponge": "256",
+    "betterend:menger_sponge_wet": "256",
+    "betterend:missing_tile": "160",
+    "betterend:mossy_dragon_bone": "256",
+    "betterend:mossy_glowshroom_bar_stool": "24",
+    "betterend:mossy_glowshroom_bark": "43",
+    "betterend:mossy_glowshroom_barrel": "56",
+    "betterend:mossy_glowshroom_boat": "40",
+    "betterend:mossy_glowshroom_bookshelf": "240",
+    "betterend:mossy_glowshroom_button": "8",
+    "betterend:mossy_glowshroom_cap": "256",
+    "betterend:mossy_glowshroom_chair": "20",
+    "betterend:mossy_glowshroom_chest": "64",
+    "betterend:mossy_glowshroom_chest_boat": "104",
+    "betterend:mossy_glowshroom_chiseled_bookshelf": "60",
+    "betterend:mossy_glowshroom_composter": "28",
+    "betterend:mossy_glowshroom_crafting_table": "32",
+    "betterend:mossy_glowshroom_door": "16",
+    "betterend:mossy_glowshroom_fence": "14",
+    "betterend:mossy_glowshroom_fur": "256",
+    "betterend:mossy_glowshroom_gate": "32",
+    "betterend:mossy_glowshroom_hanging_sign": "107",
+    "betterend:mossy_glowshroom_hymenophore": "256",
+    "betterend:mossy_glowshroom_ladder": "11",
+    "betterend:mossy_glowshroom_log": "32",
+    "betterend:mossy_glowshroom_planks": "8",
+    "betterend:mossy_glowshroom_plate": "16",
+    "betterend:mossy_glowshroom_sapling": "8",
+    "betterend:mossy_glowshroom_shelf": "32",
+    "betterend:mossy_glowshroom_sign": "18",
+    "betterend:mossy_glowshroom_slab": "4",
+    "betterend:mossy_glowshroom_stairs": "12",
+    "betterend:mossy_glowshroom_stripped_bark": "43",
+    "betterend:mossy_glowshroom_stripped_log": "32",
+    "betterend:mossy_glowshroom_taburet": "16",
+    "betterend:mossy_glowshroom_trapdoor": "24",
+    "betterend:mossy_glowshroom_wall": "10",
+    "betterend:mossy_obsidian": "256",
+    "betterend:murkweed": "256",
+    "betterend:music_disc_ender_hollow": "256",
+    "betterend:music_disc_endseeker": "256",
+    "betterend:music_disc_eo_dracona": "256",
+    "betterend:music_disc_grasping_at_stars": "256",
+    "betterend:music_disc_moonlit_undercurrents": "256",
+    "betterend:music_disc_strange_and_alien": "256",
+    "betterend:needlegrass": "256",
+    "betterend:neon_cactus": "256",
+    "betterend:neon_cactus_block": "1024",
+    "betterend:neon_cactus_slab": "512",
+    "betterend:neon_cactus_stairs": "1024",
+    "betterend:netherite_hammer": "139273",
+    "betterend:netherite_upgrade_smithing_template": "57345",
+    "betterend:orango": "256",
+    "betterend:pallidium_full": "256",
+    "betterend:pallidium_heavy": "256",
+    "betterend:pallidium_thin": "256",
+    "betterend:pallidium_tiny": "256",
+    "betterend:pink_moss": "256",
+    "betterend:pink_moss_path": "256",
+    "betterend:plate_upgrade_smithing_template": "57515",
+    "betterend:pond_anemone": "256",
+    "betterend:purple_lantern": "264",
+    "betterend:purple_pedestal": "8",
+    "betterend:purple_polypore": "256",
+    "betterend:pythadendron_bar_stool": "24",
+    "betterend:pythadendron_bark": "43",
+    "betterend:pythadendron_barrel": "56",
+    "betterend:pythadendron_boat": "40",
+    "betterend:pythadendron_bookshelf": "240",
+    "betterend:pythadendron_button": "8",
+    "betterend:pythadendron_chair": "20",
+    "betterend:pythadendron_chest": "64",
+    "betterend:pythadendron_chest_boat": "104",
+    "betterend:pythadendron_chiseled_bookshelf": "60",
+    "betterend:pythadendron_composter": "28",
+    "betterend:pythadendron_crafting_table": "32",
+    "betterend:pythadendron_door": "16",
+    "betterend:pythadendron_fence": "14",
+    "betterend:pythadendron_gate": "32",
+    "betterend:pythadendron_hanging_sign": "107",
+    "betterend:pythadendron_ladder": "11",
+    "betterend:pythadendron_leaves": "8",
+    "betterend:pythadendron_log": "32",
+    "betterend:pythadendron_planks": "8",
+    "betterend:pythadendron_plate": "16",
+    "betterend:pythadendron_sapling": "8",
+    "betterend:pythadendron_shelf": "32",
+    "betterend:pythadendron_sign": "18",
+    "betterend:pythadendron_slab": "4",
+    "betterend:pythadendron_stairs": "12",
+    "betterend:pythadendron_stripped_bark": "43",
+    "betterend:pythadendron_stripped_log": "32",
+    "betterend:pythadendron_taburet": "16",
+    "betterend:pythadendron_trapdoor": "24",
+    "betterend:pythadendron_wall": "10",
+    "betterend:quartz_lantern": "264",
+    "betterend:quartz_pedestal": "36",
+    "betterend:raw_amber": "256",
+    "betterend:respawn_obelisk": "19584",
+    "betterend:rubinea": "256",
+    "betterend:ruscus": "256",
+    "betterend:rutiscus": "256",
+    "betterend:rutiscus_path": "256",
+    "betterend:salteago": "64",
+    "betterend:sandy_jadestone": "256",
+    "betterend:sandy_jadestone_brick": "256",
+    "betterend:sandy_jadestone_brick_slab": "128",
+    "betterend:sandy_jadestone_brick_stairs": "256",
+    "betterend:sandy_jadestone_brick_wall": "256",
+    "betterend:sandy_jadestone_button": "256",
+    "betterend:sandy_jadestone_flower_pot": "256",
+    "betterend:sandy_jadestone_furnace": "2048",
+    "betterend:sandy_jadestone_lantern": "512",
+    "betterend:sandy_jadestone_pedestal": "256",
+    "betterend:sandy_jadestone_pillar": "256",
+    "betterend:sandy_jadestone_plate": "512",
+    "betterend:sandy_jadestone_polished": "256",
+    "betterend:sandy_jadestone_slab": "128",
+    "betterend:sandy_jadestone_stairs": "256",
+    "betterend:sandy_jadestone_tiles": "256",
+    "betterend:sandy_jadestone_wall": "256",
+    "betterend:sangnum": "256",
+    "betterend:sangnum_path": "256",
+    "betterend:shadow_berry": "64",
+    "betterend:shadow_berry_cooked": "256",
+    "betterend:shadow_berry_jelly": "582",
+    "betterend:shadow_berry_raw": "256",
+    "betterend:shadow_grass": "8",
+    "betterend:shadow_grass_path": "256",
+    "betterend:shadow_plant": "256",
+    "betterend:silk_fiber": "256",
+    "betterend:silk_moth_hive": "320",
+    "betterend:silk_moth_matrix": "256",
+    "betterend:silk_moth_nest": "256",
+    "betterend:small_amaranita_mushroom": "8",
+    "betterend:small_jellyshroom": "256",
+    "betterend:smaragdant_crystal": "512",
+    "betterend:smaragdant_crystal_bricks": "512",
+    "betterend:smaragdant_crystal_bricks_slab": "256",
+    "betterend:smaragdant_crystal_bricks_stairs": "768",
+    "betterend:smaragdant_crystal_bricks_wall": "512",
+    "betterend:smaragdant_crystal_pedestal": "512",
+    "betterend:smaragdant_crystal_pillar": "512",
+    "betterend:smaragdant_crystal_polished": "512",
+    "betterend:smaragdant_crystal_shard": "128",
+    "betterend:smaragdant_crystal_slab": "256",
+    "betterend:smaragdant_crystal_stairs": "768",
+    "betterend:smaragdant_crystal_tiles": "512",
+    "betterend:smaragdant_crystal_wall": "512",
+    "betterend:spawn_egg_cubozoa": "256",
+    "betterend:spawn_egg_dragonfly": "256",
+    "betterend:spawn_egg_end_fish": "256",
+    "betterend:spawn_egg_end_slime": "256",
+    "betterend:spawn_egg_shadow_walker": "256",
+    "betterend:spawn_egg_silk_moth": "256",
+    "betterend:sulphur_crystal": "1024",
+    "betterend:sulphuric_rock": "256",
+    "betterend:sulphuric_rock_brick": "256",
+    "betterend:sulphuric_rock_brick_slab": "128",
+    "betterend:sulphuric_rock_brick_stairs": "256",
+    "betterend:sulphuric_rock_brick_wall": "256",
+    "betterend:sulphuric_rock_button": "256",
+    "betterend:sulphuric_rock_flower_pot": "256",
+    "betterend:sulphuric_rock_furnace": "2048",
+    "betterend:sulphuric_rock_lantern": "512",
+    "betterend:sulphuric_rock_pedestal": "256",
+    "betterend:sulphuric_rock_pillar": "256",
+    "betterend:sulphuric_rock_plate": "512",
+    "betterend:sulphuric_rock_polished": "256",
+    "betterend:sulphuric_rock_slab": "128",
+    "betterend:sulphuric_rock_stairs": "256",
+    "betterend:sulphuric_rock_tiles": "256",
+    "betterend:sulphuric_rock_wall": "256",
+    "betterend:sweet_berry_jelly": "390",
+    "betterend:tail_moss": "256",
+    "betterend:tenanea_bar_stool": "24",
+    "betterend:tenanea_bark": "43",
+    "betterend:tenanea_barrel": "56",
+    "betterend:tenanea_boat": "40",
+    "betterend:tenanea_bookshelf": "240",
+    "betterend:tenanea_button": "8",
+    "betterend:tenanea_chair": "20",
+    "betterend:tenanea_chest": "64",
+    "betterend:tenanea_chest_boat": "104",
+    "betterend:tenanea_chiseled_bookshelf": "60",
+    "betterend:tenanea_composter": "28",
+    "betterend:tenanea_crafting_table": "32",
+    "betterend:tenanea_door": "16",
+    "betterend:tenanea_fence": "14",
+    "betterend:tenanea_flowers": "256",
+    "betterend:tenanea_gate": "32",
+    "betterend:tenanea_hanging_sign": "107",
+    "betterend:tenanea_ladder": "11",
+    "betterend:tenanea_leaves": "8",
+    "betterend:tenanea_log": "32",
+    "betterend:tenanea_outer_leaves": "8",
+    "betterend:tenanea_planks": "8",
+    "betterend:tenanea_plate": "16",
+    "betterend:tenanea_sapling": "8",
+    "betterend:tenanea_shelf": "32",
+    "betterend:tenanea_sign": "18",
+    "betterend:tenanea_slab": "4",
+    "betterend:tenanea_stairs": "12",
+    "betterend:tenanea_stripped_bark": "43",
+    "betterend:tenanea_stripped_log": "32",
+    "betterend:tenanea_taburet": "16",
+    "betterend:tenanea_trapdoor": "24",
+    "betterend:tenanea_wall": "10",
+    "betterend:terminite_anvil": "9259",
+    "betterend:terminite_axe": "8523",
+    "betterend:terminite_axe_head": "299",
+    "betterend:terminite_bars": "112",
+    "betterend:terminite_block": "2688",
+    "betterend:terminite_boots": "1195",
+    "betterend:terminite_bulb_lantern": "920",
+    "betterend:terminite_bulb_lantern_black": "928",
+    "betterend:terminite_bulb_lantern_blue": "928",
+    "betterend:terminite_bulb_lantern_brown": "952",
+    "betterend:terminite_bulb_lantern_cyan": "940",
+    "betterend:terminite_bulb_lantern_gray": "928",
+    "betterend:terminite_bulb_lantern_green": "952",
+    "betterend:terminite_bulb_lantern_light_blue": "928",
+    "betterend:terminite_bulb_lantern_light_gray": "928",
+    "betterend:terminite_bulb_lantern_lime": "940",
+    "betterend:terminite_bulb_lantern_magenta": "928",
+    "betterend:terminite_bulb_lantern_orange": "952",
+    "betterend:terminite_bulb_lantern_pink": "936",
+    "betterend:terminite_bulb_lantern_purple": "940",
+    "betterend:terminite_bulb_lantern_red": "952",
+    "betterend:terminite_bulb_lantern_white": "927",
+    "betterend:terminite_bulb_lantern_yellow": "952",
+    "betterend:terminite_chain": "366",
+    "betterend:terminite_chandelier": "1110",
+    "betterend:terminite_chestplate": "2390",
+    "betterend:terminite_door": "5376",
+    "betterend:terminite_forged_plate": "299",
+    "betterend:terminite_hammer": "8523",
+    "betterend:terminite_hammer_head": "299",
+    "betterend:terminite_helmet": "1494",
+    "betterend:terminite_hoe": "8523",
+    "betterend:terminite_hoe_head": "299",
+    "betterend:terminite_ingot": "299",
+    "betterend:terminite_leggings": "2091",
+    "betterend:terminite_nugget": "34",
+    "betterend:terminite_pickaxe": "8523",
+    "betterend:terminite_pickaxe_head": "299",
+    "betterend:terminite_plate": "5376",
+    "betterend:terminite_shovel": "8523",
+    "betterend:terminite_shovel_head": "299",
+    "betterend:terminite_slab": "1344",
+    "betterend:terminite_spear": "8523",
+    "betterend:terminite_spear_tip": "299",
+    "betterend:terminite_stairs": "2688",
+    "betterend:terminite_sword": "2492",
+    "betterend:terminite_sword_blade": "299",
+    "betterend:terminite_sword_handle": "630",
+    "betterend:terminite_tile": "2688",
+    "betterend:terminite_trapdoor": "8064",
+    "betterend:terminite_upgrade_smithing_template": "327",
+    "betterend:thallasium_anvil": "84651",
+    "betterend:thallasium_axe": "10955",
+    "betterend:thallasium_axe_head": "2731",
+    "betterend:thallasium_bars": "1024",
+    "betterend:thallasium_block": "24576",
+    "betterend:thallasium_boots": "10923",
+    "betterend:thallasium_bulb_lantern": "6325",
+    "betterend:thallasium_bulb_lantern_black": "6333",
+    "betterend:thallasium_bulb_lantern_blue": "6333",
+    "betterend:thallasium_bulb_lantern_brown": "6357",
+    "betterend:thallasium_bulb_lantern_cyan": "6345",
+    "betterend:thallasium_bulb_lantern_gray": "6332",
+    "betterend:thallasium_bulb_lantern_green": "6357",
+    "betterend:thallasium_bulb_lantern_light_blue": "6332",
+    "betterend:thallasium_bulb_lantern_light_gray": "6332",
+    "betterend:thallasium_bulb_lantern_lime": "6344",
+    "betterend:thallasium_bulb_lantern_magenta": "6333",
+    "betterend:thallasium_bulb_lantern_orange": "6357",
+    "betterend:thallasium_bulb_lantern_pink": "6341",
+    "betterend:thallasium_bulb_lantern_purple": "6345",
+    "betterend:thallasium_bulb_lantern_red": "6357",
+    "betterend:thallasium_bulb_lantern_white": "6332",
+    "betterend:thallasium_bulb_lantern_yellow": "6357",
+    "betterend:thallasium_chain": "3338",
+    "betterend:thallasium_chandelier": "5974",
+    "betterend:thallasium_chestplate": "21846",
+    "betterend:thallasium_door": "49152",
+    "betterend:thallasium_forged_plate": "2731",
+    "betterend:thallasium_hammer": "10955",
+    "betterend:thallasium_hammer_head": "2731",
+    "betterend:thallasium_helmet": "13654",
+    "betterend:thallasium_hoe": "10955",
+    "betterend:thallasium_hoe_head": "2731",
+    "betterend:thallasium_ingot": "2731",
+    "betterend:thallasium_leggings": "19115",
+    "betterend:thallasium_nugget": "304",
+    "betterend:thallasium_ore": "4096",
+    "betterend:thallasium_pickaxe": "10955",
+    "betterend:thallasium_pickaxe_head": "2731",
+    "betterend:thallasium_plate": "49152",
+    "betterend:thallasium_raw": "4096",
+    "betterend:thallasium_shovel": "10955",
+    "betterend:thallasium_shovel_head": "2731",
+    "betterend:thallasium_slab": "12288",
+    "betterend:thallasium_spear": "10955",
+    "betterend:thallasium_spear_tip": "2731",
+    "betterend:thallasium_stairs": "24576",
+    "betterend:thallasium_sword": "9788",
+    "betterend:thallasium_sword_blade": "2731",
+    "betterend:thallasium_sword_handle": "5494",
+    "betterend:thallasium_tile": "24576",
+    "betterend:thallasium_trapdoor": "73728",
+    "betterend:thallasium_upgrade_smithing_template": "2759",
+    "betterend:tool_assembly_smithing_template": "1564",
+    "betterend:tube_worm": "256",
+    "betterend:twisted_moss": "256",
+    "betterend:twisted_umbrella_moss": "256",
+    "betterend:twisted_umbrella_moss_tall": "256",
+    "betterend:twisted_vine": "256",
+    "betterend:umbralith": "256",
+    "betterend:umbralith_brick": "256",
+    "betterend:umbralith_brick_slab": "128",
+    "betterend:umbralith_brick_stairs": "256",
+    "betterend:umbralith_brick_wall": "256",
+    "betterend:umbralith_button": "256",
+    "betterend:umbralith_flower_pot": "256",
+    "betterend:umbralith_furnace": "2048",
+    "betterend:umbralith_lantern": "512",
+    "betterend:umbralith_pedestal": "256",
+    "betterend:umbralith_pillar": "256",
+    "betterend:umbralith_plate": "512",
+    "betterend:umbralith_polished": "256",
+    "betterend:umbralith_slab": "128",
+    "betterend:umbralith_stairs": "256",
+    "betterend:umbralith_tiles": "256",
+    "betterend:umbralith_wall": "256",
+    "betterend:umbrella_cluster_juice": "64",
+    "betterend:umbrella_moss": "256",
+    "betterend:umbrella_moss_tall": "256",
+    "betterend:umbrella_tree_bar_stool": "24",
+    "betterend:umbrella_tree_bark": "43",
+    "betterend:umbrella_tree_barrel": "56",
+    "betterend:umbrella_tree_boat": "40",
+    "betterend:umbrella_tree_bookshelf": "240",
+    "betterend:umbrella_tree_button": "8",
+    "betterend:umbrella_tree_chair": "20",
+    "betterend:umbrella_tree_chest": "64",
+    "betterend:umbrella_tree_chest_boat": "104",
+    "betterend:umbrella_tree_chiseled_bookshelf": "60",
+    "betterend:umbrella_tree_cluster": "256",
+    "betterend:umbrella_tree_cluster_empty": "256",
+    "betterend:umbrella_tree_composter": "28",
+    "betterend:umbrella_tree_crafting_table": "32",
+    "betterend:umbrella_tree_door": "16",
+    "betterend:umbrella_tree_fence": "14",
+    "betterend:umbrella_tree_gate": "32",
+    "betterend:umbrella_tree_hanging_sign": "107",
+    "betterend:umbrella_tree_ladder": "11",
+    "betterend:umbrella_tree_log": "32",
+    "betterend:umbrella_tree_membrane": "256",
+    "betterend:umbrella_tree_planks": "8",
+    "betterend:umbrella_tree_plate": "16",
+    "betterend:umbrella_tree_sapling": "8",
+    "betterend:umbrella_tree_shelf": "32",
+    "betterend:umbrella_tree_sign": "18",
+    "betterend:umbrella_tree_slab": "4",
+    "betterend:umbrella_tree_stairs": "12",
+    "betterend:umbrella_tree_stripped_bark": "43",
+    "betterend:umbrella_tree_stripped_log": "32",
+    "betterend:umbrella_tree_taburet": "16",
+    "betterend:umbrella_tree_trapdoor": "24",
+    "betterend:umbrella_tree_wall": "10",
+    "betterend:vaiolush_fern": "256",
+    "betterend:violecite": "256",
+    "betterend:violecite_brick": "256",
+    "betterend:violecite_brick_slab": "128",
+    "betterend:violecite_brick_stairs": "256",
+    "betterend:violecite_brick_wall": "256",
+    "betterend:violecite_button": "256",
+    "betterend:violecite_flower_pot": "256",
+    "betterend:violecite_furnace": "2048",
+    "betterend:violecite_lantern": "512",
+    "betterend:violecite_pedestal": "256",
+    "betterend:violecite_pillar": "256",
+    "betterend:violecite_plate": "512",
+    "betterend:violecite_polished": "256",
+    "betterend:violecite_slab": "128",
+    "betterend:violecite_stairs": "256",
+    "betterend:violecite_tiles": "256",
+    "betterend:violecite_wall": "256",
+    "betterend:virid_jadestone": "256",
+    "betterend:virid_jadestone_brick": "256",
+    "betterend:virid_jadestone_brick_slab": "128",
+    "betterend:virid_jadestone_brick_stairs": "256",
+    "betterend:virid_jadestone_brick_wall": "256",
+    "betterend:virid_jadestone_button": "256",
+    "betterend:virid_jadestone_flower_pot": "256",
+    "betterend:virid_jadestone_furnace": "2048",
+    "betterend:virid_jadestone_lantern": "512",
+    "betterend:virid_jadestone_pedestal": "256",
+    "betterend:virid_jadestone_pillar": "256",
+    "betterend:virid_jadestone_plate": "512",
+    "betterend:virid_jadestone_polished": "256",
+    "betterend:virid_jadestone_slab": "128",
+    "betterend:virid_jadestone_stairs": "256",
+    "betterend:virid_jadestone_tiles": "256",
+    "betterend:virid_jadestone_wall": "256"
+  },
+  "salvage": {
+    "betterend:aeternium_anvil": [
+      "355072",
+      "3"
+    ],
+    "betterend:aeternium_axe": [
+      "320524",
+      "3"
+    ],
+    "betterend:aeternium_axe_head": [
+      "148352",
+      "3"
+    ],
+    "betterend:aeternium_chestplate": [
+      "328064",
+      "3"
+    ],
+    "betterend:aeternium_forged_plate": [
+      "148352",
+      "3"
+    ],
+    "betterend:aeternium_hammer": [
+      "320524",
+      "3"
+    ],
+    "betterend:aeternium_hammer_head": [
+      "148352",
+      "3"
+    ],
+    "betterend:aeternium_helmet": [
+      "325376",
+      "3"
+    ],
+    "betterend:aeternium_hoe": [
+      "320524",
+      "3"
+    ],
+    "betterend:aeternium_hoe_head": [
+      "148352",
+      "3"
+    ],
+    "betterend:aeternium_ingot": [
+      "148352",
+      "3"
+    ],
+    "betterend:aeternium_pickaxe": [
+      "320524",
+      "3"
+    ],
+    "betterend:aeternium_pickaxe_head": [
+      "148352",
+      "3"
+    ],
+    "betterend:aeternium_shovel": [
+      "320524",
+      "3"
+    ],
+    "betterend:aeternium_shovel_head": [
+      "148352",
+      "3"
+    ],
+    "betterend:aeternium_spear": [
+      "320524",
+      "3"
+    ],
+    "betterend:aeternium_spear_tip": [
+      "148352",
+      "3"
+    ],
+    "betterend:aeternium_sword_blade": [
+      "148352",
+      "3"
+    ],
+    "betterend:aeternium_sword_handle": [
+      "327340",
+      "3"
+    ],
+    "betterend:andesite_pedestal": [
+      "17",
+      "2"
+    ],
+    "betterend:blossom_berry_jelly": [
+      "1745",
+      "3"
+    ],
+    "betterend:cave_pumpkin_pie": [
+      "3908",
+      "3"
+    ],
+    "betterend:crystalite_boots": [
+      "8192",
+      "3"
+    ],
+    "betterend:crystalite_chestplate": [
+      "13312",
+      "3"
+    ],
+    "betterend:crystalite_helmet": [
+      "9088",
+      "3"
+    ],
+    "betterend:crystalite_leggings": [
+      "11648",
+      "3"
+    ],
+    "betterend:diorite_pedestal": [
+      "25",
+      "2"
+    ],
+    "betterend:dragon_tree_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:dragon_tree_fence": [
+      "40",
+      "3"
+    ],
+    "betterend:dragon_tree_hanging_sign": [
+      "320",
+      "3"
+    ],
+    "betterend:dragon_tree_ladder": [
+      "32",
+      "3"
+    ],
+    "betterend:dragon_tree_sign": [
+      "52",
+      "3"
+    ],
+    "betterend:dragon_tree_stripped_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:dragon_tree_wall": [
+      "28",
+      "3"
+    ],
+    "betterend:elytra_armored": [
+      "1113728",
+      "3"
+    ],
+    "betterend:end_lotus_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:end_lotus_fence": [
+      "40",
+      "3"
+    ],
+    "betterend:end_lotus_hanging_sign": [
+      "320",
+      "3"
+    ],
+    "betterend:end_lotus_ladder": [
+      "32",
+      "3"
+    ],
+    "betterend:end_lotus_sign": [
+      "52",
+      "3"
+    ],
+    "betterend:end_lotus_stripped_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:end_lotus_wall": [
+      "28",
+      "3"
+    ],
+    "betterend:end_stone_smelter": [
+      "36224",
+      "3"
+    ],
+    "betterend:gold_chandelier": [
+      "9728",
+      "3"
+    ],
+    "betterend:golden_hammer": [
+      "16408",
+      "3"
+    ],
+    "betterend:granite_pedestal": [
+      "41",
+      "2"
+    ],
+    "betterend:helix_tree_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:helix_tree_fence": [
+      "40",
+      "3"
+    ],
+    "betterend:helix_tree_hanging_sign": [
+      "320",
+      "3"
+    ],
+    "betterend:helix_tree_ladder": [
+      "32",
+      "3"
+    ],
+    "betterend:helix_tree_sign": [
+      "52",
+      "3"
+    ],
+    "betterend:helix_tree_stripped_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:helix_tree_wall": [
+      "28",
+      "3"
+    ],
+    "betterend:hydralux_petal_block_cyan": [
+      "2053",
+      "2"
+    ],
+    "betterend:hydralux_petal_block_gray": [
+      "18449",
+      "18"
+    ],
+    "betterend:hydralux_petal_block_light_blue": [
+      "18449",
+      "18"
+    ],
+    "betterend:hydralux_petal_block_light_gray": [
+      "12299",
+      "12"
+    ],
+    "betterend:hydralux_petal_block_lime": [
+      "9238",
+      "9"
+    ],
+    "betterend:hydralux_petal_block_purple": [
+      "2053",
+      "2"
+    ],
+    "betterend:hydralux_petal_block_white": [
+      "9224",
+      "9"
+    ],
+    "betterend:iron_bulb_lantern": [
+      "1472",
+      "3"
+    ],
+    "betterend:iron_bulb_lantern_black": [
+      "1496",
+      "3"
+    ],
+    "betterend:iron_bulb_lantern_blue": [
+      "1496",
+      "3"
+    ],
+    "betterend:iron_bulb_lantern_brown": [
+      "1568",
+      "3"
+    ],
+    "betterend:iron_bulb_lantern_cyan": [
+      "1532",
+      "3"
+    ],
+    "betterend:iron_bulb_lantern_gray": [
+      "4484",
+      "9"
+    ],
+    "betterend:iron_bulb_lantern_green": [
+      "1568",
+      "3"
+    ],
+    "betterend:iron_bulb_lantern_light_blue": [
+      "4484",
+      "9"
+    ],
+    "betterend:iron_bulb_lantern_lime": [
+      "4592",
+      "9"
+    ],
+    "betterend:iron_bulb_lantern_magenta": [
+      "1496",
+      "3"
+    ],
+    "betterend:iron_bulb_lantern_orange": [
+      "1568",
+      "3"
+    ],
+    "betterend:iron_bulb_lantern_pink": [
+      "1520",
+      "3"
+    ],
+    "betterend:iron_bulb_lantern_purple": [
+      "1532",
+      "3"
+    ],
+    "betterend:iron_bulb_lantern_red": [
+      "1568",
+      "3"
+    ],
+    "betterend:iron_bulb_lantern_white": [
+      "4480",
+      "9"
+    ],
+    "betterend:iron_bulb_lantern_yellow": [
+      "1568",
+      "3"
+    ],
+    "betterend:iron_chandelier": [
+      "2560",
+      "3"
+    ],
+    "betterend:iron_hammer": [
+      "2072",
+      "3"
+    ],
+    "betterend:jellyshroom_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:jellyshroom_fence": [
+      "40",
+      "3"
+    ],
+    "betterend:jellyshroom_hanging_sign": [
+      "320",
+      "3"
+    ],
+    "betterend:jellyshroom_ladder": [
+      "32",
+      "3"
+    ],
+    "betterend:jellyshroom_sign": [
+      "52",
+      "3"
+    ],
+    "betterend:jellyshroom_stripped_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:jellyshroom_wall": [
+      "28",
+      "3"
+    ],
+    "betterend:lacugrove_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:lacugrove_fence": [
+      "40",
+      "3"
+    ],
+    "betterend:lacugrove_hanging_sign": [
+      "320",
+      "3"
+    ],
+    "betterend:lacugrove_ladder": [
+      "32",
+      "3"
+    ],
+    "betterend:lacugrove_sign": [
+      "52",
+      "3"
+    ],
+    "betterend:lacugrove_stripped_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:lacugrove_wall": [
+      "28",
+      "3"
+    ],
+    "betterend:leather_stripe": [
+      "32",
+      "3"
+    ],
+    "betterend:leather_wrapped_stick": [
+      "44",
+      "3"
+    ],
+    "betterend:lucernia_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:lucernia_fence": [
+      "40",
+      "3"
+    ],
+    "betterend:lucernia_hanging_sign": [
+      "320",
+      "3"
+    ],
+    "betterend:lucernia_jellyshroom_hanging_sign": [
+      "320",
+      "3"
+    ],
+    "betterend:lucernia_ladder": [
+      "32",
+      "3"
+    ],
+    "betterend:lucernia_sign": [
+      "52",
+      "3"
+    ],
+    "betterend:lucernia_stripped_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:lucernia_wall": [
+      "28",
+      "3"
+    ],
+    "betterend:mossy_glowshroom_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:mossy_glowshroom_fence": [
+      "40",
+      "3"
+    ],
+    "betterend:mossy_glowshroom_hanging_sign": [
+      "320",
+      "3"
+    ],
+    "betterend:mossy_glowshroom_ladder": [
+      "32",
+      "3"
+    ],
+    "betterend:mossy_glowshroom_sign": [
+      "52",
+      "3"
+    ],
+    "betterend:mossy_glowshroom_stripped_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:mossy_glowshroom_wall": [
+      "28",
+      "3"
+    ],
+    "betterend:plate_upgrade_smithing_template": [
+      "172544",
+      "3"
+    ],
+    "betterend:pythadendron_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:pythadendron_fence": [
+      "40",
+      "3"
+    ],
+    "betterend:pythadendron_hanging_sign": [
+      "320",
+      "3"
+    ],
+    "betterend:pythadendron_ladder": [
+      "32",
+      "3"
+    ],
+    "betterend:pythadendron_sign": [
+      "52",
+      "3"
+    ],
+    "betterend:pythadendron_stripped_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:pythadendron_wall": [
+      "28",
+      "3"
+    ],
+    "betterend:shadow_berry_jelly": [
+      "1745",
+      "3"
+    ],
+    "betterend:sweet_berry_jelly": [
+      "1169",
+      "3"
+    ],
+    "betterend:tenanea_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:tenanea_fence": [
+      "40",
+      "3"
+    ],
+    "betterend:tenanea_hanging_sign": [
+      "320",
+      "3"
+    ],
+    "betterend:tenanea_ladder": [
+      "32",
+      "3"
+    ],
+    "betterend:tenanea_sign": [
+      "52",
+      "3"
+    ],
+    "betterend:tenanea_stripped_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:tenanea_wall": [
+      "28",
+      "3"
+    ],
+    "betterend:terminite_anvil": [
+      "27776",
+      "3"
+    ],
+    "betterend:terminite_axe": [
+      "25568",
+      "3"
+    ],
+    "betterend:terminite_axe_head": [
+      "896",
+      "3"
+    ],
+    "betterend:terminite_boots": [
+      "3584",
+      "3"
+    ],
+    "betterend:terminite_bulb_lantern": [
+      "24832",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_black": [
+      "25048",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_blue": [
+      "25048",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_brown": [
+      "25696",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_cyan": [
+      "25372",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_gray": [
+      "25036",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_green": [
+      "25696",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_light_blue": [
+      "25036",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_light_gray": [
+      "25030",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_lime": [
+      "25360",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_magenta": [
+      "25048",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_orange": [
+      "25696",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_pink": [
+      "25264",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_purple": [
+      "25372",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_red": [
+      "25696",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_white": [
+      "25024",
+      "27"
+    ],
+    "betterend:terminite_bulb_lantern_yellow": [
+      "25696",
+      "27"
+    ],
+    "betterend:terminite_chain": [
+      "9856",
+      "27"
+    ],
+    "betterend:terminite_chandelier": [
+      "3328",
+      "3"
+    ],
+    "betterend:terminite_chestplate": [
+      "7168",
+      "3"
+    ],
+    "betterend:terminite_forged_plate": [
+      "896",
+      "3"
+    ],
+    "betterend:terminite_hammer": [
+      "25568",
+      "3"
+    ],
+    "betterend:terminite_hammer_head": [
+      "896",
+      "3"
+    ],
+    "betterend:terminite_helmet": [
+      "4480",
+      "3"
+    ],
+    "betterend:terminite_hoe": [
+      "25568",
+      "3"
+    ],
+    "betterend:terminite_hoe_head": [
+      "896",
+      "3"
+    ],
+    "betterend:terminite_ingot": [
+      "896",
+      "3"
+    ],
+    "betterend:terminite_leggings": [
+      "6272",
+      "3"
+    ],
+    "betterend:terminite_nugget": [
+      "896",
+      "27"
+    ],
+    "betterend:terminite_pickaxe": [
+      "25568",
+      "3"
+    ],
+    "betterend:terminite_pickaxe_head": [
+      "896",
+      "3"
+    ],
+    "betterend:terminite_shovel": [
+      "25568",
+      "3"
+    ],
+    "betterend:terminite_shovel_head": [
+      "896",
+      "3"
+    ],
+    "betterend:terminite_spear": [
+      "25568",
+      "3"
+    ],
+    "betterend:terminite_spear_tip": [
+      "896",
+      "3"
+    ],
+    "betterend:terminite_sword_blade": [
+      "896",
+      "3"
+    ],
+    "betterend:terminite_sword_handle": [
+      "1888",
+      "3"
+    ],
+    "betterend:terminite_upgrade_smithing_template": [
+      "980",
+      "3"
+    ],
+    "betterend:thallasium_anvil": [
+      "253952",
+      "3"
+    ],
+    "betterend:thallasium_axe": [
+      "32864",
+      "3"
+    ],
+    "betterend:thallasium_axe_head": [
+      "8192",
+      "3"
+    ],
+    "betterend:thallasium_boots": [
+      "32768",
+      "3"
+    ],
+    "betterend:thallasium_bulb_lantern": [
+      "170752",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_black": [
+      "170968",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_blue": [
+      "170968",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_brown": [
+      "171616",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_cyan": [
+      "171292",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_gray": [
+      "170956",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_green": [
+      "171616",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_light_blue": [
+      "170956",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_light_gray": [
+      "170950",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_lime": [
+      "171280",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_magenta": [
+      "170968",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_orange": [
+      "171616",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_pink": [
+      "171184",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_purple": [
+      "171292",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_red": [
+      "171616",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_white": [
+      "170944",
+      "27"
+    ],
+    "betterend:thallasium_bulb_lantern_yellow": [
+      "171616",
+      "27"
+    ],
+    "betterend:thallasium_chain": [
+      "90112",
+      "27"
+    ],
+    "betterend:thallasium_chandelier": [
+      "17920",
+      "3"
+    ],
+    "betterend:thallasium_chestplate": [
+      "65536",
+      "3"
+    ],
+    "betterend:thallasium_forged_plate": [
+      "8192",
+      "3"
+    ],
+    "betterend:thallasium_hammer": [
+      "32864",
+      "3"
+    ],
+    "betterend:thallasium_hammer_head": [
+      "8192",
+      "3"
+    ],
+    "betterend:thallasium_helmet": [
+      "40960",
+      "3"
+    ],
+    "betterend:thallasium_hoe": [
+      "32864",
+      "3"
+    ],
+    "betterend:thallasium_hoe_head": [
+      "8192",
+      "3"
+    ],
+    "betterend:thallasium_ingot": [
+      "8192",
+      "3"
+    ],
+    "betterend:thallasium_leggings": [
+      "57344",
+      "3"
+    ],
+    "betterend:thallasium_nugget": [
+      "8192",
+      "27"
+    ],
+    "betterend:thallasium_pickaxe": [
+      "32864",
+      "3"
+    ],
+    "betterend:thallasium_pickaxe_head": [
+      "8192",
+      "3"
+    ],
+    "betterend:thallasium_shovel": [
+      "32864",
+      "3"
+    ],
+    "betterend:thallasium_shovel_head": [
+      "8192",
+      "3"
+    ],
+    "betterend:thallasium_spear": [
+      "32864",
+      "3"
+    ],
+    "betterend:thallasium_spear_tip": [
+      "8192",
+      "3"
+    ],
+    "betterend:thallasium_sword_blade": [
+      "8192",
+      "3"
+    ],
+    "betterend:thallasium_sword_handle": [
+      "16480",
+      "3"
+    ],
+    "betterend:thallasium_upgrade_smithing_template": [
+      "8276",
+      "3"
+    ],
+    "betterend:umbrella_tree_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:umbrella_tree_fence": [
+      "40",
+      "3"
+    ],
+    "betterend:umbrella_tree_hanging_sign": [
+      "320",
+      "3"
+    ],
+    "betterend:umbrella_tree_ladder": [
+      "32",
+      "3"
+    ],
+    "betterend:umbrella_tree_sign": [
+      "52",
+      "3"
+    ],
+    "betterend:umbrella_tree_stripped_bark": [
+      "128",
+      "3"
+    ],
+    "betterend:umbrella_tree_wall": [
+      "28",
+      "3"
+    ]
+  }
+}

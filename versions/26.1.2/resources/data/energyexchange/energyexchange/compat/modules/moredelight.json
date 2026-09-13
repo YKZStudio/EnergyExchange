@@ -1,0 +1,127 @@
+{
+  "values": {
+    "moredelight:bread_slice": "5",
+    "moredelight:carrot_soup": "330",
+    "moredelight:chicken_salad": "838",
+    "moredelight:chicken_sandwich_with_egg_and_tomato": "402",
+    "moredelight:chocolate_popsicle": "388",
+    "moredelight:cooked_rice_with_beef": "298",
+    "moredelight:cooked_rice_with_chicken_cuts": "330",
+    "moredelight:cooked_rice_with_porkchop": "330",
+    "moredelight:creamy_pasta_with_chicken_cuts": "548",
+    "moredelight:creamy_pasta_with_ham": "740",
+    "moredelight:diced_potatoes": "64",
+    "moredelight:diced_potatoes_with_beef": "352",
+    "moredelight:diced_potatoes_with_chicken_cuts": "384",
+    "moredelight:diced_potatoes_with_egg_and_tomato": "640",
+    "moredelight:diced_potatoes_with_porkchop": "384",
+    "moredelight:egg_with_bacon_sandwich": "105",
+    "moredelight:hamburger_with_egg": "114",
+    "moredelight:loaded_hamburger": "914",
+    "moredelight:mashed_potatoes": "330",
+    "moredelight:omelette": "64",
+    "moredelight:porkchop_sandwich": "338",
+    "moredelight:potato_salad": "384",
+    "moredelight:simple_hamburger": "50",
+    "moredelight:steak_sandwich": "306",
+    "moredelight:stone_knife": "260",
+    "moredelight:toast": "5",
+    "moredelight:toast_with_chocolate": "69",
+    "moredelight:toast_with_egg": "69",
+    "moredelight:toast_with_glow_berries": "69",
+    "moredelight:toast_with_honey": "22",
+    "moredelight:toast_with_sweet_berries": "69",
+    "moredelight:tomato_sandwich": "265",
+    "moredelight:wooden_knife": "12"
+  },
+  "salvage": {
+    "moredelight:bread_slice": [
+      "40",
+      "9"
+    ],
+    "moredelight:carrot_soup": [
+      "989",
+      "3"
+    ],
+    "moredelight:chicken_sandwich_with_egg_and_tomato": [
+      "3616",
+      "9"
+    ],
+    "moredelight:cooked_rice_with_beef": [
+      "893",
+      "3"
+    ],
+    "moredelight:cooked_rice_with_chicken_cuts": [
+      "989",
+      "3"
+    ],
+    "moredelight:cooked_rice_with_porkchop": [
+      "989",
+      "3"
+    ],
+    "moredelight:creamy_pasta_with_chicken_cuts": [
+      "7123",
+      "13"
+    ],
+    "moredelight:creamy_pasta_with_ham": [
+      "9619",
+      "13"
+    ],
+    "moredelight:egg_with_bacon_sandwich": [
+      "944",
+      "9"
+    ],
+    "moredelight:hamburger_with_egg": [
+      "1024",
+      "9"
+    ],
+    "moredelight:loaded_hamburger": [
+      "8224",
+      "9"
+    ],
+    "moredelight:mashed_potatoes": [
+      "989",
+      "3"
+    ],
+    "moredelight:porkchop_sandwich": [
+      "3040",
+      "9"
+    ],
+    "moredelight:simple_hamburger": [
+      "448",
+      "9"
+    ],
+    "moredelight:steak_sandwich": [
+      "2752",
+      "9"
+    ],
+    "moredelight:toast": [
+      "40",
+      "9"
+    ],
+    "moredelight:toast_with_chocolate": [
+      "616",
+      "9"
+    ],
+    "moredelight:toast_with_egg": [
+      "616",
+      "9"
+    ],
+    "moredelight:toast_with_glow_berries": [
+      "616",
+      "9"
+    ],
+    "moredelight:toast_with_honey": [
+      "193",
+      "9"
+    ],
+    "moredelight:toast_with_sweet_berries": [
+      "616",
+      "9"
+    ],
+    "moredelight:tomato_sandwich": [
+      "2384",
+      "9"
+    ]
+  }
+}

@@ -1,0 +1,484 @@
+{
+  "values": {
+    "farmersdelight:acacia_cabinet": "72",
+    "farmersdelight:apple_cider": "134",
+    "farmersdelight:apple_pie": "256",
+    "farmersdelight:apple_pie_slice": "64",
+    "farmersdelight:bacon": "32",
+    "farmersdelight:bacon_and_eggs": "198",
+    "farmersdelight:bacon_sandwich": "553",
+    "farmersdelight:baked_cod_stew": "416",
+    "farmersdelight:bamboo_basket": "1792",
+    "farmersdelight:bamboo_cabinet": "72",
+    "farmersdelight:barbecue_stick": "548",
+    "farmersdelight:beef_patty": "32",
+    "farmersdelight:beef_stew": "128",
+    "farmersdelight:beetroot_crate": "576",
+    "farmersdelight:birch_cabinet": "72",
+    "farmersdelight:black_canvas_sign": "362",
+    "farmersdelight:black_hanging_canvas_sign": "222",
+    "farmersdelight:blue_canvas_sign": "362",
+    "farmersdelight:blue_hanging_canvas_sign": "222",
+    "farmersdelight:bone_broth": "256",
+    "farmersdelight:brown_canvas_sign": "386",
+    "farmersdelight:brown_hanging_canvas_sign": "246",
+    "farmersdelight:brown_mushroom_colony": "256",
+    "farmersdelight:cabbage": "512",
+    "farmersdelight:cabbage_crate": "4608",
+    "farmersdelight:cabbage_leaf": "256",
+    "farmersdelight:cabbage_rolls": "256",
+    "farmersdelight:cabbage_seeds": "8",
+    "farmersdelight:cake_slice": "10",
+    "farmersdelight:canvas": "512",
+    "farmersdelight:canvas_rug": "256",
+    "farmersdelight:canvas_sign": "354",
+    "farmersdelight:carrot_crate": "576",
+    "farmersdelight:cherry_cabinet": "72",
+    "farmersdelight:chicken_cuts": "256",
+    "farmersdelight:chicken_sandwich": "402",
+    "farmersdelight:chicken_soup": "640",
+    "farmersdelight:chocolate_pie": "256",
+    "farmersdelight:chocolate_pie_slice": "64",
+    "farmersdelight:cod_roll": "288",
+    "farmersdelight:cod_slice": "256",
+    "farmersdelight:cooked_bacon": "32",
+    "farmersdelight:cooked_chicken_cuts": "256",
+    "farmersdelight:cooked_cod_slice": "256",
+    "farmersdelight:cooked_mutton_chops": "32",
+    "farmersdelight:cooked_rice": "64",
+    "farmersdelight:cooked_salmon_slice": "256",
+    "farmersdelight:cooking_pot": "14470",
+    "farmersdelight:copper_knife": "12",
+    "farmersdelight:crimson_cabinet": "72",
+    "farmersdelight:cutting_board": "40",
+    "farmersdelight:cyan_canvas_sign": "374",
+    "farmersdelight:cyan_hanging_canvas_sign": "234",
+    "farmersdelight:dark_oak_cabinet": "72",
+    "farmersdelight:diamond_knife": "8196",
+    "farmersdelight:dog_food": "105",
+    "farmersdelight:dumplings": "256",
+    "farmersdelight:egg_sandwich": "146",
+    "farmersdelight:fish_stew": "832",
+    "farmersdelight:flint_knife": "68",
+    "farmersdelight:fried_egg": "64",
+    "farmersdelight:fried_rice": "408",
+    "farmersdelight:fruit_salad": "64",
+    "farmersdelight:full_tatami_mat": "384",
+    "farmersdelight:gleaming_salad": "64",
+    "farmersdelight:gleaming_salad_block": "2773",
+    "farmersdelight:glow_berry_custard": "336",
+    "farmersdelight:golden_knife": "1370",
+    "farmersdelight:gray_canvas_sign": "361",
+    "farmersdelight:gray_hanging_canvas_sign": "221",
+    "farmersdelight:green_canvas_sign": "386",
+    "farmersdelight:green_hanging_canvas_sign": "246",
+    "farmersdelight:grilled_salmon": "646",
+    "farmersdelight:half_tatami_mat": "192",
+    "farmersdelight:ham": "256",
+    "farmersdelight:hamburger": "818",
+    "farmersdelight:hanging_canvas_sign": "214",
+    "farmersdelight:honey_cookie": "4",
+    "farmersdelight:honey_glazed_ham": "256",
+    "farmersdelight:honey_glazed_ham_block": "663",
+    "farmersdelight:horse_feed": "1470",
+    "farmersdelight:hot_cocoa": "336",
+    "farmersdelight:iron_knife": "2735",
+    "farmersdelight:jungle_cabinet": "72",
+    "farmersdelight:kelp_roll": "406",
+    "farmersdelight:kelp_roll_slice": "136",
+    "farmersdelight:light_blue_canvas_sign": "361",
+    "farmersdelight:light_blue_hanging_canvas_sign": "221",
+    "farmersdelight:light_gray_canvas_sign": "361",
+    "farmersdelight:light_gray_hanging_canvas_sign": "221",
+    "farmersdelight:lime_canvas_sign": "373",
+    "farmersdelight:lime_hanging_canvas_sign": "233",
+    "farmersdelight:magenta_canvas_sign": "362",
+    "farmersdelight:magenta_hanging_canvas_sign": "222",
+    "farmersdelight:mangrove_cabinet": "72",
+    "farmersdelight:melon_juice": "36",
+    "farmersdelight:melon_popsicle": "161",
+    "farmersdelight:milk_bottle": "197",
+    "farmersdelight:minced_beef": "32",
+    "farmersdelight:mixed_salad": "582",
+    "farmersdelight:mushroom_rice": "199",
+    "farmersdelight:mutton_chops": "32",
+    "farmersdelight:mutton_wrap": "562",
+    "farmersdelight:nether_salad": "134",
+    "farmersdelight:netherite_knife": "114692",
+    "farmersdelight:noodle_soup": "130",
+    "farmersdelight:oak_cabinet": "72",
+    "farmersdelight:onion": "256",
+    "farmersdelight:onion_crate": "2304",
+    "farmersdelight:onion_soup": "732",
+    "farmersdelight:orange_canvas_sign": "386",
+    "farmersdelight:orange_hanging_canvas_sign": "246",
+    "farmersdelight:organic_compost": "544",
+    "farmersdelight:pale_oak_cabinet": "72",
+    "farmersdelight:pasta_with_meatballs": "571",
+    "farmersdelight:pasta_with_mutton_chop": "571",
+    "farmersdelight:pie_crust": "179",
+    "farmersdelight:pink_canvas_sign": "370",
+    "farmersdelight:pink_hanging_canvas_sign": "230",
+    "farmersdelight:potato_crate": "576",
+    "farmersdelight:pumpkin_pie_slice": "16",
+    "farmersdelight:pumpkin_slice": "16",
+    "farmersdelight:pumpkin_soup": "506",
+    "farmersdelight:purple_canvas_sign": "374",
+    "farmersdelight:purple_hanging_canvas_sign": "234",
+    "farmersdelight:ratatouille": "832",
+    "farmersdelight:raw_pasta": "27",
+    "farmersdelight:red_canvas_sign": "386",
+    "farmersdelight:red_hanging_canvas_sign": "246",
+    "farmersdelight:red_mushroom_colony": "256",
+    "farmersdelight:rice": "64",
+    "farmersdelight:rice_bag": "576",
+    "farmersdelight:rice_bale": "576",
+    "farmersdelight:rice_panicle": "64",
+    "farmersdelight:rice_roll_medley_block": "1852",
+    "farmersdelight:rich_soil": "256",
+    "farmersdelight:rich_soil_farmland": "256",
+    "farmersdelight:roast_chicken": "256",
+    "farmersdelight:roast_chicken_block": "664",
+    "farmersdelight:roasted_mutton_chops": "422",
+    "farmersdelight:rope": "128",
+    "farmersdelight:rope_fence": "174",
+    "farmersdelight:rope_fence_gate": "272",
+    "farmersdelight:rotten_tomato": "256",
+    "farmersdelight:safety_net": "512",
+    "farmersdelight:salmon_roll": "288",
+    "farmersdelight:salmon_slice": "256",
+    "farmersdelight:sandy_shrub": "256",
+    "farmersdelight:shepherds_pie": "64",
+    "farmersdelight:shepherds_pie_block": "944",
+    "farmersdelight:skillet": "10939",
+    "farmersdelight:smoked_ham": "256",
+    "farmersdelight:spruce_cabinet": "72",
+    "farmersdelight:squid_ink_pasta": "411",
+    "farmersdelight:steak_and_potatoes": "454",
+    "farmersdelight:stove": "8512",
+    "farmersdelight:straw": "256",
+    "farmersdelight:straw_bale": "2304",
+    "farmersdelight:stuffed_potato": "298",
+    "farmersdelight:stuffed_pumpkin": "256",
+    "farmersdelight:stuffed_pumpkin_block": "4096",
+    "farmersdelight:sweet_berry_cheesecake": "256",
+    "farmersdelight:sweet_berry_cheesecake_slice": "64",
+    "farmersdelight:sweet_berry_cookie": "9",
+    "farmersdelight:tatami": "768",
+    "farmersdelight:tomato": "256",
+    "farmersdelight:tomato_crate": "2304",
+    "farmersdelight:tomato_sauce": "512",
+    "farmersdelight:tomato_seeds": "8",
+    "farmersdelight:tree_bark": "256",
+    "farmersdelight:vegetable_noodles": "64",
+    "farmersdelight:vegetable_soup": "416",
+    "farmersdelight:warped_cabinet": "72",
+    "farmersdelight:wheat_dough": "27",
+    "farmersdelight:white_canvas_sign": "361",
+    "farmersdelight:white_hanging_canvas_sign": "221",
+    "farmersdelight:wild_beetroots": "256",
+    "farmersdelight:wild_cabbages": "256",
+    "farmersdelight:wild_carrots": "256",
+    "farmersdelight:wild_onions": "256",
+    "farmersdelight:wild_potatoes": "256",
+    "farmersdelight:wild_rice": "64",
+    "farmersdelight:wild_tomatoes": "256",
+    "farmersdelight:wooden_basket": "1552",
+    "farmersdelight:yellow_canvas_sign": "386",
+    "farmersdelight:yellow_hanging_canvas_sign": "246"
+  },
+  "salvage": {
+    "farmersdelight:apple_cider": [
+      "401",
+      "3"
+    ],
+    "farmersdelight:bacon_sandwich": [
+      "4976",
+      "9"
+    ],
+    "farmersdelight:black_canvas_sign": [
+      "1084",
+      "3"
+    ],
+    "farmersdelight:black_hanging_canvas_sign": [
+      "664",
+      "3"
+    ],
+    "farmersdelight:blue_canvas_sign": [
+      "1084",
+      "3"
+    ],
+    "farmersdelight:blue_hanging_canvas_sign": [
+      "664",
+      "3"
+    ],
+    "farmersdelight:brown_canvas_sign": [
+      "1156",
+      "3"
+    ],
+    "farmersdelight:brown_hanging_canvas_sign": [
+      "736",
+      "3"
+    ],
+    "farmersdelight:cake_slice": [
+      "64",
+      "7"
+    ],
+    "farmersdelight:canvas_sign": [
+      "1060",
+      "3"
+    ],
+    "farmersdelight:chicken_sandwich": [
+      "3616",
+      "9"
+    ],
+    "farmersdelight:cooking_pot": [
+      "43408",
+      "3"
+    ],
+    "farmersdelight:copper_knife": [
+      "100",
+      "9"
+    ],
+    "farmersdelight:cyan_canvas_sign": [
+      "1120",
+      "3"
+    ],
+    "farmersdelight:cyan_hanging_canvas_sign": [
+      "700",
+      "3"
+    ],
+    "farmersdelight:dog_food": [
+      "937",
+      "9"
+    ],
+    "farmersdelight:egg_sandwich": [
+      "1312",
+      "9"
+    ],
+    "farmersdelight:gleaming_salad_block": [
+      "74861",
+      "27"
+    ],
+    "farmersdelight:glow_berry_custard": [
+      "1006",
+      "3"
+    ],
+    "farmersdelight:golden_knife": [
+      "4108",
+      "3"
+    ],
+    "farmersdelight:gray_canvas_sign": [
+      "3248",
+      "9"
+    ],
+    "farmersdelight:gray_hanging_canvas_sign": [
+      "1988",
+      "9"
+    ],
+    "farmersdelight:green_canvas_sign": [
+      "1156",
+      "3"
+    ],
+    "farmersdelight:green_hanging_canvas_sign": [
+      "736",
+      "3"
+    ],
+    "farmersdelight:hamburger": [
+      "7360",
+      "9"
+    ],
+    "farmersdelight:hanging_canvas_sign": [
+      "640",
+      "3"
+    ],
+    "farmersdelight:honey_cookie": [
+      "281",
+      "81"
+    ],
+    "farmersdelight:horse_feed": [
+      "39680",
+      "27"
+    ],
+    "farmersdelight:hot_cocoa": [
+      "1006",
+      "3"
+    ],
+    "farmersdelight:iron_knife": [
+      "8204",
+      "3"
+    ],
+    "farmersdelight:kelp_roll": [
+      "1216",
+      "3"
+    ],
+    "farmersdelight:kelp_roll_slice": [
+      "1216",
+      "9"
+    ],
+    "farmersdelight:light_blue_canvas_sign": [
+      "3248",
+      "9"
+    ],
+    "farmersdelight:light_blue_hanging_canvas_sign": [
+      "1988",
+      "9"
+    ],
+    "farmersdelight:light_gray_canvas_sign": [
+      "1082",
+      "3"
+    ],
+    "farmersdelight:light_gray_hanging_canvas_sign": [
+      "662",
+      "3"
+    ],
+    "farmersdelight:lime_canvas_sign": [
+      "3356",
+      "9"
+    ],
+    "farmersdelight:lime_hanging_canvas_sign": [
+      "2096",
+      "9"
+    ],
+    "farmersdelight:magenta_canvas_sign": [
+      "1084",
+      "3"
+    ],
+    "farmersdelight:magenta_hanging_canvas_sign": [
+      "664",
+      "3"
+    ],
+    "farmersdelight:melon_juice": [
+      "316",
+      "9"
+    ],
+    "farmersdelight:melon_popsicle": [
+      "1444",
+      "9"
+    ],
+    "farmersdelight:mushroom_rice": [
+      "992",
+      "5"
+    ],
+    "farmersdelight:mutton_wrap": [
+      "5056",
+      "9"
+    ],
+    "farmersdelight:noodle_soup": [
+      "15136",
+      "117"
+    ],
+    "farmersdelight:onion_soup": [
+      "6583",
+      "9"
+    ],
+    "farmersdelight:orange_canvas_sign": [
+      "1156",
+      "3"
+    ],
+    "farmersdelight:orange_hanging_canvas_sign": [
+      "736",
+      "3"
+    ],
+    "farmersdelight:organic_compost": [
+      "4891",
+      "9"
+    ],
+    "farmersdelight:pasta_with_meatballs": [
+      "22240",
+      "39"
+    ],
+    "farmersdelight:pasta_with_mutton_chop": [
+      "22240",
+      "39"
+    ],
+    "farmersdelight:pie_crust": [
+      "892",
+      "5"
+    ],
+    "farmersdelight:pink_canvas_sign": [
+      "1108",
+      "3"
+    ],
+    "farmersdelight:pink_hanging_canvas_sign": [
+      "688",
+      "3"
+    ],
+    "farmersdelight:pumpkin_soup": [
+      "1517",
+      "3"
+    ],
+    "farmersdelight:purple_canvas_sign": [
+      "1120",
+      "3"
+    ],
+    "farmersdelight:purple_hanging_canvas_sign": [
+      "700",
+      "3"
+    ],
+    "farmersdelight:raw_pasta": [
+      "1024",
+      "39"
+    ],
+    "farmersdelight:red_canvas_sign": [
+      "1156",
+      "3"
+    ],
+    "farmersdelight:red_hanging_canvas_sign": [
+      "736",
+      "3"
+    ],
+    "farmersdelight:rice_roll_medley_block": [
+      "5554",
+      "3"
+    ],
+    "farmersdelight:roast_chicken_block": [
+      "5974",
+      "9"
+    ],
+    "farmersdelight:rope_fence": [
+      "520",
+      "3"
+    ],
+    "farmersdelight:shepherds_pie_block": [
+      "2831",
+      "3"
+    ],
+    "farmersdelight:skillet": [
+      "32816",
+      "3"
+    ],
+    "farmersdelight:squid_ink_pasta": [
+      "16000",
+      "39"
+    ],
+    "farmersdelight:stuffed_potato": [
+      "893",
+      "3"
+    ],
+    "farmersdelight:sweet_berry_cookie": [
+      "704",
+      "81"
+    ],
+    "farmersdelight:wheat_dough": [
+      "1024",
+      "39"
+    ],
+    "farmersdelight:white_canvas_sign": [
+      "3244",
+      "9"
+    ],
+    "farmersdelight:white_hanging_canvas_sign": [
+      "1984",
+      "9"
+    ],
+    "farmersdelight:yellow_canvas_sign": [
+      "1156",
+      "3"
+    ],
+    "farmersdelight:yellow_hanging_canvas_sign": [
+      "736",
+      "3"
+    ]
+  }
+}
