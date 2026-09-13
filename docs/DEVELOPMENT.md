@@ -4,10 +4,11 @@
 
 ## Toolchain
 
-Java 25, Gradle Wrapper 9.5.1, Loom 1.17.12, Fabric Loader 0.19.5 and Fabric API 0.159.0+26.2. Dependencies are pinned in `gradle.properties`. Minecraft 26.2 uses official unobfuscated names and `net.fabricmc.fabric-loom`; no Yarn, legacy `modImplementation` or `remapJar` configuration is used.
+Java 25, Gradle Wrapper 9.5.1 and Loom 1.17.12. `gradle.properties` selects Minecraft; `versions/<target>.properties` pins the tested minimum Loader, Fabric API, Mod Menu, Forge Config API Port and Cloth Config. 26.1.2 requires Loader 0.18.4; 26.2 requires 0.19.3 because its game bootstrap cannot start on 0.18.4. Both targets use official unobfuscated names with `net.fabricmc.fabric-loom`.
 
 ```sh
-./gradlew build
+./gradlew clean build -Pminecraft_version=26.1.2
+./gradlew clean build -Pminecraft_version=26.2
 ./gradlew runClient
 ./gradlew runServer
 ```
@@ -74,3 +75,10 @@ Use `python tools/generate_pinyin.py /path/to/Unihan.zip` to reproduce the offli
 0.2.1: sample data is discarded at base value. See [pricing and compatibility](PRICING.md). Only stable versions create Releases; pre versions retain CI artifacts.
 
 0.3.1: both input container and slot limits are 256. Dedicated click handling restores native limits for cursor/hotbar withdrawal, drops and close-time returns. Bottle purchases preflight inventory before debit/delivery and never change XP. The client discard warning compares components with the server prototype, ignoring count.
+
+
+## 0.3.2 target builds
+
+`versions/<target>/client` provides a thin client bridge; economy, accounts, armory and search share source. `versions/<target>/resources` overrides common resources first, providing the 26.1.2 vanilla/integration prices. Use `clean` when switching targets to avoid retaining previous outputs. Releases contain `energyexchange-mc26.1.2-0.3.2.jar` and `energyexchange-mc26.2-0.3.2.jar`, each with an exact Minecraft dependency.
+
+CI runs vanilla, TaCZ, backpack and combined server profiles for both targets, plus unit/client tests for each vanilla profile. Vanilla launches at each target's packaged minimum (0.18.4 for 26.1.2 and 0.19.3 for 26.2). TaCZ and the Forge Config API Port required by the 26.1.2 Backpack fixture require newer Loader releases, so optional-mod tests use 0.19.5. Fetch checked fixtures with `python tools/fetch_test_mods.py 26.1.2 tacz backpack`, then run `./gradlew runGameTest -Pminecraft_version=26.1.2 -Ploader_version=0.19.5 -PwithTacz -PwithBackpack`. Use 26.2 for the other target. Account schema 1 is retained; this does not make downgrading Minecraft worlds safe.

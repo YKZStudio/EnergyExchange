@@ -1,6 +1,6 @@
 # Project conventions
 
-- Target Minecraft 26.2 Fabric; verify later versions before widening compatibility.
+- Target Minecraft 26.1.2 and 26.2 Fabric with separate JARs. Test minimum Loader 0.18.4; optional mods may require newer Loader. Verify each target before widening compatibility.
 - Documentation defaults to English (`README.md`), with Simplified Chinese companions (`README_zh-CN.md`). Keep both updated. Game text must use translation keys, including the mod name; never combine English and Chinese names with a slash. Keep all bundled locales complete and preserve format placeholders.
 - Every stable version such as 0.1.0 needs a GitHub Release with runtime JAR and bilingual changelog. Never silently replace published assets.
 - Use identifiers such as 0.2.0-pre2 for prereleases. After a tested stable version reaches main, automation publishes it with matching notes. Versions containing pre must not create GitHub Releases; CI artifacts remain available.

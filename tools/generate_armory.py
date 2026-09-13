@@ -2,12 +2,12 @@
 """Generate 3x3 armory recipes and exact prices for all installed-mod profiles.
 Run after generate_values.py and generate_mod_values.py. No upstream recipe/code is copied.
 """
-import json
+import os,json
 from pathlib import Path
 from fractions import Fraction
 from math import ceil
 ROOT=Path(__file__).resolve().parents[1]
-DATA=ROOT/'src/main/resources/data/energyexchange'
+DATA=Path(os.environ.get('EE_RESOURCE_ROOT', str(ROOT/'src/main/resources')))/'data/energyexchange'
 RULES=DATA/'energyexchange'
 RECIPES=DATA/'recipe'
 recipes={}

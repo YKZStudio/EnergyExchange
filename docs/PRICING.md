@@ -25,3 +25,8 @@ Active profiles are `energyexchange/compat/tacz.json`, `travelersbackpack.json` 
 | Diamond tier upgrade | unavailable | 65616 / 65616 |
 
 Firearms/attachments with recipes reflect their material cost; unpriced addon models use documented base fallbacks. Metadata never increases value. Buying a data-bearing sample's identity produces a fresh default item. Additional gun packs, custom recipes and machine/villager cycles still require server-owner overrides.
+
+
+## 26.1.2
+
+26.1.2 uses its own client archive (1,506 vanilla IDs), TaCZ 26.1.2 R3-hotfix resource facts, and Traveler’s Backpack 26.1.2-11.2.10. Fixture URLs and SHA-256 are in `versions/test-mods.json`. Extract only `data/` and `assets/` from the TaCZ JAR into a temporary `src/main/resources` tree used as `/path/to/tacz`. Set `EE_RESOURCE_ROOT=versions/26.1.2/resources` for each of the three generator commands above. Remove identical overlay files afterward; shared resources are the fallback. No upstream assets/code are distributed. 26.2 prices remain unchanged.

@@ -2,12 +2,13 @@
 根据 26.2 物品 ID 和指定 TaCZ 仓库生成可复现的初始价格。
 Usage: python tools/generate_values.py client.jar /path/to/tacz
 """
-import json, sys, zipfile, re
+import os, json, sys, zipfile, re
 from fractions import Fraction
 from math import ceil
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+RESOURCE_ROOT = Path(os.environ.get('EE_RESOURCE_ROOT', str(ROOT/'src/main/resources')))
 values = {}
 anchors = dict(cobblestone=1, dirt=1, stone=1, gravel=1, sand=1, netherrack=1,
                rotten_flesh=1, oak_log=32, oak_planks=8, stick=4, coal=128,
@@ -137,7 +138,7 @@ for key,rate in rates.items():
     if rate <= 0 or max(len(str(rate.numerator)),len(str(rate.denominator))) > 128: raise ValueError('Invalid generated rate: '+key)
     values[key]=str(ceil(rate))
 salvage={key:[str(rate.numerator),str(rate.denominator)] for key,rate in sorted(rates.items()) if rate.denominator!=1}
-(ROOT/'src/main/resources/data/energyexchange/energyexchange/salvage.json').write_text(json.dumps(salvage,indent=2)+'\n')
-target=ROOT/'src/main/resources/data/energyexchange/energyexchange/defaults.json'
+(RESOURCE_ROOT/'data/energyexchange/energyexchange/salvage.json').write_text(json.dumps(salvage,indent=2)+'\n')
+target=RESOURCE_ROOT/'data/energyexchange/energyexchange/defaults.json'
 target.parent.mkdir(parents=True,exist_ok=True);target.write_text(json.dumps(dict(sorted(values.items())),indent=2)+'\n')
 print(f'{len(values)} explicit prices / 条显式价格; vanilla / 原版: {sum(k.startswith("minecraft:") for k in values)}')

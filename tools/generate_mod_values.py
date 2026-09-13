@@ -3,16 +3,16 @@
 Usage: python tools/generate_mod_values.py client.jar /path/to/tacz backpack.jar
 Backpack input is pinned to official Fabric 26.2-11.3.2; reads facts only.
 """
-import json,sys,zipfile,re,hashlib
+import os,json,sys,zipfile,re,hashlib
 from pathlib import Path
 from fractions import Fraction
 from math import ceil
 ROOT=Path(__file__).resolve().parents[1]
-OUT=ROOT/'src/main/resources/data/energyexchange/energyexchange'
+OUT=Path(os.environ.get('EE_RESOURCE_ROOT', str(ROOT/'src/main/resources')))/'data/energyexchange/energyexchange'
 base=json.loads((OUT/'defaults.json').read_text()); old_fractions=json.loads((OUT/'salvage.json').read_text())
 initial={k:Fraction(*map(int,old_fractions[k])) if k in old_fractions else Fraction(v) for k,v in base.items()}
 backpack=Path(sys.argv[3])
-if hashlib.sha256(backpack.read_bytes()).hexdigest()!='b06753dbd277700e97efaefa541e757fa7fd6cdd91538bf4a1df851072b981de':raise ValueError('Expected Traveler\'s Backpack Fabric 26.2-11.3.2')
+if hashlib.sha256(backpack.read_bytes()).hexdigest() not in {'b06753dbd277700e97efaefa541e757fa7fd6cdd91538bf4a1df851072b981de','129ba08f703259396cc042779b3404c99dcb3447e957e16a7d9b3d42d1ae4210'}:raise ValueError('Expected pinned Traveler\'s Backpack Fabric JAR')
 resources={}
 with zipfile.ZipFile(sys.argv[1]) as z:
  for n in z.namelist():

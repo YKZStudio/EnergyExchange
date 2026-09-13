@@ -9,10 +9,10 @@ public final class ExchangeClient implements ClientModInitializer {
         EnergyTooltip.init();
         MenuScreens.register(ExchangeContent.MENU, ExchangeScreen::new);
         ClientPlayNetworking.registerGlobalReceiver(ExchangeNetwork.Page.TYPE, (packet, context) -> {
-            if (context.client().gui.screen() instanceof ExchangeScreen screen) screen.receive(packet);
+            if (ClientPlatform.screen(context.client()) instanceof ExchangeScreen screen) screen.receive(packet);
         });
         ClientPlayNetworking.registerGlobalReceiver(ExchangeNetwork.State.TYPE, (packet, context) -> {
-            if (context.client().gui.screen() instanceof ExchangeScreen screen) screen.receive(packet);
+            if (ClientPlatform.screen(context.client()) instanceof ExchangeScreen screen) screen.receive(packet);
         });
     }
 }

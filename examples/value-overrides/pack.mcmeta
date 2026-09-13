@@ -2,7 +2,7 @@
   "pack": {
     "description": "Energy Exchange example overrides / 能量交换覆盖示例",
     "min_format": [
-      107,
+      101,
       1
     ],
     "max_format": [
