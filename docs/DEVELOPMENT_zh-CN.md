@@ -81,4 +81,4 @@ main 上每个正式版本附带运行 JAR 与对应双语 `docs/releases/<版�
 
 `versions/<版本>/client` 提供很薄的客户端接口适配，交易、账户、装备和搜索共用源码。`versions/<版本>/resources` 优先覆盖公共资源，26.1.2 使用自己的原版／兼容价格表。每次切换目标使用 `clean`，避免旧构建产物混入。发布文件分别为 `energyexchange-mc26.1.2-0.3.2.jar` 与 `energyexchange-mc26.2-0.3.2.jar`，元数据严格限定对应版本。
 
-CI 对两个目标分别运行独立、TaCZ、背包、同时加载四种组合；独立组合还运行单元与客户端测试。独立与背包测试以各自打包的最低 Loader 启动（26.1.2 为 0.18.4，26.2 为 0.19.3）；TaCZ 自身要求 0.19.3+，组合测试使用 0.19.5。用 `python tools/fetch_test_mods.py 26.1.2 tacz backpack` 下载校验过的测试依赖，再运行 `./gradlew runGameTest -Pminecraft_version=26.1.2 -Ploader_version=0.19.5 -PwithTacz -PwithBackpack`。26.2 同理。存档账户格式保持 schema 1；这不代表 Minecraft 世界可以从 26.2 降级。
+CI 对两个目标分别运行独立、TaCZ、背包、同时加载四种组合；独立组合还运行单元与客户端测试。独立测试以各自打包的最低 Loader 启动（26.1.2 为 0.18.4，26.2 为 0.19.3）。TaCZ 及 26.1.2 背包测试所需的 Forge Config API Port 都要求更新的 Loader，因此可选模组组合测试使用 0.19.5。用 `python tools/fetch_test_mods.py 26.1.2 tacz backpack` 下载校验过的测试依赖，再运行 `./gradlew runGameTest -Pminecraft_version=26.1.2 -Ploader_version=0.19.5 -PwithTacz -PwithBackpack`。26.2 同理。存档账户格式保持 schema 1；这不代表 Minecraft 世界可以从 26.2 降级。

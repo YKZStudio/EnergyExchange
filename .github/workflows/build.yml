@@ -44,7 +44,7 @@ jobs:
           case "$MOD_PROFILE" in
             vanilla) ./gradlew build "${args[@]}" ;;
             tacz) ./gradlew runGameTest -Ploader_version=0.19.5 -PwithTacz "${args[@]}" ;;
-            backpack) ./gradlew runGameTest -PwithBackpack "${args[@]}" ;;
+            backpack) ./gradlew runGameTest -Ploader_version=0.19.5 -PwithBackpack "${args[@]}" ;;
             combined) ./gradlew runGameTest -Ploader_version=0.19.5 -PwithTacz -PwithBackpack "${args[@]}" ;;
           esac
       - name: Client trading test / 客户端交易测试

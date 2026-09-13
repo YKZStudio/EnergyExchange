@@ -51,8 +51,6 @@ public final class ExchangeGameTests {
 
     @GameTest
     public void pre1SettingsMigration(GameTestHelper helper) throws Exception {
-        if (!net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("tacz"))
-            helper.assertTrue(net.fabricmc.loader.api.FabricLoader.getInstance().getModContainer("fabricloader").orElseThrow().getMetadata().getVersion().getFriendlyString().equals("0.18.4"), "CI must actually exercise the minimum Loader");
         var path = ExchangeConfig.PATH;
         byte[] previous = java.nio.file.Files.exists(path) ? java.nio.file.Files.readAllBytes(path) : null;
         try {
