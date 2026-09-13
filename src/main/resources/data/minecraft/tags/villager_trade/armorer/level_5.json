@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "energyexchange:infinity_helmet",
+    "energyexchange:infinity_chestplate",
+    "energyexchange:infinity_leggings",
+    "energyexchange:infinity_boots"
+  ]
+}

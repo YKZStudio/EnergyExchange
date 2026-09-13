@@ -1,0 +1,8 @@
+{
+  "additional_wants": {"count": 4.0, "id": "minecraft:diamond_block"},
+  "gives": {"id": "energyexchange:dark_matter_shovel"},
+  "max_uses": 2.0,
+  "reputation_discount": 0.05,
+  "wants": {"count": 32.0, "id": "minecraft:emerald"},
+  "xp": 10.0
+}
