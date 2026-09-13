@@ -18,7 +18,7 @@ anchors = dict(cobblestone=1, dirt=1, stone=1, gravel=1, sand=1, netherrack=1,
                gilded_blackstone=2048, ender_pearl=1024, blaze_rod=1536,
                blaze_powder=768, ender_eye=1792, obsidian=64,
                bucket=768, water_bucket=768, milk_bucket=784, lava_bucket=832,
-               golden_apple=16448, golden_carrot=1872)
+               golden_apple=16448, golden_carrot=1872, experience_bottle=896)
 
 def price(name):
     if name in anchors: return anchors[name]

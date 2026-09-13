@@ -206,17 +206,17 @@ public final class ExchangeGameTests {
     }
 
     @GameTest
-    public void placedTableAndExperience(GameTestHelper helper) {
+    public void placedTableAndBottles(GameTestHelper helper) {
         var p = player(helper);
         var pos = p.blockPosition(); p.level().setBlockAndUpdate(pos, ExchangeContent.TABLE.defaultBlockState());
         var menu = new ExchangeMenu(21, p.getInventory(), 321L, pos, -1); p.containerMenu = menu;
         helper.assertTrue(menu.stillValid(p), "Placed table reachable / 转化桌可达");
-        p.setAttached(EnergyExchange.ACCOUNT, AccountJson.write(new Account(BigInteger.valueOf(1280), Set.of())));
+        p.setAttached(EnergyExchange.ACCOUNT, AccountJson.write(new Account(BigInteger.valueOf(896 * 16), Set.of())));
         int before = p.totalExperience;
-        ExchangeService.buyExperience(p, 10);
-        helper.assertTrue(p.totalExperience == before + 10 && ExchangeService.account(p).energy().signum() == 0, "Exact XP points and debit / 精确经验点与扣费");
-        reject(helper, "insufficient", () -> ExchangeService.buyExperience(p, 1));
-        helper.assertTrue(p.totalExperience == before + 10, "Failed XP does not award / 失败不发经验");
+        ExchangeService.buyBottles(p, 16);
+        helper.assertTrue(p.totalExperience == before && p.getInventory().countItem(Items.EXPERIENCE_BOTTLE) == 16 && ExchangeService.account(p).energy().signum() == 0, "Bottles inserted without awarding XP");
+        reject(helper, "insufficient", () -> ExchangeService.buyBottles(p, 1));
+        helper.assertTrue(p.totalExperience == before, "Bottle purchases never directly award XP");
         p.level().removeBlock(pos, false);
         helper.assertTrue(!menu.stillValid(p), "Broken table invalidates / 拆桌失效");
         p.containerMenu = p.inventoryMenu; helper.succeed();
@@ -416,6 +416,49 @@ public final class ExchangeGameTests {
             helper.assertTrue(tool.sweep(p) == 1 && !zombie.isAlive(), "Infinity sweep defeats a hostile mob");
             helper.assertTrue(pig.isAlive() && pig.getHealth() == pig.getMaxHealth(), "Passive animals are untouched");
         } finally { veto.set(false); }
+        helper.succeed();
+    }
+
+    @GameTest
+    public void input256SplitsSafelyOnWithdrawalAndClose(GameTestHelper helper) {
+        var p = player(helper); var pos = helper.absolutePos(new net.minecraft.core.BlockPos(1, 3, 1)); p.setPos(pos.getX(), pos.getY(), pos.getZ());
+        p.level().setBlockAndUpdate(pos, ExchangeContent.TABLE.defaultBlockState());
+        var menu = new ExchangeMenu(25, p.getInventory(), 91, pos, -1); p.containerMenu = menu;
+        for (int i = 0; i < 4; i++) { p.getInventory().setItem(i, new ItemStack(Items.DIRT, 64)); menu.quickMoveStack(p, 28 + i); }
+        helper.assertTrue(menu.input.getItem(0).getCount() == 256, "Four normal stacks merge in the single input");
+        p.getInventory().setItem(4, new ItemStack(Items.DIRT)); menu.quickMoveStack(p, 32);
+        helper.assertTrue(menu.input.getItem(0).getCount() == 256 && p.getInventory().getItem(4).getCount() == 1, "256 cap preserves excess items");
+        menu.clicked(0, 0, net.minecraft.world.inventory.ClickType.PICKUP, p);
+        helper.assertTrue(menu.getCarried().getCount() == 64 && menu.input.getItem(0).getCount() == 192, "Cursor receives only a native stack");
+        menu.clicked(0, 0, net.minecraft.world.inventory.ClickType.PICKUP, p);
+        menu.clicked(0, 0, net.minecraft.world.inventory.ClickType.SWAP, p);
+        helper.assertTrue(p.getInventory().getItem(0).getCount() == 64 && menu.input.getItem(0).getCount() == 192, "Number-key withdrawal respects native limit");
+        menu.quickMoveStack(p, 28);
+        for (int i = 0; i < 36; i++) p.getInventory().setItem(i, new ItemStack(Items.STONE, 64));
+        int before = p.level().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, p.getBoundingBox().inflate(3), e -> e.getItem().is(Items.DIRT)).stream().mapToInt(e -> e.getItem().getCount()).sum();
+        menu.removed(p);
+        var drops = p.level().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, p.getBoundingBox().inflate(3), e -> e.getItem().is(Items.DIRT));
+        helper.assertTrue(menu.input.isEmpty() && drops.stream().mapToInt(e -> e.getItem().getCount()).sum() - before == 256, "Closing with full inventory returns all 256 items");
+        helper.assertTrue(drops.stream().allMatch(e -> e.getItem().getCount() <= e.getItem().getMaxStackSize()), "Drops use native limits");
+        p.getInventory().clearContent();
+        for (int i = 0; i < 2; i++) { p.getInventory().setItem(i, new ItemStack(Items.DIAMOND_SWORD)); menu.quickMoveStack(p, 28 + i); }
+        helper.assertTrue(menu.input.getItem(0).getCount() == 2, "Identical unstackable items merge only inside table");
+        menu.quickMoveStack(p, 0);
+        helper.assertTrue(menu.input.isEmpty() && p.getInventory().countItem(Items.DIAMOND_SWORD) == 2, "Tools split on shift withdrawal");
+        for (int i = 0; i < 36; i++) helper.assertTrue(p.getInventory().getItem(i).getCount() <= p.getInventory().getItem(i).getMaxStackSize(), "Inventory never overstacks");
+        p.containerMenu = p.inventoryMenu; helper.succeed();
+    }
+
+    @GameTest
+    public void bottlePurchasePreflightsInventory(GameTestHelper helper) {
+        var p = player(helper); var funds = BigInteger.valueOf(896 * 64);
+        p.setAttached(EnergyExchange.ACCOUNT, AccountJson.write(new Account(funds, Set.of())));
+        for (int i = 0; i < 36; i++) p.getInventory().setItem(i, new ItemStack(Items.STONE, 64));
+        reject(helper, "inventory_full", () -> ExchangeService.buyBottles(p, 64));
+        helper.assertTrue(ExchangeService.account(p).energy().equals(funds) && p.totalExperience == 0, "Full inventory neither debits nor grants XP");
+        reject(helper, "purchase_count", () -> ExchangeService.buyBottles(p, 256));
+        p.getInventory().setItem(0, ItemStack.EMPTY); ExchangeService.buyBottles(p, 64);
+        helper.assertTrue(p.getInventory().getItem(0).is(Items.EXPERIENCE_BOTTLE) && p.getInventory().getItem(0).getCount() == 64 && ExchangeService.account(p).energy().signum() == 0, "64 bottles delivered to inventory without prior knowledge");
         helper.succeed();
     }
 

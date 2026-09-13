@@ -83,21 +83,20 @@ public final class ExchangeService {
         return next;
     }
 
-    public static Account buyExperience(ServerPlayer player, int points) {
+    public static final String BOTTLE = "minecraft:experience_bottle";
+    public static Account buyBottles(ServerPlayer player, int count) {
         checkPlayer(player);
-        EnergyExchange.RULES.checkReady();
-        if (!ExchangeConfig.server.xpEnabled()) throw new IllegalArgumentException("energyexchange.error.xp_disabled");
-        if (points < 1 || points > 1000 || player.totalExperience < 0 || player.totalExperience > Integer.MAX_VALUE - points
-                || player.experienceLevel < 0 || player.experienceLevel > 10000
-                || !Float.isFinite(player.experienceProgress) || player.experienceProgress < 0 || player.experienceProgress >= 1) throw new IllegalArgumentException("energyexchange.error.xp_limit");
+        if (!studio.ykz.energyexchange.core.PurchaseQuantity.allowed(count, 64)) throw new IllegalArgumentException("energyexchange.error.purchase_count");
+        var sample = Catalog.sample(BOTTLE);
+        var rule = EnergyExchange.RULES.require(BOTTLE);
         var previous = account(player);
-        var cost = studio.ykz.energyexchange.core.Energy.total(studio.ykz.energyexchange.core.Energy.parse(ExchangeConfig.server.xpCost()), points);
+        var cost = studio.ykz.energyexchange.core.Energy.total(rule.value(), count);
         if (previous.energy().compareTo(cost) < 0) throw new IllegalArgumentException("energyexchange.error.insufficient");
         var next = new Account(previous.energy().subtract(cost), previous.learned());
         String encoded = AccountJson.write(next);
-        player.giveExperiencePoints(points);
-        player.setAttached(EnergyExchange.ACCOUNT, encoded);
-        return next;
+        var planned = planInsertion(player, sample, count);
+        for (int slot = 0; slot < planned.size(); slot++) player.getInventory().setItem(slot, planned.get(slot));
+        player.setAttached(EnergyExchange.ACCOUNT, encoded); changed(player); return next;
     }
 
     private static List<ItemStack> planInsertion(ServerPlayer player, ItemStack sample, int count) {

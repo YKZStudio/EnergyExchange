@@ -35,6 +35,19 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.runOnClient(client -> {
                 if (!((ExchangeScreen) client.gui.screen()).visibleKeys().isEmpty()) throw new AssertionError("New accounts must not show the entire catalog");
             });
+            context.runOnClient(client -> { if (((ExchangeScreen) client.gui.screen()).showsDataWarning()) throw new AssertionError("Default input has no data warning"); });
+            world.getServer().runOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst(); var stack = new ItemStack(Items.DIRT, 32);
+                stack.set(net.minecraft.core.component.DataComponents.CUSTOM_NAME, net.minecraft.network.chat.Component.literal("Named input"));
+                ((ExchangeMenu) p.containerMenu).input.setItem(0, stack); p.containerMenu.broadcastChanges();
+            });
+            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).showsDataWarning());
+            context.takeScreenshot("transmutation-data-warning");
+            world.getServer().runOnServer(server -> { var p = server.getPlayerList().getPlayers().getFirst(); ((ExchangeMenu) p.containerMenu).input.setItem(0, new ItemStack(Items.DIRT, 256)); p.containerMenu.broadcastChanges(); });
+            context.waitFor(client -> ((ExchangeMenu) client.player.containerMenu).input.getItem(0).getCount() == 256 && !((ExchangeScreen) client.gui.screen()).showsDataWarning());
+            context.takeScreenshot("transmutation-input-256");
+            world.getServer().runOnServer(server -> { var p = server.getPlayerList().getPlayers().getFirst(); ((ExchangeMenu) p.containerMenu).input.setItem(0, new ItemStack(Items.DIRT, 32)); p.containerMenu.broadcastChanges(); });
+            context.waitFor(client -> ((ExchangeMenu) client.player.containerMenu).input.getItem(0).getCount() == 32);
             context.takeScreenshot("transmutation-empty-en_us");
             context.runOnClient(client -> ((ExchangeScreen) client.gui.screen()).request(1, "", 0));
             world.getServer().waitFor(server -> ExchangeService.account(server.getPlayerList().getPlayers().getFirst()).energy().intValue() == 32);
@@ -132,6 +145,18 @@ public final class ExchangeClientTests implements FabricClientGameTest {
                 client.player.sendOverlayMessage(net.minecraft.network.chat.Component.empty());
             });
             context.setScreen(() -> null);
+            world.getServer().runOnServer(server -> {
+                var p = server.getPlayerList().getPlayers().getFirst();
+                p.setAttached(EnergyExchange.ACCOUNT, studio.ykz.energyexchange.core.AccountJson.write(new studio.ykz.energyexchange.core.Account(java.math.BigInteger.valueOf(896 * 32), java.util.Set.of())));
+                ExchangeContent.TABLET.use(p.level(), p, InteractionHand.MAIN_HAND);
+            });
+            context.waitForScreen(ExchangeScreen.class); context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
+            context.runOnClient(client -> { var screen = (ExchangeScreen) client.gui.screen(); screen.select(ExchangeService.BOTTLE); if (!screen.canPurchase(32) || screen.canPurchase(64)) throw new AssertionError("Bottle quantity affordability"); });
+            context.takeScreenshot("bottle-purchase-zh_cn");
+            context.runOnClient(client -> ((ExchangeScreen) client.gui.screen()).request(4, ExchangeService.BOTTLE, 32));
+            world.getServer().waitFor(server -> server.getPlayerList().getPlayers().getFirst().getInventory().countItem(Items.EXPERIENCE_BOTTLE) == 32);
+            context.waitFor(client -> ((ExchangeScreen) client.gui.screen()).isReady());
+            context.runOnClient(client -> client.gui.screen().onClose()); context.waitForScreen(null);
             var tablePos = world.getServer().computeOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
                 var pos = p.blockPosition().offset(0, 0, 3);

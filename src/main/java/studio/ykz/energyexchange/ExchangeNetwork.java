@@ -37,12 +37,12 @@ public final class ExchangeNetwork {
         });
         public Type<Page> type() { return TYPE; }
     }
-    public record State(int menu, long nonce, long revision, long sequence, String balance, String learned, String error, String xpCost, boolean xpEnabled) implements CustomPacketPayload {
+    public record State(int menu, long nonce, long revision, long sequence, String balance, String learned, String error) implements CustomPacketPayload {
         public static final Type<State> TYPE = ExchangeNetwork.type("state");
         public static final StreamCodec<RegistryFriendlyByteBuf, State> CODEC = StreamCodec.of((b, p) -> {
             b.writeVarInt(p.menu); b.writeLong(p.nonce); b.writeLong(p.revision); b.writeLong(p.sequence);
-            b.writeUtf(p.balance, 128); b.writeUtf(p.learned, 256); b.writeUtf(p.error, 128); b.writeUtf(p.xpCost, 128); b.writeBoolean(p.xpEnabled);
-        }, b -> new State(b.readVarInt(), b.readLong(), b.readLong(), b.readLong(), b.readUtf(128), b.readUtf(256), b.readUtf(128), b.readUtf(128), b.readBoolean()));
+            b.writeUtf(p.balance, 128); b.writeUtf(p.learned, 256); b.writeUtf(p.error, 128);
+        }, b -> new State(b.readVarInt(), b.readLong(), b.readLong(), b.readLong(), b.readUtf(128), b.readUtf(256), b.readUtf(128)));
         public Type<State> type() { return TYPE; }
     }
     public static void init() {
@@ -73,7 +73,7 @@ public final class ExchangeNetwork {
                             throw new IllegalArgumentException("energyexchange.error.purchase_count");
                         ExchangeService.buy(player, packet.key, packet.count);
                     }
-                    case 4 -> ExchangeService.buyExperience(player, packet.count);
+                    case 4 -> ExchangeService.buyBottles(player, packet.count);
                     default -> throw new IllegalArgumentException("energyexchange.error.count");
                 }
             }
@@ -105,6 +105,6 @@ public final class ExchangeNetwork {
         try { balance = ExchangeService.account(player).energy().toString(); }
         catch (IllegalArgumentException e) { error = "energyexchange.error.account_corrupt"; }
         ServerPlayNetworking.send(player, new State(menu.containerId, menu.nonce, EnergyExchange.RULES.revision(), menu.sequence,
-                balance, learned, error, ExchangeConfig.server.xpCost(), ExchangeConfig.server.xpEnabled()));
+                balance, learned, error));
     }
 }
