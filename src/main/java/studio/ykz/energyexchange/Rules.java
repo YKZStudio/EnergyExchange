@@ -120,7 +120,8 @@ public final class Rules {
                 try (var profileReader = manager.getResourceOrThrow(Identifier.parse("energyexchange:energyexchange/compat/modules/" + file + ".json")).openAsReader()) {
                     var data = studio.ykz.energyexchange.core.StrictJson.parse(readBounded(profileReader, 2_000_000)).getAsJsonObject();
                     if (!data.keySet().equals(java.util.Set.of("values", "salvage"))) throw new IllegalArgumentException("Invalid compatibility module profile");
-                    var prices = data.getAsJsonObject("values"), moduleFractions = data.getAsJsonObject("salvage");
+                    var prices = data.getAsJsonObject("values");
+                    var moduleFractions = data.getAsJsonObject("salvage");
                     if (prices.size() > 16384 || moduleFractions.size() > 16384) throw new IllegalArgumentException("Too many compatibility module prices");
                     for (var entry : prices.entrySet()) {
                         String key = entry.getKey();
