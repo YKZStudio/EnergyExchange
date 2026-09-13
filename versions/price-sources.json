@@ -1,0 +1,18 @@
+{
+  "26.1.2": {
+    "farmersdelight": {"project": "7vxePowz", "version": "26.1-3.6.21", "version_id": "IglOQNOf", "sha256": "94c7fd368456da7ab944033f19d631122d8e9eff02c40e106394b5f3bc8c2abf"},
+    "moredelight": {"project": "znHQQtuU", "version": "26.05.26-26.1-fabric", "version_id": "q01zzzeZ", "sha256": "cb7503ec610ae2e9c188850197c247cc67713d017c7264e207f23f3dd3520171"},
+    "rusticdelight": {"project": "foa4fGIH", "version": "1.7.0", "version_id": "kVLLFl6q", "sha256": "7692ff5cce7c759d5c46ac326804e9989fc2bc1e6fe35034cb7b2d43d774cc15"},
+    "ubesdelight": {"project": "PYjpoAys", "version": "26.1.2-0.4.14", "version_id": "7sZz0uPp", "sha256": "4aa06d90105668f62eca3401f494e364082ff01cffd2aedbab3f3225e9cb381d"},
+    "betternether": {"project": "MpzVLzy5", "version": "26.101.2", "version_id": "gDLNJy17", "sha256": "872a6d3bdce2cf812f1c2612665489caa2d9729ba9d048bb27ca5018111aebbe"},
+    "betterend": {"project": "gc8OEnCC", "version": "26.101.2", "version_id": "tBdZGZeX", "sha256": "11bd14f8bf4b7e0a1bc4e2c4ebc26cfc57218f2270516f3d21ed6d5b4e4078ab"}
+  },
+  "26.2": {
+    "farmersdelight": {"project": "7vxePowz", "version": "26.2-3.6.21", "version_id": "jUfTpAIM", "sha256": "8b04d0956d4bb1aafe44010c92cb10f1e7c4a8a08c4a487884a095621fe61355"},
+    "moredelight": {"project": "znHQQtuU", "version": "26.06.23-26.2-fabric", "version_id": "RcXOnDXk", "sha256": "79635680e0435d4947bc2d5141b7240f65a4866a9c1d0b22d81761405adc4401"},
+    "rusticdelight": {"project": "foa4fGIH", "version": "1.7.0", "version_id": "Ioo3Id1t", "sha256": "e84490ae693dd61932bac5bf67377fea78d0a4086ff638a4a7fc7dd16987e01c"},
+    "ubesdelight": {"project": "PYjpoAys", "version": "26.2-0.4.14", "version_id": "Roe7K8pA", "sha256": "712f95af9ff149fb5d5a5c825f59a73fee909dbea7466fc807ef38b600fc2220"},
+    "betternether": {"project": "MpzVLzy5", "version": "26.201.2", "version_id": "iBR9QMPF", "sha256": "ab8b71f3ff49dd5676351d336dc76bdb10ea39ca2101fc963f676bf1988f1a3a"},
+    "betterend": {"project": "gc8OEnCC", "version": "26.201.2", "version_id": "VD4qwVUF", "sha256": "97dac860402e781ee50a5e10e1c3d299f9c84873e7426f53fab76918c1559425"}
+  }
+}

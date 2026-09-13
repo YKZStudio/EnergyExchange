@@ -8,6 +8,7 @@ Run these commands in order to reproduce prices:
 python tools/generate_values.py client.jar /path/to/tacz
 python tools/generate_mod_values.py client.jar /path/to/tacz travelersbackpack.jar
 python tools/generate_armory.py
+python tools/generate_ecosystem_values.py client.jar farmersdelight=fd.jar moredelight=more.jar rusticdelight=rustic.jar ubesdelight=ube.jar betternether=nether.jar betterend=end.jar
 ```
 
 Use the pinned 26.2 vanilla client, TaCZ source commit `05ec226310545d89cec9169a10105e32d1ed262b`, and Traveler's Backpack Fabric 26.2-11.3.2. The backpack archive is checked with SHA-256. Tools extract item, tag and recipe facts; no upstream code/assets are bundled.
@@ -15,6 +16,19 @@ Use the pinned 26.2 vanilla client, TaCZ source commit `05ec226310545d89cec9169a
 The ordinary recipe graph uses the cheapest resolved ingredient alternative and output count. Identical-input copy recipes are solved algebraically. Purchase prices round up; conversion rates stay fractional and round down once per batch. Each profile asserts all resolved recipe constraints. Conditional backpack recipe variants are conservatively priced at the cheapest available definition. Optional Comforts recipes are skipped because Comforts is not part of this compatibility target.
 
 Active profiles are `energyexchange/compat/tacz.json`, `travelersbackpack.json` and `tacz-travelersbackpack.json` under `data/energyexchange`. Each contains `values` and `salvage` maps with the same bounds as defaults. They only load when matching mods are present. Individual `values/` and `variants/` data-pack overrides apply afterward and remain authoritative. These are startup/reload profiles, not live recalculation of arbitrary third-party machine recipes.
+
+0.3.4 also ships additive module profiles. The server reads `compat/modules.json`, detects installed mod IDs, then layers the matching files from `compat/modules/` after the TaCZ/backpack profile and before individual data-pack rules. This permits any combination without a Cartesian set of prebuilt profiles.
+
+| Module ID | Project | Item IDs |
+| --- | --- | ---: |
+| `farmersdelight` | Farmer's Delight Refabricated | 186 |
+| `moredelight` | More Delight | 33 |
+| `rusticdelight` | Rustic Delight | 154 |
+| `ubesdelight` | Ube's Delight | 122 |
+| `betternether` | BetterNether | 708 |
+| `betterend` | BetterEnd | 850 |
+
+The ecosystem generator recognizes vanilla recipes plus Farmer's Delight cooking/cutting, Ube's baking mat, BetterEnd infusion, and BCLib alloying/smithing. Multi-output salvage is not used as an independent pricing equation because it needs a joint allocation; the corresponding forward recipes still constrain the inputs and products. Unknown optional cross-mod tags skip only the affected recipe. Every discovered `assets/<mod>/items/*.json` identity receives a positive fallback, so an unresolved recipe never removes an item from trading. The exact pinned builds and SHA-256 values are recorded in `versions/price-sources.json`; no upstream code or assets are bundled.
 
 | Example | 0.2 price | 0.2.1 combined purchase / conversion |
 | --- | ---: | ---: |

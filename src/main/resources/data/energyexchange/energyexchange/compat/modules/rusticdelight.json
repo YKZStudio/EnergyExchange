@@ -1,0 +1,276 @@
+{
+  "values": {
+    "rusticdelight:baked_potato_slices": "32",
+    "rusticdelight:batter": "140",
+    "rusticdelight:bell_pepper_black": "256",
+    "rusticdelight:bell_pepper_black_block": "2304",
+    "rusticdelight:bell_pepper_black_crate": "2304",
+    "rusticdelight:bell_pepper_blue": "256",
+    "rusticdelight:bell_pepper_blue_block": "2304",
+    "rusticdelight:bell_pepper_blue_crate": "2304",
+    "rusticdelight:bell_pepper_green": "256",
+    "rusticdelight:bell_pepper_green_block": "2304",
+    "rusticdelight:bell_pepper_green_crate": "2304",
+    "rusticdelight:bell_pepper_medley": "1062",
+    "rusticdelight:bell_pepper_orange": "256",
+    "rusticdelight:bell_pepper_orange_block": "2304",
+    "rusticdelight:bell_pepper_orange_crate": "2304",
+    "rusticdelight:bell_pepper_pasta": "795",
+    "rusticdelight:bell_pepper_pink": "256",
+    "rusticdelight:bell_pepper_pink_block": "2304",
+    "rusticdelight:bell_pepper_pink_crate": "2304",
+    "rusticdelight:bell_pepper_purple": "256",
+    "rusticdelight:bell_pepper_purple_block": "2304",
+    "rusticdelight:bell_pepper_purple_crate": "2304",
+    "rusticdelight:bell_pepper_red": "256",
+    "rusticdelight:bell_pepper_red_block": "2304",
+    "rusticdelight:bell_pepper_red_crate": "2304",
+    "rusticdelight:bell_pepper_roll_black": "288",
+    "rusticdelight:bell_pepper_roll_blue": "288",
+    "rusticdelight:bell_pepper_roll_green": "288",
+    "rusticdelight:bell_pepper_roll_orange": "288",
+    "rusticdelight:bell_pepper_roll_pink": "288",
+    "rusticdelight:bell_pepper_roll_purple": "288",
+    "rusticdelight:bell_pepper_roll_red": "288",
+    "rusticdelight:bell_pepper_roll_white": "288",
+    "rusticdelight:bell_pepper_roll_yellow": "288",
+    "rusticdelight:bell_pepper_seeds": "8",
+    "rusticdelight:bell_pepper_seeds_bag": "72",
+    "rusticdelight:bell_pepper_slice_black": "256",
+    "rusticdelight:bell_pepper_slice_blue": "256",
+    "rusticdelight:bell_pepper_slice_green": "256",
+    "rusticdelight:bell_pepper_slice_orange": "256",
+    "rusticdelight:bell_pepper_slice_pink": "256",
+    "rusticdelight:bell_pepper_slice_purple": "256",
+    "rusticdelight:bell_pepper_slice_red": "256",
+    "rusticdelight:bell_pepper_slice_white": "256",
+    "rusticdelight:bell_pepper_slice_yellow": "256",
+    "rusticdelight:bell_pepper_soup": "768",
+    "rusticdelight:bell_pepper_white": "256",
+    "rusticdelight:bell_pepper_white_block": "2304",
+    "rusticdelight:bell_pepper_white_crate": "2304",
+    "rusticdelight:bell_pepper_yellow": "256",
+    "rusticdelight:bell_pepper_yellow_block": "2304",
+    "rusticdelight:bell_pepper_yellow_crate": "2304",
+    "rusticdelight:calamari": "256",
+    "rusticdelight:calamari_crate": "2304",
+    "rusticdelight:calamari_roll": "288",
+    "rusticdelight:calamari_slice": "256",
+    "rusticdelight:calamari_soup": "746",
+    "rusticdelight:cherry_blossom_cheesecake": "256",
+    "rusticdelight:cherry_blossom_cheesecake_slice": "64",
+    "rusticdelight:cherry_blossom_coffee": "410",
+    "rusticdelight:cherry_blossom_cookie": "4",
+    "rusticdelight:cherry_blossom_pancake": "64",
+    "rusticdelight:cherry_blossom_pancakes": "390",
+    "rusticdelight:cherry_blossom_roll": "48",
+    "rusticdelight:chocolate_coffee": "458",
+    "rusticdelight:chocolate_pancake": "64",
+    "rusticdelight:chocolate_pancakes": "390",
+    "rusticdelight:coffee": "192",
+    "rusticdelight:coffee_beans": "64",
+    "rusticdelight:coffee_beans_bag": "576",
+    "rusticdelight:coffee_braised_beef": "320",
+    "rusticdelight:coffee_cheesecake": "256",
+    "rusticdelight:coffee_cheesecake_slice": "64",
+    "rusticdelight:coffee_cookie": "10",
+    "rusticdelight:coffee_pancake": "64",
+    "rusticdelight:coffee_pancakes": "390",
+    "rusticdelight:cooked_calamari": "256",
+    "rusticdelight:cooked_calamari_slice": "256",
+    "rusticdelight:cooking_oil": "24",
+    "rusticdelight:cotton_boll": "256",
+    "rusticdelight:cotton_boll_crate": "2304",
+    "rusticdelight:cotton_seeds": "8",
+    "rusticdelight:cotton_seeds_bag": "72",
+    "rusticdelight:dark_bell_pepper_medley": "1062",
+    "rusticdelight:dark_bell_pepper_seeds": "8",
+    "rusticdelight:dark_bell_pepper_seeds_bag": "72",
+    "rusticdelight:dark_coffee": "384",
+    "rusticdelight:fried_calamari": "676",
+    "rusticdelight:fried_chicken": "484",
+    "rusticdelight:fried_dough": "51",
+    "rusticdelight:fried_dumplings": "268",
+    "rusticdelight:fried_fish": "228",
+    "rusticdelight:fried_mushrooms": "383",
+    "rusticdelight:fruit_beignet": "256",
+    "rusticdelight:golden_coffee_beans": "1278",
+    "rusticdelight:honey_coffee": "411",
+    "rusticdelight:honey_pancake": "50",
+    "rusticdelight:honey_pancakes": "297",
+    "rusticdelight:milk_coffee": "394",
+    "rusticdelight:pale_bell_pepper_medley": "1062",
+    "rusticdelight:pale_bell_pepper_seeds": "8",
+    "rusticdelight:pale_bell_pepper_seeds_bag": "72",
+    "rusticdelight:pancake": "39",
+    "rusticdelight:pancakes": "233",
+    "rusticdelight:potato_salad": "560",
+    "rusticdelight:potato_slices": "32",
+    "rusticdelight:pumpkin_coffee": "410",
+    "rusticdelight:pumpkin_pancake": "46",
+    "rusticdelight:pumpkin_pancakes": "274",
+    "rusticdelight:rice_roll_royale": "1612",
+    "rusticdelight:roasted_bell_pepper_black": "256",
+    "rusticdelight:roasted_bell_pepper_blue": "256",
+    "rusticdelight:roasted_bell_pepper_green": "256",
+    "rusticdelight:roasted_bell_pepper_orange": "256",
+    "rusticdelight:roasted_bell_pepper_pink": "256",
+    "rusticdelight:roasted_bell_pepper_purple": "256",
+    "rusticdelight:roasted_bell_pepper_red": "256",
+    "rusticdelight:roasted_bell_pepper_slice_black": "256",
+    "rusticdelight:roasted_bell_pepper_slice_blue": "256",
+    "rusticdelight:roasted_bell_pepper_slice_green": "256",
+    "rusticdelight:roasted_bell_pepper_slice_orange": "256",
+    "rusticdelight:roasted_bell_pepper_slice_pink": "256",
+    "rusticdelight:roasted_bell_pepper_slice_purple": "256",
+    "rusticdelight:roasted_bell_pepper_slice_red": "256",
+    "rusticdelight:roasted_bell_pepper_slice_white": "256",
+    "rusticdelight:roasted_bell_pepper_slice_yellow": "256",
+    "rusticdelight:roasted_bell_pepper_white": "256",
+    "rusticdelight:roasted_bell_pepper_yellow": "256",
+    "rusticdelight:roasted_coffee_beans": "64",
+    "rusticdelight:roasted_coffee_beans_bag": "576",
+    "rusticdelight:spring_rolls": "170",
+    "rusticdelight:stuffed_bell_pepper_black": "352",
+    "rusticdelight:stuffed_bell_pepper_blue": "352",
+    "rusticdelight:stuffed_bell_pepper_green": "352",
+    "rusticdelight:stuffed_bell_pepper_orange": "352",
+    "rusticdelight:stuffed_bell_pepper_pink": "352",
+    "rusticdelight:stuffed_bell_pepper_purple": "352",
+    "rusticdelight:stuffed_bell_pepper_red": "352",
+    "rusticdelight:stuffed_bell_pepper_white": "352",
+    "rusticdelight:stuffed_bell_pepper_yellow": "352",
+    "rusticdelight:sweet_salad": "64",
+    "rusticdelight:syrup": "70",
+    "rusticdelight:syrup_cheesecake": "256",
+    "rusticdelight:syrup_cheesecake_slice": "64",
+    "rusticdelight:syrup_coffee": "464",
+    "rusticdelight:syrup_cookie": "11",
+    "rusticdelight:syrup_sandwich": "94",
+    "rusticdelight:vegetable_pancake": "64",
+    "rusticdelight:vegetable_pancakes": "390",
+    "rusticdelight:wild_bell_peppers": "256",
+    "rusticdelight:wild_coffee": "64",
+    "rusticdelight:wild_cotton": "256",
+    "rusticdelight:wild_dark_bell_peppers": "256",
+    "rusticdelight:wild_pale_bell_peppers": "256"
+  },
+  "salvage": {
+    "rusticdelight:batter": [
+      "2519",
+      "18"
+    ],
+    "rusticdelight:bell_pepper_pasta": [
+      "30976",
+      "39"
+    ],
+    "rusticdelight:calamari_soup": [
+      "2237",
+      "3"
+    ],
+    "rusticdelight:cherry_blossom_coffee": [
+      "1229",
+      "3"
+    ],
+    "rusticdelight:cherry_blossom_cookie": [
+      "34",
+      "9"
+    ],
+    "rusticdelight:chocolate_coffee": [
+      "1373",
+      "3"
+    ],
+    "rusticdelight:coffee_cookie": [
+      "88",
+      "9"
+    ],
+    "rusticdelight:fried_calamari": [
+      "12167",
+      "18"
+    ],
+    "rusticdelight:fried_chicken": [
+      "8711",
+      "18"
+    ],
+    "rusticdelight:fried_dough": [
+      "1960",
+      "39"
+    ],
+    "rusticdelight:fried_fish": [
+      "4103",
+      "18"
+    ],
+    "rusticdelight:fried_mushrooms": [
+      "1912",
+      "5"
+    ],
+    "rusticdelight:golden_coffee_beans": [
+      "34496",
+      "27"
+    ],
+    "rusticdelight:honey_coffee": [
+      "1232",
+      "3"
+    ],
+    "rusticdelight:honey_pancake": [
+      "5333",
+      "108"
+    ],
+    "rusticdelight:honey_pancakes": [
+      "5333",
+      "18"
+    ],
+    "rusticdelight:milk_coffee": [
+      "1181",
+      "3"
+    ],
+    "rusticdelight:pancake": [
+      "4181",
+      "108"
+    ],
+    "rusticdelight:pancakes": [
+      "4181",
+      "18"
+    ],
+    "rusticdelight:potato_salad": [
+      "1679",
+      "3"
+    ],
+    "rusticdelight:pumpkin_coffee": [
+      "1229",
+      "3"
+    ],
+    "rusticdelight:pumpkin_pancake": [
+      "4925",
+      "108"
+    ],
+    "rusticdelight:pumpkin_pancakes": [
+      "4925",
+      "18"
+    ],
+    "rusticdelight:rice_roll_royale": [
+      "4834",
+      "3"
+    ],
+    "rusticdelight:spring_rolls": [
+      "6596",
+      "39"
+    ],
+    "rusticdelight:syrup": [
+      "209",
+      "3"
+    ],
+    "rusticdelight:syrup_coffee": [
+      "1390",
+      "3"
+    ],
+    "rusticdelight:syrup_cookie": [
+      "755",
+      "72"
+    ],
+    "rusticdelight:syrup_sandwich": [
+      "838",
+      "9"
+    ]
+  }
+}

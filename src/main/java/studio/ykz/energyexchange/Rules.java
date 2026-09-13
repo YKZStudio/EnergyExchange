@@ -49,11 +49,12 @@ public final class Rules {
                 }
             } catch (IOException e) { throw new IllegalStateException(e); }
         }
-        defaults = Map.copyOf(next);
         var fractions = new HashMap<String, java.math.BigInteger[]>();
         try (var reader = manager.getResourceOrThrow(Identifier.parse("energyexchange:energyexchange/salvage.json")).openAsReader()) {
             var object = studio.ykz.energyexchange.core.StrictJson.parse(readBounded(reader, 2_000_000)).getAsJsonObject();
             if (profileData != null) object = profileData.getAsJsonObject("salvage");
+            loadOptionalProfiles(manager, next, object);
+            defaults = Map.copyOf(next);
             if (object.size() > 16384) throw new IllegalArgumentException("Too many salvage fractions");
             for (var entry : object.entrySet()) {
                 var pair = entry.getValue().getAsJsonArray();
@@ -103,6 +104,36 @@ public final class Rules {
         var loader = net.fabricmc.loader.api.FabricLoader.getInstance();
         boolean tacz = loader.isModLoaded("tacz"), backpack = loader.isModLoaded("travelersbackpack");
         return tacz && backpack ? "tacz-travelersbackpack" : tacz ? "tacz" : backpack ? "travelersbackpack" : "";
+    }
+
+    private static void loadOptionalProfiles(ResourceManager manager, Map<String, ValueRule> next,
+                                             com.google.gson.JsonObject fractions) throws IOException {
+        var loader = net.fabricmc.loader.api.FabricLoader.getInstance();
+        try (var reader = manager.getResourceOrThrow(Identifier.parse("energyexchange:energyexchange/compat/modules.json")).openAsReader()) {
+            var manifest = studio.ykz.energyexchange.core.StrictJson.parse(readBounded(reader, 16_384)).getAsJsonObject();
+            if (manifest.size() > 64) throw new IllegalArgumentException("Too many compatibility modules");
+            for (var module : manifest.entrySet()) {
+                String modId = module.getKey(), file = module.getValue().getAsString();
+                if (!modId.matches("[a-z0-9_.-]{1,64}") || !file.matches("[a-z0-9_.-]{1,64}"))
+                    throw new IllegalArgumentException("Invalid compatibility module");
+                if (!loader.isModLoaded(modId)) continue;
+                try (var profileReader = manager.getResourceOrThrow(Identifier.parse("energyexchange:energyexchange/compat/modules/" + file + ".json")).openAsReader()) {
+                    var data = studio.ykz.energyexchange.core.StrictJson.parse(readBounded(profileReader, 2_000_000)).getAsJsonObject();
+                    if (!data.keySet().equals(java.util.Set.of("values", "salvage"))) throw new IllegalArgumentException("Invalid compatibility module profile");
+                    var prices = data.getAsJsonObject("values");
+                    var moduleFractions = data.getAsJsonObject("salvage");
+                    if (prices.size() > 16384 || moduleFractions.size() > 16384) throw new IllegalArgumentException("Too many compatibility module prices");
+                    for (var entry : prices.entrySet()) {
+                        String key = entry.getKey();
+                        if (key.length() > 256 || !key.matches("[a-z0-9_.-]+:[a-z0-9/._-]+")) throw new IllegalArgumentException("Invalid compatibility module key");
+                        next.put(key, ValueRule.parse("{\"value\":" + entry.getValue() + "}"));
+                        fractions.remove(key);
+                    }
+                    for (var entry : moduleFractions.entrySet()) fractions.add(entry.getKey(), entry.getValue());
+                    EnergyExchange.LOGGER.info("Loaded ENERGY compatibility for {} / 已加载 {} 的 ENERGY 兼容", modId, modId);
+                }
+            }
+        }
     }
 
     private static String readBounded(java.io.Reader reader, int limit) throws IOException {

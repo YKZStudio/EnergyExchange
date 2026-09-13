@@ -36,6 +36,8 @@ Base paths for this variant format are a single path segment, matching TaCZ/LRTa
 
 Bundled `data/energyexchange/energyexchange/defaults.json` maps full item/model keys to positive decimal strings. It has 1,738 explicit keys, including 1,537 vanilla IDs. `salvage.json` maps fractional conversion keys to `["numerator", "denominator"]`. Both files support normal whole-resource pack replacement, with a 2,000,000-character limit; normally prefer small individual override files.
 
+Installed optional mods additionally load the matching additive files named by `energyexchange/compat/modules.json`. Pack authors may replace that manifest or a complete module file, but a small `data/<item namespace>/energyexchange/values/<path>.json` remains the safest override and is applied last. A module file never makes an absent mod's items appear.
+
 Generated purchase units round up; conversion batches compute `floor(numerator × count / denominator)` using exact integers. A batch yielding zero is rejected without consuming items or learning the identity. Fractions never enter saved balances. Conversion rates cannot exceed purchase prices. If replacing both bulk resources, keep their keys and bounds consistent. A malformed winning rule locks trading; the loader does not silently fall back to a lower pack.
 
 Defaults are an authored balance baseline constrained by supported vanilla recipes at generation time, not a runtime recipe solver. Editing recipes with another pack does not automatically reprice them. Special component-bearing recipes, brewing, villagers and other mods' machines need a separate economic audit. The generator reads official item IDs/recipe facts and TaCZ index/recipe facts, without copying upstream code or assets.
