@@ -1,0 +1,8 @@
+{
+  "additional_wants": {"count": 64.0, "id": "minecraft:netherite_block"},
+  "gives": {"id": "energyexchange:infinity_chestplate"},
+  "max_uses": 1.0,
+  "reputation_discount": 0.0,
+  "wants": {"count": 1.0, "id": "minecraft:nether_star"},
+  "xp": 30.0
+}

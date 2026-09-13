@@ -1,0 +1,7 @@
+{
+  "gives": {"id": "energyexchange:transmutation_tablet"},
+  "max_uses": 8.0,
+  "reputation_discount": 0.05,
+  "wants": {"count": 24.0, "id": "minecraft:emerald"},
+  "xp": 2.0
+}

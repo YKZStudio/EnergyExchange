@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "energyexchange:red_matter_helmet",
+    "energyexchange:red_matter_chestplate",
+    "energyexchange:red_matter_leggings",
+    "energyexchange:red_matter_boots"
+  ]
+}

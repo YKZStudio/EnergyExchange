@@ -1,19 +1,22 @@
+Warning: truncated output (original token count: 2803)
+Total output lines: 108
+
 # Energy Exchange
 
-[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.3.2.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
+[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.3.3.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
 
 An independent energy-exchange mod for **Minecraft Java 26.1.2 / 26.2 + Fabric**, inspired by equivalent exchange. It is not an official ProjectE port and includes no ProjectE code or assets.
 
-**0.3.2: items → personal Energy and knowledge → table purchases of items or experience bottles.**
+**0.3.3: items → personal Energy and knowledge → table or villager purchases.**
 
 ## Install
 
-Requires Java 25 and **Fabric Loader 0.18.4+**. Install exactly one matching runtime JAR on both client and server; do not install the sources JAR or both target JARs.
+Requires Java 25. Install exactly one matching runtime JAR on both client and server; do not install the sources JAR or both target JARs.
 
 | Minecraft | Runtime JAR | Fabric API minimum | Optional Mod Menu |
 | --- | --- | --- | --- |
-| 26.1.2 | `energyexchange-mc26.1.2-0.3.2.jar` | 0.155.3+26.1.2 | 18.0.1 |
-| 26.2 | `energyexchange-mc26.2-0.3.2.jar` | 0.159.0+26.2 | 20.0.2 |
+| 26.1.2 | `energyexchange-mc26.1.2-0.3.3.jar` · Loader 0.18.4+ | 0.155.3+26.1.2 | 18.0.1 |
+| 26.2 | `energyexchange-mc26.2-0.3.3.jar` · Loader 0.19.3+ | 0.159.0+26.2 | 20.0.2 |
 
 TaCZ R3-hotfix has builds for both targets, but independently requires Loader **0.19.3+** (integration tests use 0.19.5). For 26.1.2 use Forge Config API Port 26.1.5; for 26.2 use 26.2.1. Match TaCZ and gun packs on both sides. Do not downgrade a 26.2 world to 26.1.2; this is a separate game-version build, not a world downgrade converter.
 
@@ -47,30 +50,7 @@ Use the placed table, or use a tablet in either hand. The input is on the left, 
 
 Only living survival/adventure players can trade. A placed table must exist within eight blocks. A tablet's inventory slot is locked while open; changing the selected slot or losing the tablet invalidates trading.
 
-## Prices and compatibility
-
-- Positive purchase prices for all **1,506 vanilla item IDs in 26.1.2 / 1,537 in 26.2**. Non-survival items still require an obtained and learned sample; they are not automatically unlocked.
-- TaCZ guns, ammunition, attachments, workbenches and bundled LRTactical items use model-specific identities. Loaded additional gun-pack models receive their base item's fallback value, with per-model data-pack overrides available.
-- `tools/generate_values.py` generates defaults constrained by ordinary vanilla crafting, smelting, stonecutting and smithing recipes. Purchase units round up; fractional conversion yields round down once per batch. Batches worth less than one Energy are rejected without consuming items.
-- This is a configurable starter balance baseline, not a proof for every machine, villager trade, special recipe or gun pack. Pack authors should audit additions and override or disable values. Some 0.1 item prices change under the recipe constraints; saved balances do not.
-- **Data is discarded:** enchanted, renamed, damaged and filled items are valued only by their base identity. Conversion destroys enchantments, names, contents, fluids, upgrades and other attached data. Empty containers are priced as their shell; stored items give no extra Energy. Purchases return default items, never copies of samples.
-- TaCZ retains validated gun/ammo/attachment model identity for pricing. Loaded rounds, attachments, appearances and other state are discarded. Purchases produce default empty models. Unknown model IDs are rejected.
-
-## Settings and data packs
-
-Mod Menu → Energy Exchange → Configure controls unlearned entries, compact numbers, experimental pinyin search, catalog order.
-
-Pinyin search is **off by default**. Enable it to find Simplified Chinese display names using full pinyin, initials or mixed syllable prefixes: `moyingzhenzhu`, `myzz`, `moyzz` all find 末影珍珠. Case, spaces, tones and full-width letters are normalized. Mixed Chinese/pinyin (`末影zz`, `mo影z珠`), `lv`/`lü`/`lǜ`/`lu:`, and multiple readings (`zhongchui` / `chongchui` for 重锤) are supported. Search works offline and needs no REI. It is phonetic prefix matching, not typo correction; results still respect the Learned/All filter and use the current localized name.
-
-Existing four-field pre1 settings migrate with pinyin off and the initial catalog set to learned-only. Compact-number preferences are preserved. Legacy XP fields remain readable but are ignored since 0.3.1. Balances and learned items are unchanged.
-
-Display, search and sorting preferences are client-side. Server datapacks control item and experience-bottle prices. Legacy `xpEnabled`/`xpCost` fields remain only for old configuration compatibility; the XP controls are removed. Number tooltips and `/ee balance` always show exact integers.
-
-See [data-pack documentation](docs/DATAPACKS.md) for item/variant overrides, disabled rules and `/reload`.
-
-## Commands and protections
-
-`/ee help`, `value`, `balance`, `list [page]`, `learn`, `burn [count|all]`, and `buy <itemID> [count]` remain available. Example: `/ee buy tacz:modern_kinetic_gun#tacz:ak47 1`. Inside this menu, conversion/learning uses the input; otherwise it uses the main hand. Other open containers block trading.
+Villagers also sell Energy Exchange content through the vanilla trade screen: librarians stock the table and tablet, clerics stock the materials, toolsmiths and weaponsmiths stock tools, and armorers stock armor. Offers are added to the existing profession-level pools without replacing vanilla offers. Dark Matter and Red Matter tiers require late-game vanilla materials; Infinity offers have one use and require 64 netherite blocks plus a nether star. New villagers and villagers that acquire a level after in…803 tokens truncated…1`. Inside this menu, conversion/learning uses the input; otherwise it uses the main hand. Other open containers block trading.
 
 - Exact integer balances from zero through `10^128−1`; overflow rejects the whole transaction.
 - Server validation covers menu identity, session nonce, request sequence, rule revision, distance, game mode, knowledge, price and inventory. Clients supply neither stacks nor balances. Stale quotes refresh; duplicate requests do not settle twice.
