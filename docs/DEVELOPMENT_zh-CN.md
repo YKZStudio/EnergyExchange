@@ -54,7 +54,7 @@ JUnit 覆盖完整纯逻辑闭环、大于浮点精度/long 范围的余额、�
 
 ## 0.2 新增验证
 
-`./gradlew build` 增加便携/放置菜单有效性、关闭返还、经验点、全部原版定价覆盖与分数收益测试。`xvfb-run -a ./gradlew runClientGameTest` 验证真正的服务端目录下发与客户端转化/购买请求，然后打开配置界面；CI 上传截图和日志。
+`./gradlew build` 增加便携/放置菜单有效性、关闭返还、附魔之瓶发货、全部原版定价覆盖与分数收益测试。`xvfb-run -a ./gradlew runClientGameTest` 验证真正的服务端目录下发与客户端转化/购买请求，然后打开配置界面；CI 上传截图和日志。
 
 可选兼容测试：将固定的 TaCZ 26.2 R3-hotfix 运行 JAR 下载到 `test-mods/tacz.jar`，执行 `./gradlew runGameTest -PwithTacz`。Gradle 为本次测试解析 Forge Config API Port 26.2.1 与 Cloth Config 26.2.155。适配测试枚举型号类别、检查模板身份和正数价格、买回空枪，并验证装弹枪转化后丢弃弹药数据。
 
@@ -72,3 +72,5 @@ main 上每个正式版本附带运行 JAR 与对应双语 `docs/releases/<版�
 
 
 0.2.1：带数据物品按基础价值转化并丢弃数据；见[定价与兼容](PRICING_zh-CN.md)。仅正式版创建发行版，pre 版本保留 CI 构建产物。
+
+0.3.1：输入容器和槽位上限均为 256；专用点击逻辑保证光标、快捷栏、丢弃与关闭返还恢复原生堆叠。附魔之瓶交易先预检空间，再扣款与发货，不改变经验。客户端数据提示比较输入与服务端默认模板，不比较数量。

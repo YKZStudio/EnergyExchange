@@ -22,7 +22,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
     private int retryTicks;
     private final List<Button> purchases = new ArrayList<>();
     private static final int[] QUANTITIES = {64, 32, 16, 1};
-    private Button xp, burn, browse, previous, next;
+    private Button bottles, burn, browse, previous, next;
     private boolean showAll;
     public ExchangeScreen(ExchangeMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title, 300, 234); inventoryLabelX = 69; inventoryLabelY = 140;
@@ -36,10 +36,10 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         String oldQuery = search == null ? "" : search.getValue();
         super.init(); cells.clear(); purchases.clear();
         search = addRenderableWidget(new EditBox(font, leftPos + 106, topPos + 35, 184, 18, Messages.text("ui.search")));
-        search.setMaxLength(128); search.setHint(Messages.text("ui.search")); search.setResponder(s -> { page = 0; filter(); });
+        search.setMaxLength(128); search.setHint(Messages.text("ui.search")); search.setResponder(s -> { if (!s.isBlank() && selected.equals(ExchangeService.BOTTLE)) selected = ""; page = 0; filter(); });
         burn = button(8, 84, 88, "ui.burn", () -> send(1, "", 0));
         burn.setTooltip(Tooltip.create(Messages.text("ui.burn_hint")));
-        xp = button(8, 106, 88, "ui.xp", () -> send(4, "", 10));
+        bottles = button(8, 106, 88, "ui.bottles", () -> select(ExchangeService.BOTTLE));
         browse = button(8, 35, 88, showAll ? "ui.all" : "ui.learned_only", this::toggleBrowse);
         for (int i = 0; i < 24; i++) {
             final int index = i;
@@ -51,14 +51,14 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         next = button(270, 158, 20, "ui.next", () -> { if ((page + 1) * 24 < filtered.size()) page++; updateButtons(); });
         for (int i = 0; i < QUANTITIES.length; i++) {
             int count = QUANTITIES[i];
-            purchases.add(button(148 + i * 36, 116, 34, "ui.quantity_" + count, () -> send(3, selected, count)));
+            purchases.add(button(148 + i * 36, 116, 34, "ui.quantity_" + count, () -> send(selected.equals(ExchangeService.BOTTLE) ? 4 : 3, selected, count)));
         }
         search.setValue(oldQuery);
         filter(); send(0, "", 0);
     }
     boolean isReady() { return state != null && !waiting && !catalog.isEmpty(); }
-    void toggleBrowse() { showAll = !showAll; page = 0; browse.setMessage(Messages.text(showAll ? "ui.all" : "ui.learned_only")); filter(); }
-    void select(String key) { selected = key; updateButtons(); }
+    void toggleBrowse() { selected = ""; showAll = !showAll; page = 0; browse.setMessage(Messages.text(showAll ? "ui.all" : "ui.learned_only")); filter(); }
+    void select(String key) { selected = key; if (key.equals(ExchangeService.BOTTLE)) search.setValue(""); page = 0; filter(); }
     void search(String query) { search.setValue(query); }
     List<String> visibleKeys() { return filtered.stream().map(ExchangeNetwork.Entry::key).toList(); }
     boolean canPurchase(int count) { for (int i = 0; i < 4; i++) if (QUANTITIES[i] == count) return purchases.get(i).active; return false; }
@@ -85,25 +85,26 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
     }
     private void filter() {
         String query = search == null ? "" : search.getValue().toLowerCase(Locale.ROOT);
-        filtered = catalog.values().stream().filter(e -> showAll || e.learned())
+        filtered = catalog.values().stream().filter(e -> selected.equals(ExchangeService.BOTTLE) ? e.key().equals(ExchangeService.BOTTLE) : showAll || e.learned())
                 .filter(e -> e.key().contains(query) || e.stack().getHoverName().getString().toLowerCase(Locale.ROOT).contains(query)
                         || config.pinyinSearch() && studio.ykz.energyexchange.core.PinyinSearch.matches(e.stack().getHoverName().getString(), query))
                 .sorted(config.sortOrder().comparator(ExchangeNetwork.Entry::learned, ExchangeNetwork.Entry::value, e -> e.stack().getHoverName().getString(), ExchangeNetwork.Entry::key)).toList();
-        if (filtered.stream().noneMatch(e -> e.key().equals(selected))) selected = "";
+        if (!selected.equals(ExchangeService.BOTTLE) && filtered.stream().noneMatch(e -> e.key().equals(selected))) selected = "";
         page = Math.min(page, Math.max(0, (filtered.size() - 1) / 24)); updateButtons();
     }
     private void updateButtons() {
         if (purchases.size() != 4) return;
         var choice = catalog.get(selected);
-        boolean canBuy = !waiting && choice != null && choice.learned() && state != null;
+        boolean canBuy = !waiting && choice != null && (choice.learned() || selected.equals(ExchangeService.BOTTLE)) && state != null;
         for (int i = 0; i < purchases.size(); i++) {
             int count = QUANTITIES[i];
             purchases.get(i).active = canBuy && studio.ykz.energyexchange.core.PurchaseQuantity.allowed(count, choice.stack().getMaxStackSize())
                     && new java.math.BigInteger(state.balance()).compareTo(new java.math.BigInteger(choice.value()).multiply(java.math.BigInteger.valueOf(count))) >= 0;
         }
         burn.active = !waiting && menu.input.getItem(0).getCount() > 0;
-        xp.active = !waiting && state != null && state.xpEnabled() && new java.math.BigInteger(state.balance()).compareTo(new java.math.BigInteger(state.xpCost()).multiply(java.math.BigInteger.TEN)) >= 0;
-        if (state != null) xp.setTooltip(Tooltip.create(Messages.text("ui.xp_price", state.xpCost())));
+        var bottle = catalog.get(ExchangeService.BOTTLE);
+        bottles.active = !waiting && bottle != null;
+        bottles.setTooltip(bottle == null ? null : Tooltip.create(Component.empty().append(bottle.stack().getHoverName()).append("\n").append(Messages.text("ui.price", bottle.value()))));
         previous.active = page > 0; next.active = (page + 1) * 24 < filtered.size();
         for (int i = 0; i < cells.size(); i++) {
             int actual = page * 24 + i; Button cell = cells.get(i); cell.active = actual < filtered.size(); cell.visible = cell.active;
@@ -111,9 +112,16 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
                 var e = filtered.get(actual);
                 cell.setTooltip(Tooltip.create(Component.empty().append(e.stack().getHoverName()).append("\n" + e.key() + "\n").append(Messages.text("ui.price", e.value())).append("\n")
                         .append(Messages.text("ui.burn_rate", e.burnRate())).append("\n")
-                        .append(Messages.text(e.learned() ? "ui.known" : "ui.unknown"))));
+                        .append(e.key().equals(ExchangeService.BOTTLE) ? Component.empty() : Messages.text(e.learned() ? "ui.known" : "ui.unknown"))));
             } else cell.setTooltip(null);
         }
+    }
+    boolean showsDataWarning() {
+        var input = menu.input.getItem(0);
+        if (input.isEmpty()) return false;
+        var entry = catalog.get(Catalog.key(input));
+        var sample = entry == null ? input.getItem().getDefaultInstance() : entry.stack();
+        return !net.minecraft.world.item.ItemStack.isSameItemSameComponents(input, sample);
     }
     private String number(String value) {
         if (!config.compactNumbers() || value.length() <= 12) return value;
@@ -151,7 +159,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         for (int i = 0; i < 24 && page * 24 + i < filtered.size(); i++) {
             var entry = filtered.get(page * 24 + i); int x = leftPos + 109 + i % 8 * 23, y = topPos + 59 + i / 8 * 18;
             g.item(entry.stack(), x, y);
-            if (!entry.learned()) g.fill(x, y, x + 16, y + 16, 0x66808080);
+            if (!entry.learned() && !entry.key().equals(ExchangeService.BOTTLE)) g.fill(x, y, x + 16, y + 16, 0x66808080);
             if (entry.key().equals(selected)) g.outline(x - 1, y - 1, 18, 18, 0xFFFFFF00);
         }
         if (state != null) {
@@ -162,7 +170,8 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         g.text(font, (page + 1) + "/" + Math.max(1, (filtered.size() + 23) / 24), leftPos + 246, topPos + 143, 0xFF404040, false);
         g.text(font, Messages.text("ui.purchase"), leftPos + 106, topPos + 121, 0xFF404040, false);
         if (filtered.isEmpty()) g.textWithWordWrap(font, Messages.text(search.getValue().isBlank() ? "ui.empty" : "ui.no_results"), leftPos + 110, topPos + 62, 174, 0xFF555555);
-        g.text(font, font.plainSubstrByWidth(Messages.text("ui.data_discard").getString(), 88), leftPos + 8, topPos + 130, 0xFF9A3412, false);
+        if (showsDataWarning()) g.text(font, font.plainSubstrByWidth(Messages.text("ui.data_discard").getString(), 88), leftPos + 8, topPos + 130, 0xFF9A3412, false);
+        if (selected.equals(ExchangeService.BOTTLE)) g.outline(leftPos + 7, topPos + 105, 90, 20, 0xFFFFFF00);
         extractTooltip(g, mouseX, mouseY);
     }
 }

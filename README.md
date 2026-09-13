@@ -1,17 +1,17 @@
 # Energy Exchange
 
-[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.3.0.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
+[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.3.1.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
 
 An independent energy-exchange mod for **Minecraft Java 26.2 + Fabric**, inspired by equivalent exchange. It is not an official ProjectE port and includes no ProjectE code or assets.
 
-**0.3.0: items → personal Energy and knowledge → table purchases of items or XP.**
+**0.3.1: items → personal Energy and knowledge → table purchases of items or experience bottles.**
 
 ## Install
 
 - Java 25, Minecraft 26.2, Fabric Loader 0.19.5+, Fabric API 0.159.0+26.2.
 - Install this mod and Fabric API on both client and server. The 0.2 blocks, items and menus require both sides.
 - Optional: Mod Menu 20.0.2; TaCZ Refabricated 26.2 R3-hotfix with Forge Config API Port 26.2.1. Use matching TaCZ versions and gun packs on both sides.
-- Put `energyexchange-0.3.0.jar` in `mods`, not the sources JAR. English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese and Russian are included, with additional Traditional Chinese (Taiwan/Hong Kong) locales. The in-game name follows the selected language; Mod Menu uses its standard translated-name setting.
+- Put `energyexchange-0.3.1.jar` in `mods`, not the sources JAR. English, Simplified Chinese, Japanese, German, French, Spanish, Brazilian Portuguese and Russian are included, with additional Traditional Chinese (Taiwan/Hong Kong) locales. The in-game name follows the selected language; Mod Menu uses its standard translated-name setting.
 - Compatibility is `~26.2`; later series require fresh validation.
 - Existing 0.1 balances and knowledge are retained without scaling or reset. Back up the world before upgrading; 0.2 items and variant knowledge do not support direct downgrade to 0.1.
 
@@ -36,7 +36,7 @@ Use the placed table, or use a tablet in either hand. The input is on the left, 
 1. Insert items and press **Convert all** to consume the entire input stack, earn Energy and learn its identity.
 2. The catalog initially shows learned items. Switch to **All items** to browse unknown items; learned entries stay first. Default order is exact Energy descending; Mod Menu also offers ascending Energy and name order. The separate learning button has been removed.
 3. Search by localized name or ID, select an entry and choose **Buy: 64 / 32 / 16 / 1**. Quantities exceeding the item stack limit or your balance are disabled. Ender pearls allow 16 or 1; non-stackable items allow 1. Gray entries are not learned. Tooltips show exact prices and yields.
-4. **Buy 10 XP** awards ten experience points, not levels. Default: 128 Energy per point, controlled by the server.
+4. Select **Bottle o’ Enchanting**, then use the bottom-right 64/32/16/1 quantity buttons. Bottles go directly into player inventory without prior learning. Default: **896 ENERGY per bottle**, overridable/disableable by server datapacks. Throwing them awards vanilla XP; buying never awards points directly.
 5. Closing returns the input. Tables have no shared storage; each player's wallet and input are private.
 
 Only living survival/adventure players can trade. A placed table must exist within eight blocks. A tablet's inventory slot is locked while open; changing the selected slot or losing the tablet invalidates trading.
@@ -52,13 +52,13 @@ Only living survival/adventure players can trade. A placed table must exist with
 
 ## Settings and data packs
 
-Mod Menu → Energy Exchange → Configure controls unlearned entries, compact numbers, experimental pinyin search, catalog order, XP enablement and cost per point.
+Mod Menu → Energy Exchange → Configure controls unlearned entries, compact numbers, experimental pinyin search, catalog order.
 
 Pinyin search is **off by default**. Enable it to find Simplified Chinese display names using full pinyin, initials or mixed syllable prefixes: `moyingzhenzhu`, `myzz`, `moyzz` all find 末影珍珠. Case, spaces, tones and full-width letters are normalized. Mixed Chinese/pinyin (`末影zz`, `mo影z珠`), `lv`/`lü`/`lǜ`/`lu:`, and multiple readings (`zhongchui` / `chongchui` for 重锤) are supported. Search works offline and needs no REI. It is phonetic prefix matching, not typo correction; results still respect the Learned/All filter and use the current localized name.
 
-Existing four-field pre1 settings migrate with pinyin off and the initial catalog set to learned-only. XP settings and compact-number preferences are preserved. Balances and learned items are unchanged.
+Existing four-field pre1 settings migrate with pinyin off and the initial catalog set to learned-only. Compact-number preferences are preserved. Legacy XP fields remain readable but are ignored since 0.3.1. Balances and learned items are unchanged.
 
-Display preferences are client-side. XP settings are local defaults saved in `config/energyexchange.json`, applied **at the next world/server start**. Multiplayer uses the server owner's configuration; clients cannot change server prices. Dedicated servers edit the same file and restart. Number tooltips and `/ee balance` always show exact integers.
+Display, search and sorting preferences are client-side. Server datapacks control item and experience-bottle prices. Legacy `xpEnabled`/`xpCost` fields remain only for old configuration compatibility; the XP controls are removed. Number tooltips and `/ee balance` always show exact integers.
 
 See [data-pack documentation](docs/DATAPACKS.md) for item/variant overrides, disabled rules and `/reload`.
 
@@ -81,7 +81,7 @@ Every stable version receives a GitHub Release containing its runtime JAR and bi
 
 MIT licensed. Bundled Unicode pronunciation data retains its own license; see [third-party notices](THIRD_PARTY_NOTICES.md). The TaCZ adapter is independently implemented against public APIs; no upstream code or assets are bundled.
 
-## 0.3.0 compatibility and pricing
+## 0.3.1 compatibility and pricing
 
 Optional Traveler’s Backpack **Fabric 26.2-11.3.2** is supported with prices for all 80 registered items. Filled, dyed or upgraded backpacks convert at the base registered item price and buy back empty at the default tier. Remove anything you want to keep before converting.
 
@@ -92,3 +92,9 @@ Only stable versions create GitHub Releases with JAR and bilingual notes. Versio
 ## 0.3 armory and advanced tooltips
 
 Adds 32 materials, tools, weapons and armor across Dark Matter, Red Matter and Infinity tiers. Every recipe uses the vanilla 3×3 table, with area mining, hostile sweeps and Infinity suit flight. F3+H tooltips show exact server ENERGY above the item ID. See [all recipes and controls](docs/ARMORY.md).
+
+## 0.3.1 input slot
+
+The single input holds **256 identical items with identical components**, including ordinarily unstackable tools. Deposit through clicks or repeated Shift transfers. Left-click withdraws at most one native stack; right-click withdraws half, capped at the native limit; Shift moves as much as fits into inventory. Number-key swaps, dropping, closing/death returns all split into native stacks. Full-inventory returns use vanilla dropping rules. Drag distribution excludes this special slot.
+
+The lower-left discard warning appears only when the input differs from its default prototype; empty/default inputs show no warning. Valid TaCZ model identities compare against their model prototype. Update both client and server to 0.3.1.
