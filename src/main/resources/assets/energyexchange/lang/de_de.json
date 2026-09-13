@@ -105,5 +105,5 @@
   "energyexchange.gear.armor.2": "Vollständig: Feuerresistenz, Wasseratmung, Nachtsicht.",
   "energyexchange.gear.armor.3": "Vollständig: Flug, Regeneration, Nahrung, Schadensschutz. Leere und /kill wirken weiterhin.",
   "energyexchange.tooltip.energy": "ENERGY %s",
-  "energyexchange.ui.bottles": "Erfahrungsfläschchen"
+  "energyexchange.ui.bottles": "XP-Fläschchen"
 }

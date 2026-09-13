@@ -105,5 +105,5 @@
   "energyexchange.gear.armor.2": "Conjunto completo: resistencia al fuego, respiración acuática y visión nocturna.",
   "energyexchange.gear.armor.3": "Conjunto completo: vuelo, regeneración, comida y protección. El vacío y /kill siguen activos.",
   "energyexchange.tooltip.energy": "ENERGY %s",
-  "energyexchange.ui.bottles": "Frasco con experiencia"
+  "energyexchange.ui.bottles": "Frascos de EXP"
 }

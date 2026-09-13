@@ -105,5 +105,5 @@
   "energyexchange.gear.armor.2": "Ensemble complet : résistance au feu, respiration aquatique, vision nocturne.",
   "energyexchange.gear.armor.3": "Ensemble complet : vol, régénération, nourriture, protection. Le vide et /kill restent actifs.",
   "energyexchange.tooltip.energy": "ENERGY %s",
-  "energyexchange.ui.bottles": "Fiole d’expérience"
+  "energyexchange.ui.bottles": "Fioles d’XP"
 }

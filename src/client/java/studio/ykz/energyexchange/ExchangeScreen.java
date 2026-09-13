@@ -104,7 +104,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         burn.active = !waiting && menu.input.getItem(0).getCount() > 0;
         var bottle = catalog.get(ExchangeService.BOTTLE);
         bottles.active = !waiting && bottle != null;
-        bottles.setTooltip(bottle == null ? null : Tooltip.create(Messages.text("ui.price", bottle.value())));
+        bottles.setTooltip(bottle == null ? null : Tooltip.create(Component.empty().append(bottle.stack().getHoverName()).append("\n").append(Messages.text("ui.price", bottle.value()))));
         previous.active = page > 0; next.active = (page + 1) * 24 < filtered.size();
         for (int i = 0; i < cells.size(); i++) {
             int actual = page * 24 + i; Button cell = cells.get(i); cell.active = actual < filtered.size(); cell.visible = cell.active;
