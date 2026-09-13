@@ -36,7 +36,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         String oldQuery = search == null ? "" : search.getValue();
         super.init(); cells.clear(); purchases.clear();
         search = addRenderableWidget(new EditBox(font, leftPos + 106, topPos + 35, 184, 18, Messages.text("ui.search")));
-        search.setMaxLength(128); search.setHint(Messages.text("ui.search")); search.setResponder(s -> { page = 0; filter(); });
+        search.setMaxLength(128); search.setHint(Messages.text("ui.search")); search.setResponder(s -> { if (!s.isBlank() && selected.equals(ExchangeService.BOTTLE)) selected = ""; page = 0; filter(); });
         burn = button(8, 84, 88, "ui.burn", () -> send(1, "", 0));
         burn.setTooltip(Tooltip.create(Messages.text("ui.burn_hint")));
         bottles = button(8, 106, 88, "ui.bottles", () -> select(ExchangeService.BOTTLE));
@@ -57,8 +57,8 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         filter(); send(0, "", 0);
     }
     boolean isReady() { return state != null && !waiting && !catalog.isEmpty(); }
-    void toggleBrowse() { showAll = !showAll; page = 0; browse.setMessage(Messages.text(showAll ? "ui.all" : "ui.learned_only")); filter(); }
-    void select(String key) { selected = key; updateButtons(); }
+    void toggleBrowse() { selected = ""; showAll = !showAll; page = 0; browse.setMessage(Messages.text(showAll ? "ui.all" : "ui.learned_only")); filter(); }
+    void select(String key) { selected = key; if (key.equals(ExchangeService.BOTTLE)) search.setValue(""); page = 0; filter(); }
     void search(String query) { search.setValue(query); }
     List<String> visibleKeys() { return filtered.stream().map(ExchangeNetwork.Entry::key).toList(); }
     boolean canPurchase(int count) { for (int i = 0; i < 4; i++) if (QUANTITIES[i] == count) return purchases.get(i).active; return false; }
@@ -85,7 +85,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
     }
     private void filter() {
         String query = search == null ? "" : search.getValue().toLowerCase(Locale.ROOT);
-        filtered = catalog.values().stream().filter(e -> showAll || e.learned())
+        filtered = catalog.values().stream().filter(e -> selected.equals(ExchangeService.BOTTLE) ? e.key().equals(ExchangeService.BOTTLE) : showAll || e.learned())
                 .filter(e -> e.key().contains(query) || e.stack().getHoverName().getString().toLowerCase(Locale.ROOT).contains(query)
                         || config.pinyinSearch() && studio.ykz.energyexchange.core.PinyinSearch.matches(e.stack().getHoverName().getString(), query))
                 .sorted(config.sortOrder().comparator(ExchangeNetwork.Entry::learned, ExchangeNetwork.Entry::value, e -> e.stack().getHoverName().getString(), ExchangeNetwork.Entry::key)).toList();
@@ -112,7 +112,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
                 var e = filtered.get(actual);
                 cell.setTooltip(Tooltip.create(Component.empty().append(e.stack().getHoverName()).append("\n" + e.key() + "\n").append(Messages.text("ui.price", e.value())).append("\n")
                         .append(Messages.text("ui.burn_rate", e.burnRate())).append("\n")
-                        .append(Messages.text(e.learned() ? "ui.known" : "ui.unknown"))));
+                        .append(e.key().equals(ExchangeService.BOTTLE) ? Component.empty() : Messages.text(e.learned() ? "ui.known" : "ui.unknown"))));
             } else cell.setTooltip(null);
         }
     }
@@ -159,7 +159,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         for (int i = 0; i < 24 && page * 24 + i < filtered.size(); i++) {
             var entry = filtered.get(page * 24 + i); int x = leftPos + 109 + i % 8 * 23, y = topPos + 59 + i / 8 * 18;
             g.item(entry.stack(), x, y);
-            if (!entry.learned()) g.fill(x, y, x + 16, y + 16, 0x66808080);
+            if (!entry.learned() && !entry.key().equals(ExchangeService.BOTTLE)) g.fill(x, y, x + 16, y + 16, 0x66808080);
             if (entry.key().equals(selected)) g.outline(x - 1, y - 1, 18, 18, 0xFFFFFF00);
         }
         if (state != null) {
