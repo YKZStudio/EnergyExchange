@@ -144,7 +144,9 @@ public final class ExchangeClientTests implements FabricClientGameTest {
                 screen.onClose();
                 client.player.sendOverlayMessage(net.minecraft.network.chat.Component.empty());
             });
-            context.setScreen(() -> null);
+            context.waitForScreen(null);
+            // Wait for the close packet before opening another server menu.
+            world.getServer().waitFor(server -> { var p = server.getPlayerList().getPlayers().getFirst(); return p.containerMenu == p.inventoryMenu; });
             world.getServer().runOnServer(server -> {
                 var p = server.getPlayerList().getPlayers().getFirst();
                 p.setAttached(EnergyExchange.ACCOUNT, studio.ykz.energyexchange.core.AccountJson.write(new studio.ykz.energyexchange.core.Account(java.math.BigInteger.valueOf(896 * 32), java.util.Set.of())));
