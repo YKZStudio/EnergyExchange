@@ -2,7 +2,7 @@
 
 [简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.3.4.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
 
-An independent energy-exchange mod for **Minecraft Java 26.1.2 / 26.2 + Fabric**, inspired by equivalent exchange. It is not an official ProjectE port and includes no ProjectE code or assets.
+An independent energy-exchange mod for **Minecraft Java 26.1.2 / 26.2 / 26.3 + Fabric**, inspired by equivalent exchange. It is not an official ProjectE port and includes no ProjectE code or assets.
 
 **0.3.4: items → personal Energy and knowledge → table or villager purchases, now with six food/dimension compatibility profiles.**
 
@@ -12,8 +12,11 @@ Requires Java 25. Install exactly one matching runtime JAR on both client and se
 
 | Minecraft | Runtime JAR | Fabric API minimum | Optional Mod Menu |
 | --- | --- | --- | --- |
-| 26.1.2 | `energyexchange-mc26.1.2-0.3.4.jar` · Loader 0.18.4+ | 0.155.3+26.1.2 | 18.0.1 |
-| 26.2 | `energyexchange-mc26.2-0.3.4.jar` · Loader 0.19.3+ | 0.159.0+26.2 | 20.0.2 |
+| 26.1.2 | `energyexchange-mc26.1.2-0.3.5.jar` · Loader 0.18.4+ | 0.155.3+26.1.2 | 18.0.1 |
+| 26.2 | `energyexchange-mc26.2-0.3.5.jar` · Loader 0.19.3+ | 0.159.0+26.2 | 20.0.2 |
+| 26.3 | `energyexchange-mc26.3-0.3.5.jar` · Loader 0.19.5+ | 0.160.5+26.3 | 21.0.0-beta.1 (optional) |
+
+26.3 uses SDL input and its own vanilla prices and trade resources. Optional integration mods still require their own 26.3 builds; the existing TaCZ/backpack integration tests cover 26.1.2 and 26.2 only. Mod Menu currently offers a beta build for the 26.3 release candidate; its compatibility is checked by the client CI run.
 
 TaCZ R3-hotfix has builds for both targets, but independently requires Loader **0.19.3+** (integration tests use 0.19.5). For 26.1.2 use Forge Config API Port 26.1.5; for 26.2 use 26.2.1. Match TaCZ and gun packs on both sides. Do not downgrade a 26.2 world to 26.1.2; this is a separate game-version build, not a world downgrade converter.
 
@@ -51,7 +54,7 @@ Villagers also sell Energy Exchange content through the vanilla trade screen: li
 
 ## Prices and compatibility
 
-- Positive purchase prices for all **1,506 vanilla item IDs in 26.1.2 / 1,537 in 26.2**. Non-survival items still require an obtained and learned sample; they are not automatically unlocked.
+- Positive purchase prices for all **1,506 vanilla item IDs in 26.1.2 / 1,537 in 26.2 / 1,658 in 26.3**. Non-survival items still require an obtained and learned sample; they are not automatically unlocked.
 - TaCZ guns, ammunition, attachments, workbenches and bundled LRTactical items use model-specific identities. Loaded additional gun-pack models receive their base item's fallback value, with per-model data-pack overrides available.
 - Farmer's Delight Refabricated, More Delight, Rustic Delight, Ube's Delight, BetterNether and BetterEnd receive additive, recipe-constrained profiles when installed: **2,053 optional item IDs per target**. Any subset can load alongside TaCZ and Traveler's Backpack; individual server data-pack rules still win.
 - `tools/generate_values.py` generates defaults constrained by ordinary vanilla crafting, smelting, stonecutting and smithing recipes. Purchase units round up; fractional conversion yields round down once per batch. Batches worth less than one Energy are rejected without consuming items.
@@ -84,7 +87,7 @@ See [data-pack documentation](docs/DATAPACKS.md) for item/variant overrides, dis
 
 ## Build and releases
 
-`./gradlew build -Pminecraft_version=26.1.2` or `./gradlew build -Pminecraft_version=26.2` compiles and runs unit/server GameTests. `xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=26.1.2` (or `26.2`) tests the client trading flow on Linux. On Windows use `gradlew.bat`.
+`./gradlew build -Pminecraft_version=26.1.2` or `./gradlew build -Pminecraft_version=26.2` / `26.3` compiles and runs unit/server GameTests. `xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=26.1.2` (or `26.2` / `26.3`) tests the client trading flow on Linux. On Windows use `gradlew.bat`.
 
 Every stable version receives a GitHub Release containing both target runtime JARs and a bilingual changelog. Existing assets are never silently replaced. [0.1.0 release](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0).
 

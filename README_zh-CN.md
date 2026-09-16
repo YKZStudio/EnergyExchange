@@ -2,7 +2,7 @@
 
 [English](README.md) · [更新日志](docs/releases/0.3.4.md) · [数据包](docs/DATAPACKS_zh-CN.md) · [开发与验收](docs/DEVELOPMENT_zh-CN.md)
 
-面向 **Minecraft Java 26.1.2 / 26.2 + Fabric** 的独立能量交换模组。受等价交换玩法启发，未使用 ProjectE 代码或素材，也不是官方移植。
+面向 **Minecraft Java 26.1.2 / 26.2 / 26.3 + Fabric** 的独立能量交换模组。受等价交换玩法启发，未使用 ProjectE 代码或素材，也不是官方移植。
 
 **0.3.4：物品 → 个人能量与知识 → 转化桌或村民购买，并新增六组食物／维度模组兼容。**
 
@@ -12,8 +12,11 @@
 
 | Minecraft | 运行 JAR | Fabric API 最低版本 | 可选 Mod Menu |
 | --- | --- | --- | --- |
-| 26.1.2 | `energyexchange-mc26.1.2-0.3.4.jar` · Loader 0.18.4+ | 0.155.3+26.1.2 | 18.0.1 |
-| 26.2 | `energyexchange-mc26.2-0.3.4.jar` · Loader 0.19.3+ | 0.159.0+26.2 | 20.0.2 |
+| 26.1.2 | `energyexchange-mc26.1.2-0.3.5.jar` · Loader 0.18.4+ | 0.155.3+26.1.2 | 18.0.1 |
+| 26.2 | `energyexchange-mc26.2-0.3.5.jar` · Loader 0.19.3+ | 0.159.0+26.2 | 20.0.2 |
+| 26.3 | `energyexchange-mc26.3-0.3.5.jar` · Loader 0.19.5+ | 0.160.5+26.3 | 21.0.0-beta.1（可选） |
+
+26.3 使用 SDL 输入系统及独立原版价格、村民交易资源。可选兼容模组仍需各自提供 26.3 构建；现有 TaCZ／背包兼容测试只覆盖 26.1.2 和 26.2。Mod Menu 目前提供面向 26.3 候选版的测试版本，客户端 CI 将验证其兼容性。
 
 TaCZ R3-hotfix 有这两个目标的构建，但自身要求 Loader **0.19.3+**（兼容测试使用 0.19.5）。26.1.2 使用 Forge Config API Port 26.1.5，26.2 使用 26.2.1。双端 TaCZ 和枪包需匹配。不要将 26.2 世界直接降级到 26.1.2；此次提供低版本游戏构建，不负责世界降级转换。
 
@@ -51,7 +54,7 @@ TaCZ R3-hotfix 有这两个目标的构建，但自身要求 Loader **0.19.3+**�
 
 ## 定价与兼容
 
-- 为 **26.1.2 的全部 1,506 个／26.2 的全部 1,537 个原版物品 ID** 分配正数购买价格；包含非生存物品，但它们同样需要先获得样本并学习，不会直接解锁。
+- 为 **26.1.2 的全部 1,506 个／26.2 的全部 1,537 个／26.3 的全部 1,658 个原版物品 ID** 分配正数购买价格；包含非生存物品，但它们同样需要先获得样本并学习，不会直接解锁。
 - TaCZ 枪型、弹种、配件、工作台和内置 LRTactical 物品按具体型号区分。额外枪包的已加载型号使用相应基础物品的后备价格，可用数据包逐型号覆盖。
 - 安装 Farmer's Delight Refabricated（农夫乐事）、More Delight、Rustic Delight、Ube's Delight、BetterNether 或 BetterEnd 时，会叠加对应的配方约束价格；每个目标版本共覆盖 **2,053 个可选物品 ID**。它们可任意组合，并可与 TaCZ／旅行者背包同时使用；服务端单物品数据包规则仍拥有最终优先级。
 - 默认值由 `tools/generate_values.py` 生成，包含原版普通合成、烧炼、切石及锻造配方约束。购买单价向上取整，非整数转化收益整批向下取整；不足 1 能量 时拒绝并返还原输入。例如半块材料不会凭空变成一整点能量。
@@ -84,7 +87,7 @@ Mod Menu → 能量交换 → 设置：显示未学物品、简写大数、实�
 
 ## 构建与发行
 
-`./gradlew build -Pminecraft_version=26.1.2` 或 `./gradlew build -Pminecraft_version=26.2` 运行编译、单元测试和专服游戏测试；`xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=26.1.2`（也可选择 `26.2`） 在 Linux 验证客户端交易界面。Windows 使用 `gradlew.bat`。
+`./gradlew build -Pminecraft_version=26.1.2` 或 `./gradlew build -Pminecraft_version=26.2` 运行编译、单元测试和专服游戏测试；`xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=26.1.2`（也可选择 `26.2`／`26.3`） 在 Linux 验证客户端交易界面。Windows 使用 `gradlew.bat`。
 
 每个正式版本都发布 GitHub Release，包含运行 JAR 与双语更新日志；已有资产不静默替换。参见 [0.1.0 正式版](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0)。
 

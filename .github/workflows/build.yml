@@ -100,6 +100,7 @@ jobs:
           fi
           jar261="release-artifacts/energyexchange-mc26.1.2-$version.jar"
           jar262="release-artifacts/energyexchange-mc26.2-$version.jar"
-          test -f "$jar261" && test -f "$jar262"
-          gh release create "v$version" "$jar261" "$jar262" "$notes" \
+          jar263="release-artifacts/energyexchange-mc26.3-$version.jar"
+          test -f "$jar261" && test -f "$jar262" && test -f "$jar263"
+          gh release create "v$version" "$jar261" "$jar262" "$jar263" "$notes" \
             --target "$GITHUB_SHA" --title "Energy Exchange $version" --notes-file "$notes"
