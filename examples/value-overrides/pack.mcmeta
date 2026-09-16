@@ -1,13 +1,13 @@
 {
   "pack": {
-    "description": "Energy Exchange example overrides / 能量交换覆盖示例",
+    "description": "Energy Exchange example overrides / \u80fd\u91cf\u4ea4\u6362\u8986\u76d6\u793a\u4f8b",
     "min_format": [
       101,
       1
     ],
     "max_format": [
-      107,
-      1
+      121,
+      0
     ]
   }
 }

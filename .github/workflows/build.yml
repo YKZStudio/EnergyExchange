@@ -52,7 +52,8 @@ jobs:
           esac
       - name: Client trading test / 客户端交易测试
         if: matrix.mods == 'vanilla'
-        run: xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=${{ matrix.minecraft }} --no-daemon
+        timeout-minutes: 8
+        run: xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=${{ matrix.minecraft }} --no-daemon --info
       - uses: actions/upload-artifact@v4
         if: matrix.mods == 'vanilla'
         with:

@@ -1,14 +1,14 @@
 # Energy Exchange
 
-[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.3.4.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
+[简体中文](README_zh-CN.md) · [Changelog](docs/releases/0.3.5.md) · [Data packs](docs/DATAPACKS.md) · [Development](docs/DEVELOPMENT.md)
 
 An independent energy-exchange mod for **Minecraft Java 26.1.2 / 26.2 / 26.3 + Fabric**, inspired by equivalent exchange. It is not an official ProjectE port and includes no ProjectE code or assets.
 
-**0.3.4: items → personal Energy and knowledge → table or villager purchases, now with six food/dimension compatibility profiles.**
+**0.3.5 adds Minecraft 26.3 support, with separate JARs for 26.1.2, 26.2 and 26.3.**
 
 ## Install
 
-Requires Java 25. Install exactly one matching runtime JAR on both client and server; do not install the sources JAR or both target JARs.
+Requires Java 25. Install exactly one matching runtime JAR on both client and server; do not install the sources JAR or multiple target JARs.
 
 | Minecraft | Runtime JAR | Fabric API minimum | Optional Mod Menu |
 | --- | --- | --- | --- |
@@ -18,7 +18,7 @@ Requires Java 25. Install exactly one matching runtime JAR on both client and se
 
 26.3 uses SDL input and its own vanilla prices and trade resources. Optional integration mods still require their own 26.3 builds; the existing TaCZ/backpack integration tests cover 26.1.2 and 26.2 only. Mod Menu currently offers a beta build for the 26.3 release candidate; its compatibility is checked by the client CI run.
 
-TaCZ R3-hotfix has builds for both targets, but independently requires Loader **0.19.3+** (integration tests use 0.19.5). For 26.1.2 use Forge Config API Port 26.1.5; for 26.2 use 26.2.1. Match TaCZ and gun packs on both sides. Do not downgrade a 26.2 world to 26.1.2; this is a separate game-version build, not a world downgrade converter.
+TaCZ R3-hotfix has builds for 26.1.2 and 26.2, but independently requires Loader **0.19.3+** (integration tests use 0.19.5). For 26.1.2 use Forge Config API Port 26.1.5; for 26.2 use 26.2.1. Match TaCZ and gun packs on both sides. Do not downgrade a 26.2 world to 26.1.2; this is a separate game-version build, not a world downgrade converter.
 
 Ten locales remain available. The in-game mod name follows the selected language; Mod Menu uses its translated-name setting.
 
@@ -89,7 +89,7 @@ See [data-pack documentation](docs/DATAPACKS.md) for item/variant overrides, dis
 
 `./gradlew build -Pminecraft_version=26.1.2` or `./gradlew build -Pminecraft_version=26.2` / `26.3` compiles and runs unit/server GameTests. `xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=26.1.2` (or `26.2` / `26.3`) tests the client trading flow on Linux. On Windows use `gradlew.bat`.
 
-Every stable version receives a GitHub Release containing both target runtime JARs and a bilingual changelog. Existing assets are never silently replaced. [0.1.0 release](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0).
+Every stable version receives a GitHub Release containing all three target runtime JARs and a bilingual changelog. Existing assets are never silently replaced. [0.1.0 release](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0).
 
 MIT licensed. Bundled Unicode pronunciation data retains its own license; see [third-party notices](THIRD_PARTY_NOTICES.md). The TaCZ adapter is independently implemented against public APIs; no upstream code or assets are bundled.
 

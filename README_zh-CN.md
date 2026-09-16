@@ -1,14 +1,14 @@
 # 能量交换
 
-[English](README.md) · [更新日志](docs/releases/0.3.4.md) · [数据包](docs/DATAPACKS_zh-CN.md) · [开发与验收](docs/DEVELOPMENT_zh-CN.md)
+[English](README.md) · [更新日志](docs/releases/0.3.5.md) · [数据包](docs/DATAPACKS_zh-CN.md) · [开发与验收](docs/DEVELOPMENT_zh-CN.md)
 
 面向 **Minecraft Java 26.1.2 / 26.2 / 26.3 + Fabric** 的独立能量交换模组。受等价交换玩法启发，未使用 ProjectE 代码或素材，也不是官方移植。
 
-**0.3.4：物品 → 个人能量与知识 → 转化桌或村民购买，并新增六组食物／维度模组兼容。**
+**0.3.5 新增 Minecraft 26.3 适配，为 26.1.2、26.2、26.3 提供独立 JAR。**
 
 ## 安装
 
-要求 Java 25。双端安装对应游戏版本的运行 JAR，不安装源码 JAR，也不同时安装两个目标的 JAR。
+要求 Java 25。双端安装对应游戏版本的运行 JAR，不安装源码 JAR，也不同时安装多个目标的 JAR。
 
 | Minecraft | 运行 JAR | Fabric API 最低版本 | 可选 Mod Menu |
 | --- | --- | --- | --- |
@@ -18,7 +18,7 @@
 
 26.3 使用 SDL 输入系统及独立原版价格、村民交易资源。可选兼容模组仍需各自提供 26.3 构建；现有 TaCZ／背包兼容测试只覆盖 26.1.2 和 26.2。Mod Menu 目前提供面向 26.3 候选版的测试版本，客户端 CI 将验证其兼容性。
 
-TaCZ R3-hotfix 有这两个目标的构建，但自身要求 Loader **0.19.3+**（兼容测试使用 0.19.5）。26.1.2 使用 Forge Config API Port 26.1.5，26.2 使用 26.2.1。双端 TaCZ 和枪包需匹配。不要将 26.2 世界直接降级到 26.1.2；此次提供低版本游戏构建，不负责世界降级转换。
+TaCZ R3-hotfix 有 26.1.2 和 26.2 的构建，但自身要求 Loader **0.19.3+**（兼容测试使用 0.19.5）。26.1.2 使用 Forge Config API Port 26.1.5，26.2 使用 26.2.1。双端 TaCZ 和枪包需匹配。不要将 26.2 世界直接降级到 26.1.2；此次提供低版本游戏构建，不负责世界降级转换。
 
 保留十种区域语言，游戏内名称跟随所选语言；Mod Menu 使用其名称翻译设置。
 
