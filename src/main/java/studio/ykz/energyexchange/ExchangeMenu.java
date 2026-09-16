@@ -73,7 +73,7 @@ public final class ExchangeMenu extends AbstractContainerMenu {
             }
         } else if (type == ContainerInput.THROW && carried.isEmpty() && !stack.isEmpty() && (button == 0 || button == 1)) {
             int remaining = button == 0 ? 1 : stack.getCount();
-            while (remaining > 0) { int count = Math.min(remaining, stack.getMaxStackSize()); player.drop(input.removeItem(0, count), true); remaining -= count; }
+            while (remaining > 0) { int count = Math.min(remaining, stack.getMaxStackSize()); ServerPlatform.drop(player, input.removeItem(0, count)); remaining -= count; }
         } else if (type == ContainerInput.QUICK_MOVE) quickMoveStack(player, 0);
         else if (type == ContainerInput.PICKUP_ALL) super.clicked(index, button, type, player);
         input.setChanged(); player.getInventory().setChanged(); broadcastChanges();
