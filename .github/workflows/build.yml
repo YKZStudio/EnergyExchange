@@ -18,6 +18,9 @@ jobs:
       matrix:
         minecraft: ['26.1.2', '26.2']
         mods: [vanilla, tacz, backpack, combined]
+        include:
+          - minecraft: '26.3'
+            mods: vanilla
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4

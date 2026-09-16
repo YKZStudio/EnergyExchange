@@ -1,0 +1,16 @@
+{
+  "additional_wants": {
+    "count": 8,
+    "id": "minecraft:netherite_block"
+  },
+  "gives": {
+    "id": "energyexchange:crystal_matrix_ingot"
+  },
+  "max_uses": 2,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 64,
+    "id": "minecraft:emerald"
+  },
+  "xp": 30
+}

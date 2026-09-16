@@ -1,0 +1,16 @@
+{
+  "additional_wants": {
+    "count": 12,
+    "id": "minecraft:diamond_block"
+  },
+  "gives": {
+    "id": "energyexchange:dark_matter_helmet"
+  },
+  "max_uses": 1,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 48,
+    "id": "minecraft:emerald"
+  },
+  "xp": 10
+}

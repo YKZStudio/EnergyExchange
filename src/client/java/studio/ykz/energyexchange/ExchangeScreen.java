@@ -133,7 +133,7 @@ public final class ExchangeScreen extends AbstractContainerScreen<ExchangeMenu> 
         if (waiting && ++retryTicks > 100) { waiting = false; send(0, "", 0); }
     }
     @Override public boolean keyPressed(KeyEvent event) {
-        if (search.isFocused() && event.key() != 256) return search.keyPressed(event);
+        if (search.isFocused() && event.key() != com.mojang.blaze3d.platform.InputConstants.KEY_ESCAPE) return search.keyPressed(event);
         return super.keyPressed(event);
     }
     @Override public void extractBackground(GuiGraphicsExtractor g, int mouseX, int mouseY, float delta) {
