@@ -50,6 +50,11 @@ jobs:
             backpack) ./gradlew runGameTest -Ploader_version=0.19.5 -PwithBackpack "${args[@]}" ;;
             combined) ./gradlew runGameTest -Ploader_version=0.19.5 -PwithTacz -PwithBackpack "${args[@]}" ;;
           esac
+      - name: Install SDL software graphics / 安装 SDL 软件图形依赖
+        if: matrix.minecraft == '26.3'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libegl1 libegl-mesa0 libgl1-mesa-dri libgles2 mesa-vulkan-drivers
       - name: Client trading test / 客户端交易测试
         if: matrix.mods == 'vanilla'
         timeout-minutes: 8
@@ -61,6 +66,7 @@ jobs:
           else
             xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version="$MC_TARGET" --no-daemon
           fi
+          test -f build/run/clientGameTest/energyexchange-client-test-passed
       - uses: actions/upload-artifact@v4
         if: matrix.mods == 'vanilla'
         with:

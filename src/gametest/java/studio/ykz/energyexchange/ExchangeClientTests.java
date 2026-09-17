@@ -188,6 +188,13 @@ public final class ExchangeClientTests implements FabricClientGameTest {
             context.takeScreenshot("armory-infinity-zh_cn");
 
         }
+        // A failed graphics bootstrap can exit with code zero before any tests run.
+        // Only a complete trading test is allowed to satisfy the CI release gate.
+        try {
+            java.nio.file.Files.writeString(java.nio.file.Path.of("energyexchange-client-test-passed"), "complete\n");
+        } catch (java.io.IOException e) {
+            throw new java.io.UncheckedIOException(e);
+        }
     }
     private static void awaitServer(ClientGameTestContext context,
             net.fabricmc.fabric.api.client.gametest.v1.context.TestServerContext server,
