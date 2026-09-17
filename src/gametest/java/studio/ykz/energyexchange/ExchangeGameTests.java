@@ -420,6 +420,25 @@ public final class ExchangeGameTests {
     }
 
     @GameTest
+    public void input256ThrowSplitsWithoutLoss(GameTestHelper helper) {
+        var p = player(helper);
+        var pos = helper.absolutePos(new net.minecraft.core.BlockPos(1, 3, 1));
+        p.setPos(pos.getX(), pos.getY(), pos.getZ());
+        p.level().setBlockAndUpdate(pos, ExchangeContent.TABLE.defaultBlockState());
+        var menu = new ExchangeMenu(26, p.getInventory(), 92, pos, -1);
+        p.containerMenu = menu;
+        menu.input.setItem(0, new ItemStack(Items.DIRT, 256));
+        int before = p.level().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, p.getBoundingBox().inflate(3), e -> e.getItem().is(Items.DIRT)).stream().mapToInt(e -> e.getItem().getCount()).sum();
+        menu.clicked(0, 0, net.minecraft.world.inventory.ContainerInput.THROW, p);
+        helper.assertTrue(menu.input.getItem(0).getCount() == 255, "Single throw removes exactly one item");
+        menu.clicked(0, 1, net.minecraft.world.inventory.ContainerInput.THROW, p);
+        var drops = p.level().getEntitiesOfClass(net.minecraft.world.entity.item.ItemEntity.class, p.getBoundingBox().inflate(3), e -> e.getItem().is(Items.DIRT));
+        helper.assertTrue(menu.input.isEmpty() && drops.stream().mapToInt(e -> e.getItem().getCount()).sum() - before == 256, "Server drop returns all 256 items exactly once");
+        helper.assertTrue(drops.stream().allMatch(e -> e.getItem().getCount() <= e.getItem().getMaxStackSize()), "Thrown items respect native stack limits");
+        helper.succeed();
+    }
+
+    @GameTest
     public void input256SplitsSafelyOnWithdrawalAndClose(GameTestHelper helper) {
         var p = player(helper); var pos = helper.absolutePos(new net.minecraft.core.BlockPos(1, 3, 1)); p.setPos(pos.getX(), pos.getY(), pos.getZ());
         p.level().setBlockAndUpdate(pos, ExchangeContent.TABLE.defaultBlockState());

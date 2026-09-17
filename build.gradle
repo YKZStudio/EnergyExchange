@@ -3,7 +3,7 @@ plugins {
 }
 
 def target = providers.gradleProperty('minecraft_version').get()
-if (!(target in ['26.1.2', '26.2'])) throw new GradleException("Unsupported Minecraft target: $target")
+if (!(target in ['26.1.2', '26.2', '26.3'])) throw new GradleException("Unsupported Minecraft target: $target")
 def profile = new Properties()
 file("versions/${target}.properties").withInputStream { profile.load(it) }
 def minimumLoader = profile.loader_version
@@ -80,6 +80,7 @@ loom.runs.named('gameTest') {
 
 // Version-specific bridges and price resources; gameplay logic stays shared.
 sourceSets.client.java.srcDir("versions/$target/client")
+sourceSets.main.java.srcDir("versions/$target/main")
 sourceSets.main.resources.setSrcDirs(["versions/$target/resources", 'src/main/resources'])
 
 // Compile and launch the selected Loader. Each target ships its tested minimum;

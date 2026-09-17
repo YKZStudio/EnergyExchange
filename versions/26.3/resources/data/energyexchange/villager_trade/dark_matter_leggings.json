@@ -1,0 +1,16 @@
+{
+  "additional_wants": {
+    "count": 16,
+    "id": "minecraft:diamond_block"
+  },
+  "gives": {
+    "id": "energyexchange:dark_matter_leggings"
+  },
+  "max_uses": 1,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 64,
+    "id": "minecraft:emerald"
+  },
+  "xp": 10
+}

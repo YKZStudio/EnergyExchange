@@ -1,0 +1,16 @@
+{
+  "additional_wants": {
+    "count": 1,
+    "id": "minecraft:netherite_block"
+  },
+  "gives": {
+    "id": "energyexchange:red_matter"
+  },
+  "max_uses": 2,
+  "reputation_discount": 0.05,
+  "wants": {
+    "count": 64,
+    "id": "minecraft:emerald"
+  },
+  "xp": 20
+}

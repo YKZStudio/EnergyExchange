@@ -4,11 +4,12 @@
 
 ## Toolchain
 
-Java 25, Gradle Wrapper 9.5.1 and Loom 1.17.12. `gradle.properties` selects Minecraft; `versions/<target>.properties` pins the tested minimum Loader, Fabric API, Mod Menu, Forge Config API Port and Cloth Config. 26.1.2 requires Loader 0.18.4; 26.2 requires 0.19.3 because its game bootstrap cannot start on 0.18.4. Both targets use official unobfuscated names with `net.fabricmc.fabric-loom`.
+Java 25, Gradle Wrapper 9.6.0 and Loom 1.17.12. `gradle.properties` selects Minecraft; `versions/<target>.properties` pins the tested minimum Loader, Fabric API, Mod Menu, Forge Config API Port and Cloth Config. 26.1.2 requires Loader 0.18.4; 26.2 requires 0.19.3 because its game bootstrap cannot start on 0.18.4. 26.3 requires Loader 0.19.5. All targets use official unobfuscated names with `net.fabricmc.fabric-loom`.
 
 ```sh
 ./gradlew clean build -Pminecraft_version=26.1.2
 ./gradlew clean build -Pminecraft_version=26.2
+./gradlew clean build -Pminecraft_version=26.3
 ./gradlew runClient
 ./gradlew runServer
 ```
@@ -37,7 +38,7 @@ These are all-or-nothing in-memory operations; persistence follows Minecraft pla
 
 JUnit covers the pure full loop, balances beyond floating-point/long precision, caps, invalid inputs, unknown knowledge, insufficient funds, knowledge limits, save round trips/corruption/future versions and invalid/disabled rules. CI compiles against actual Minecraft/Fabric dependencies and produces a JAR. GameTests start a disposable server and verify the command loop, isolated wallets, inventory preflight, overflow, component discard, game modes, NBT persistence, death copying, corrupt-account protection and reload snapshots. `build` includes server GameTests; test configuration accepts the EULA for the disposable server and does not touch real worlds.
 
-Before release, complete this manual checklist in a disposable 26.2 world. Compilation and unit-test success do not mean these scenarios have been manually verified:
+Before release, complete this manual checklist in a disposable world matching the target version. Compilation and unit-test success do not mean these scenarios have been manually verified:
 
 - Two non-OP players independently burn, learn and buy; wallets remain isolated and cheats are unnecessary.
 - After transactions, verify death/respawn, dimension changes, reconnects and normal restart after `save-all` preserve balance/knowledge.
@@ -57,7 +58,7 @@ References: [Fabric 26.2](https://fabricmc.net/2026/06/15/262.html), [data attac
 
 `./gradlew build` includes server tests for portable/placed menu validity, input return, experience-bottle inventory delivery, complete vanilla coverage and fractional conversion. `xvfb-run -a ./gradlew runClientGameTest` exercises real server-to-client catalog synchronization and client-to-server convert/buy requests, then opens the configuration screen. Screenshots and logs are uploaded by CI.
 
-For optional integration, download the pinned TaCZ 26.2 R3-hotfix runtime JAR into `test-mods/tacz.jar`, then run `./gradlew runGameTest -PwithTacz`. Gradle resolves Forge Config API Port 26.2.1 and Cloth Config 26.2.155 for that run. The adapter test enumerates model families, verifies prototype identity and positive prices, buys back an empty gun and discards loaded-gun data.
+For optional integration, download the pinned TaCZ 26.2 R3-hotfix runtime JAR into `test-mods/tacz.jar`, then run `./gradlew runGameTest -Pminecraft_version=26.2 -Ploader_version=0.19.5 -PwithTacz`. Gradle resolves Forge Config API Port 26.2.1 and Cloth Config 26.2.155 for that run. The adapter test enumerates model families, verifies prototype identity and positive prices, buys back an empty gun and discards loaded-gun data.
 
 Manual remaining scenarios: Chinese font/GUI scaling on real hardware; simultaneous real users; TaCZ attachment removal and third-party gun packs; crashes during world saves; economics of extra machine/recipe packs. Automated tests do not replace those checks.
 
@@ -82,3 +83,15 @@ Use `python tools/generate_pinyin.py /path/to/Unihan.zip` to reproduce the offli
 `versions/<target>/client` provides a thin client bridge; economy, accounts, armory and search share source. `versions/<target>/resources` overrides common resources first, providing the 26.1.2 vanilla/integration prices. Use `clean` when switching targets to avoid retaining previous outputs. Releases contain `energyexchange-mc26.1.2-0.3.2.jar` and `energyexchange-mc26.2-0.3.2.jar`, each with an exact Minecraft dependency.
 
 CI runs vanilla, TaCZ, backpack and combined server profiles for both targets, plus unit/client tests for each vanilla profile. Vanilla launches at each target's packaged minimum (0.18.4 for 26.1.2 and 0.19.3 for 26.2). TaCZ and the Forge Config API Port required by the 26.1.2 Backpack fixture require newer Loader releases, so optional-mod tests use 0.19.5. Fetch checked fixtures with `python tools/fetch_test_mods.py 26.1.2 tacz backpack`, then run `./gradlew runGameTest -Pminecraft_version=26.1.2 -Ploader_version=0.19.5 -PwithTacz -PwithBackpack`. Use 26.2 for the other target. Account schema 1 is retained; this does not make downgrading Minecraft worlds safe.
+
+## 0.3.5 / Minecraft 26.3
+
+26.3 adds its own client/server bridges and resource overlays. The server bridge uses `Prediction.SERVER_ONLY` when dropping input stacks; UI key checks use `InputConstants.KEY_ESCAPE` across GLFW and SDL. Recipe-unlock advancement conditions use `recipes`; integer trade counts are generated separately. Do not widen `fabric.mod.json` to load one game-version JAR on another version.
+
+CI adds a 26.3 vanilla job (including Mod Menu), alongside the eight existing integration jobs. Third-party 26.3 integration binaries are not pinned or claimed tested. The example data pack now supports format 121.0.
+
+Regenerate vanilla prices with `python tools/generate_target_values.py 26.3 /path/to/client.jar /path/to/tacz`. The official 26.3 client SHA-1 is `e877b6a07acd633fb3bb475002175cec036e7b87`. The wrapper preserves authored non-vanilla prices, and applies the existing recipe solver to the new target's vanilla recipes. See [Fabric's 26.3 porting guide](https://fabricmc.net/2026/09/15/263.html).
+
+For 26.3 client tests on a headless Linux machine, use `SDL_VIDEO_DRIVER=offscreen LIBGL_ALWAYS_SOFTWARE=1 ./gradlew runClientGameTest -Pminecraft_version=26.3`; the 26.1.2/26.2 jobs continue using Xvfb. This is a test-runner setting, not a requirement for normal players.
+
+The headless 26.3 runner also installs Mesa/EGL (`libegl1`, `libegl-mesa0`, `libgl1-mesa-dri`, `libgles2`, `mesa-vulkan-drivers`). CI requires the completion marker written after the entire client trading test, because Minecraft can exit with status zero after a failed graphics bootstrap.

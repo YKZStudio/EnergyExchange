@@ -4,11 +4,12 @@
 
 ## 工具链
 
-Java 25、Gradle Wrapper 9.5.1 与 Loom 1.17.12。`gradle.properties` 选择 Minecraft，`versions/<版本>.properties` 固定已验证的最低 Loader、Fabric API、Mod Menu、Forge Config API Port 与 Cloth Config。26.1.2 的最低 Loader 是 0.18.4；26.2 的游戏启动程序不能在 0.18.4 上启动，最低为 0.19.3。两个目标都使用官方未混淆名称和 `net.fabricmc.fabric-loom`。
+Java 25、Gradle Wrapper 9.6.0 与 Loom 1.17.12。`gradle.properties` 选择 Minecraft，`versions/<版本>.properties` 固定已验证的最低 Loader、Fabric API、Mod Menu、Forge Config API Port 与 Cloth Config。26.1.2 的最低 Loader 是 0.18.4；26.2 的游戏启动程序不能在 0.18.4 上启动，最低为 0.19.3。26.3 最低要求 Loader 0.19.5。所有目标都使用官方未混淆名称和 `net.fabricmc.fabric-loom`。
 
 ```sh
 ./gradlew clean build -Pminecraft_version=26.1.2
 ./gradlew clean build -Pminecraft_version=26.2
+./gradlew clean build -Pminecraft_version=26.3
 ./gradlew runClient
 ./gradlew runServer
 ```
@@ -37,7 +38,7 @@ Java 25、Gradle Wrapper 9.5.1 与 Loom 1.17.12。`gradle.properties` 选择 Min
 
 JUnit 覆盖完整纯逻辑闭环、大于浮点精度/long 范围的余额、上限、非法输入、未知知识、余额不足、知识容量、存档往返与损坏、未来版本、规则禁用/错误字段。自动化构建以真实 Minecraft/Fabric 依赖检查 Java 编译并产出 JAR。GameTest（游戏内测试）启动临时服务器，验证命令闭环、玩家隔离、背包预检、溢出、组件丢弃、游戏模式、NBT 存档往返、死亡复制、损坏账户保护和重载快照。`build` 自动包含服务端游戏测试；测试配置为临时服务器接受 EULA，不修改真实世界。
 
-发布前需在 26.2 测试副本中完成以下人工验收；编译或单元测试通过不代表这些场景已人工验证：
+发布前需在对应目标版本的测试副本中完成以下人工验收；编译或单元测试通过不代表这些场景已人工验证：
 
 - 两位非 OP 玩家分别分解、学习、兑换，账户隔离，无作弊权限可用。
 - 完整闭环后死亡重生、跨维度、退服重进、`save-all` 后正常重启，余额和知识保持。
@@ -57,7 +58,7 @@ JUnit 覆盖完整纯逻辑闭环、大于浮点精度/long 范围的余额、�
 
 `./gradlew build` 增加便携/放置菜单有效性、关闭返还、附魔之瓶发货、全部原版定价覆盖与分数收益测试。`xvfb-run -a ./gradlew runClientGameTest` 验证真正的服务端目录下发与客户端转化/购买请求，然后打开配置界面；CI 上传截图和日志。
 
-可选兼容测试：将固定的 TaCZ 26.2 R3-hotfix 运行 JAR 下载到 `test-mods/tacz.jar`，执行 `./gradlew runGameTest -PwithTacz`。Gradle 为本次测试解析 Forge Config API Port 26.2.1 与 Cloth Config 26.2.155。适配测试枚举型号类别、检查模板身份和正数价格、买回空枪，并验证装弹枪转化后丢弃弹药数据。
+可选兼容测试：将固定的 TaCZ 26.2 R3-hotfix 运行 JAR 下载到 `test-mods/tacz.jar`，执行 `./gradlew runGameTest -Pminecraft_version=26.2 -Ploader_version=0.19.5 -PwithTacz`。Gradle 为本次测试解析 Forge Config API Port 26.2.1 与 Cloth Config 26.2.155。适配测试枚举型号类别、检查模板身份和正数价格、买回空枪，并验证装弹枪转化后丢弃弹药数据。
 
 仍需人工验收：真实设备上的中文字体与界面缩放、多位真实玩家同时操作、TaCZ 拆装配件及第三方枪包、存档过程异常退出、额外机器/配方的经济平衡。自动测试不替代这些检查。
 
@@ -82,3 +83,15 @@ main 上每个正式版本附带运行 JAR 与对应双语 `docs/releases/<版�
 `versions/<版本>/client` 提供很薄的客户端接口适配，交易、账户、装备和搜索共用源码。`versions/<版本>/resources` 优先覆盖公共资源，26.1.2 使用自己的原版／兼容价格表。每次切换目标使用 `clean`，避免旧构建产物混入。发布文件分别为 `energyexchange-mc26.1.2-0.3.2.jar` 与 `energyexchange-mc26.2-0.3.2.jar`，元数据严格限定对应版本。
 
 CI 对两个目标分别运行独立、TaCZ、背包、同时加载四种组合；独立组合还运行单元与客户端测试。独立测试以各自打包的最低 Loader 启动（26.1.2 为 0.18.4，26.2 为 0.19.3）。TaCZ 及 26.1.2 背包测试所需的 Forge Config API Port 都要求更新的 Loader，因此可选模组组合测试使用 0.19.5。用 `python tools/fetch_test_mods.py 26.1.2 tacz backpack` 下载校验过的测试依赖，再运行 `./gradlew runGameTest -Pminecraft_version=26.1.2 -Ploader_version=0.19.5 -PwithTacz -PwithBackpack`。26.2 同理。存档账户格式保持 schema 1；这不代表 Minecraft 世界可以从 26.2 降级。
+
+## 0.3.5 / Minecraft 26.3
+
+26.3 使用独立客户端／服务端适配文件和资源覆盖层。服务端丢弃输入物品时使用 `Prediction.SERVER_ONLY`；界面按键使用 `InputConstants.KEY_ESCAPE`，兼容 GLFW 与 SDL。配方解锁进度条件改为 `recipes`，村民交易整数数量资源独立生成。不要扩大 `fabric.mod.json` 范围，让某版本 JAR 在其他游戏版本加载。
+
+CI 在原有八个兼容组合之外新增 26.3 独立测试（包含 Mod Menu）。尚未固定或宣称测试第三方模组的 26.3 运行构建。示例数据包支持格式 121.0。
+
+用 `python tools/generate_target_values.py 26.3 /path/to/client.jar /path/to/tacz` 重建原版价格。官方 26.3 客户端 SHA-1 为 `e877b6a07acd633fb3bb475002175cec036e7b87`。脚本保留已维护的非原版定价，使用现有配方求解器处理目标版本的原版配方。参考 [Fabric 26.3 移植说明](https://fabricmc.net/2026/09/15/263.html)。
+
+在没有显示器的 Linux 环境中，26.3 客户端测试使用 `SDL_VIDEO_DRIVER=offscreen LIBGL_ALWAYS_SOFTWARE=1 ./gradlew runClientGameTest -Pminecraft_version=26.3`；26.1.2／26.2 继续使用 Xvfb。该设置仅用于测试环境，普通玩家无需设置。
+
+26.3 无显示器测试环境还需安装 Mesa／EGL（`libegl1`、`libegl-mesa0`、`libgl1-mesa-dri`、`libgles2`、`mesa-vulkan-drivers`）。Minecraft 图形初始化失败时可能仍返回成功退出码，因此 CI 必须确认完整客户端交易测试结束后写入的完成标记。
