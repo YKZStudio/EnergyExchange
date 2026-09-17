@@ -87,7 +87,7 @@ Mod Menu → 能量交换 → 设置：显示未学物品、简写大数、实�
 
 ## 构建与发行
 
-`./gradlew build -Pminecraft_version=26.1.2` 或 `./gradlew build -Pminecraft_version=26.2` 运行编译、单元测试和专服游戏测试；`xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=26.1.2`（也可选择 `26.2`／`26.3`） 在 Linux 验证客户端交易界面。Windows 使用 `gradlew.bat`。
+`./gradlew build -Pminecraft_version=26.1.2` 或 `./gradlew build -Pminecraft_version=26.2` 运行编译、单元测试和专服游戏测试；`xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=26.1.2`（也可选择 `26.2`）在 Linux 验证客户端交易界面。26.3 无显示器测试使用 `SDL_VIDEO_DRIVER=offscreen LIBGL_ALWAYS_SOFTWARE=1 ./gradlew runClientGameTest -Pminecraft_version=26.3`。Windows 使用 `gradlew.bat`。
 
 每个正式版本都发布 GitHub Release，包含运行 JAR 与双语更新日志；已有资产不静默替换。参见 [0.1.0 正式版](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0)。
 

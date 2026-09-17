@@ -91,3 +91,7 @@ CI runs vanilla, TaCZ, backpack and combined server profiles for both targets, p
 CI adds a 26.3 vanilla job (including Mod Menu), alongside the eight existing integration jobs. Third-party 26.3 integration binaries are not pinned or claimed tested. The example data pack now supports format 121.0.
 
 Regenerate vanilla prices with `python tools/generate_target_values.py 26.3 /path/to/client.jar /path/to/tacz`. The official 26.3 client SHA-1 is `e877b6a07acd633fb3bb475002175cec036e7b87`. The wrapper preserves authored non-vanilla prices, and applies the existing recipe solver to the new target's vanilla recipes. See [Fabric's 26.3 porting guide](https://fabricmc.net/2026/09/15/263.html).
+
+For 26.3 client tests on a headless Linux machine, use `SDL_VIDEO_DRIVER=offscreen LIBGL_ALWAYS_SOFTWARE=1 ./gradlew runClientGameTest -Pminecraft_version=26.3`; the 26.1.2/26.2 jobs continue using Xvfb. This is a test-runner setting, not a requirement for normal players.
+
+The headless 26.3 runner also installs Mesa/EGL (`libegl1`, `libegl-mesa0`, `libgl1-mesa-dri`, `libgles2`, `mesa-vulkan-drivers`). CI requires the completion marker written after the entire client trading test, because Minecraft can exit with status zero after a failed graphics bootstrap.

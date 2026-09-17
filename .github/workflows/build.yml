@@ -61,6 +61,7 @@ jobs:
         env:
           MC_TARGET: ${{ matrix.minecraft }}
         run: |
+          rm -f build/run/clientGameTest/energyexchange-client-test-passed
           if [[ "$MC_TARGET" == "26.3" ]]; then
             SDL_VIDEO_DRIVER=offscreen LIBGL_ALWAYS_SOFTWARE=1 ./gradlew runClientGameTest -Pminecraft_version="$MC_TARGET" --no-daemon --info
           else

@@ -91,3 +91,7 @@ CI 对两个目标分别运行独立、TaCZ、背包、同时加载四种组合�
 CI 在原有八个兼容组合之外新增 26.3 独立测试（包含 Mod Menu）。尚未固定或宣称测试第三方模组的 26.3 运行构建。示例数据包支持格式 121.0。
 
 用 `python tools/generate_target_values.py 26.3 /path/to/client.jar /path/to/tacz` 重建原版价格。官方 26.3 客户端 SHA-1 为 `e877b6a07acd633fb3bb475002175cec036e7b87`。脚本保留已维护的非原版定价，使用现有配方求解器处理目标版本的原版配方。参考 [Fabric 26.3 移植说明](https://fabricmc.net/2026/09/15/263.html)。
+
+在没有显示器的 Linux 环境中，26.3 客户端测试使用 `SDL_VIDEO_DRIVER=offscreen LIBGL_ALWAYS_SOFTWARE=1 ./gradlew runClientGameTest -Pminecraft_version=26.3`；26.1.2／26.2 继续使用 Xvfb。该设置仅用于测试环境，普通玩家无需设置。
+
+26.3 无显示器测试环境还需安装 Mesa／EGL（`libegl1`、`libegl-mesa0`、`libgl1-mesa-dri`、`libgles2`、`mesa-vulkan-drivers`）。Minecraft 图形初始化失败时可能仍返回成功退出码，因此 CI 必须确认完整客户端交易测试结束后写入的完成标记。

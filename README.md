@@ -87,7 +87,7 @@ See [data-pack documentation](docs/DATAPACKS.md) for item/variant overrides, dis
 
 ## Build and releases
 
-`./gradlew build -Pminecraft_version=26.1.2` or `./gradlew build -Pminecraft_version=26.2` / `26.3` compiles and runs unit/server GameTests. `xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=26.1.2` (or `26.2` / `26.3`) tests the client trading flow on Linux. On Windows use `gradlew.bat`.
+`./gradlew build -Pminecraft_version=26.1.2` or `./gradlew build -Pminecraft_version=26.2` / `26.3` compiles and runs unit/server GameTests. `xvfb-run -a ./gradlew runClientGameTest -Pminecraft_version=26.1.2` (or `26.2`) tests the client trading flow on Linux. For headless 26.3 use `SDL_VIDEO_DRIVER=offscreen LIBGL_ALWAYS_SOFTWARE=1 ./gradlew runClientGameTest -Pminecraft_version=26.3`. On Windows use `gradlew.bat`.
 
 Every stable version receives a GitHub Release containing all three target runtime JARs and a bilingual changelog. Existing assets are never silently replaced. [0.1.0 release](https://github.com/YKZStudio/EnergyExchange/releases/tag/v0.1.0).
 
